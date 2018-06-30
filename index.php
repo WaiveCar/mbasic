@@ -1,5 +1,6 @@
 <?
-include('common.php');
+include('api/common.php');
+getstate();
 ?>
 <!doctype html>
 
@@ -14,9 +15,10 @@ include('common.php');
 
 <body>
   <? showerror(); ?>
-  <form action="login.php" method="post">
-    <input id="identifier" type="text" placeholder="Email" />
-    <input id="password" type="password" placeholder="password" />
+  Login
+  <form action="api/login.php" method="post">
+    <input name="identifier" type="text" placeholder="Email" />
+    <input name="password" type="password" placeholder="password" />
     <input type="submit">
   </form>
 

@@ -1,14 +1,16 @@
 <?php
-start_session();
+session_start();
 
-define('HOST', 'http://api-local.waivecar.com:3080');
-function curldo($url, $params, $verb = "POST") {
-  $ch = curl_init( HOST . $url );
-  curl_setopt($ch, CURLOPT_CUSTOMREQUEST, $verb);  
-  curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
-  curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+function curldo($url, $params = false, $verb = false) {
+  if($verb === false) {
+    // this is a problem
+  }
+  $HOST = 'http://api-local.waivecar.com:3080';
+
+  $ch = curl_init();
+
   $header = [];
-  if(isset($_SESSION['token']) {
+  if(isset($_SESSION['token'])) {
     $header[] = "Authorization: ${_SESSION['token']}";
   }
     
@@ -18,29 +20,48 @@ function curldo($url, $params, $verb = "POST") {
     $header[] = 'Content-Type: application/json';
     $header[] = 'Content-Length: ' . strlen($data_string);
   }
+
   curl_setopt($ch, CURLOPT_HTTPHEADER, $header);
+  curl_setopt($ch, CURLOPT_URL, $HOST . $url);
+  curl_setopt($ch, CURLOPT_CUSTOMREQUEST, $verb);  
+  curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
+  curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+
   $res = curl_exec($ch);
+  /*
+  var_dump(curl_getinfo ($ch));
+  
+  $tolog = json_encode([
+      'verb' => $verb,
+      'header' => $header,
+      'url' => $url,
+      'params' => $params,
+      'res' => $res
+  ]);
+
+  file_put_contents('/tmp/log.txt', $tolog, FILE_APPEND);
+   */
 
   $resJSON = @json_decode($res, true);
   if($resJSON) {
-    return $resJSON);
+    return $resJSON;
   }
   return $res;
 }
 
-function get($url, $params) {
+function get($url, $params = false) {
   return curldo($url, $params, 'GET');
 }
 
-function post($url, $params) {
+function post($url, $params = false) {
   return curldo($url, $params, 'POST');
 }
 
-function put($url, $params) {
+function put($url, $params = false) {
   return curldo($url, $params, 'PUT');
 }
 
-function del($url, $params) {
+function del($url, $params = false) {
   return curldo($url, $params, 'DELETE');
 }
 
@@ -48,10 +69,13 @@ function showerror() {
 }
 
 $whoami = false;
-function me() {
+function me($nocache = false) {
   global $whoami;
-  if(!$whoami) {
-    $whoami = curldo('/me');
+  if(!$whoami || $nocache) {
+    $whoami = get('/users/me');
+    if(!empty($whoami['code']) && $whoami['code'] === 'AUTH_INVALID_TOKEN') {
+      return false;
+    }
     $whoami['booking_id'] = false;
     if(array_key_exists('booking', $whoami)) {
       $whoami['booking_id'] = $whoami['booking']['id'];
@@ -61,6 +85,79 @@ function me() {
 }
 
 function location($obj) {
+
+}
+
+function reserve($car) {
+  $me = me();
+  return post('/bookings', [
+    'userId' => $me['id'],
+    'carId' => $car,
+    'version' => 'mbasic'
+  ]);
+}
+
+function tis($what) {
+  if(array_key_exists('status', $what)) {
+    return $what['status'] === 'success';
+  }
+} 
+
+function cancel($booking) {
+  return tis(del("/bookings/$booking"));
+}
+
+function extend($booking) {
+  return tis(put("/bookings/$booking/extend"));
+}
+
+function start($booking) {
+  return tis(put("/bookings/$booking/ready"));
+}
+
+function finish($booking) {
+  return put("/bookings/$booking/end");
+}
+
+function complete($booking) {
+  return put("/bookings/$booking/complete");
+}
+
+function booking_info($booking) {
+  return get("/bookings/$booking");
+}
+
+function car_info($car) {
+  return get("/cars/$car");
+}
+
+function lock($car) {
+  return put("/cars/$car/lock");
+}
+
+function unlock($car) {
+  return put("/cars/$car/unlock");
+}
+
+function getstate($nocache = false) {
+  $me = me($nocache);
+
+  $from = $_SERVER['REQUEST_URI'];
+  $to = false;
+  if(!$me) {
+    $to = '/index.php';
+  } else if($me['booking']) {
+    if($me['booking']['status'] === 'reserved') {
+      $to = '/gettocar.php';
+    } 
+  } else {
+    $to = '/showcars.php';
+  }
+
+  if($to && $from !== $to) {
+    header("Location: $to");
+    exit;
+  }
 
 }
 
@@ -74,15 +171,17 @@ function distance($lat1, $lon1, $lat2, $lon2) {
 }
 
 function actionList($base, $list) {
-  foreachh($list as $row) { ?>
-    <form method="post" action="<?= $base ?>?action=<?= $row[1] ?>">
-      <input type="submit" value="<?= $row[0] ?>" />
-    </form>
-  <? } 
+?>
+  <div class='action-list'>
+  <? foreach($list as $row) { ?>
+    <a href="<?= $base ?>?action=<?= $row[0] ?>"><?= $row[1] ?></a>
+  <? } ?>
+  </div>
+<?
 }
 
 function imageList($list) {
-  foreachh($list as $row) { ?>
+  foreach($list as $row) { ?>
     <?= $row[0]; ?>
     <input name="<?= $row[1] ?>" type="file" accept="image/*" required capture="camera" />
   <? } 

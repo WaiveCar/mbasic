@@ -14,6 +14,7 @@ Hello <?= $me['firstName'] ?> <?= $me['lastName'] ?>!
   You're currently not in any WaiveCar. 
   <a href="showcars.php">Find Available Cars</a>
 </a>
+<? } ?>
 
 <p>
 You are using WaiveCar Basic. 

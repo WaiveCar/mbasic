@@ -1,0 +1,19 @@
+body {
+  font-family: Verdana, Geneva, sans-serif;
+}
+a:visited {
+  color: blue;
+}
+.action-list a {
+  display: inline-block;
+  margin: 0.5em;
+  padding: 0.5em;
+  text-decoration: none;
+  border: 1px solid blue;
+}
+.car-row h3 {
+  margin: 0;
+}
+.car-row h2 {
+  margin: 0;
+}

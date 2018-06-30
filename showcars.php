@@ -1,6 +1,6 @@
 <?
-
-include ('api/common.php');
+include('api/common.php');
+getstate();
 $carList = get('/cars');
 
 $user_lat = false;
@@ -27,11 +27,7 @@ extract($_GET, EXTR_PREFIX_ALL | EXTR_OVERWRITE, 'user_');
     <h2><?= $car['license']; ?></h2>
     <h3><?= $car['range']; ?> miles</h3>
     <a href="https://www.google.com/maps/search/?api=1&query=<?= $car['latitude'] ?>,<?= $car['longitude'] ?>"><?= location($car) ?></a>
-
-    <form action="api/booking.php?action=reserve" method="post">
-      <input type="hidden" name="car" value="<?= $car['id']; ?>" />
-      <input type="submit" value="Reserve It" />
-    </form>
+    <a href="api/carcontrol.php?action=reserve&car=<?= $car['id']; ?>">Reserve it</a>
   </div>
 <? } ?>
   </div>

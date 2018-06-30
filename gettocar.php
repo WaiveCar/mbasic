@@ -21,7 +21,7 @@ if($me['booking_id']){
 <body>
   <? showerror(); ?>
   <div>
-    You have XXX more minutes to get to <?= $car['license'] ?>.
+    You have XXX more minutes to get to <?= $car['license']; ?>.
     It's at <a href="https://www.google.com/maps/search/?api=1&query=<?= $car['latitude'] ?>,<?= $car['longitude'] ?>"><?= location($car) ?></a> (click to open in maps)
 
     <? actionList('api/carcontrol.php', [

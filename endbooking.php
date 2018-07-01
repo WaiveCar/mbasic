@@ -4,20 +4,8 @@ $me = me();
 if($me['booking_id']){
   $car = car_info($me['booking']['carId']);
 }
+doheader('End Booking');
 ?>
-<!doctype html>
-
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-
-  <title>End Booking</title>
-  <link rel="stylesheet" href="css/styles.css">
-
-</head>
-
-<body>
-  <? showerror(); ?>
   <div>
     Thanks for using <?= $car['license'] ?>!
     Please upload the following photographs before continuing

@@ -4,19 +4,8 @@ $me = me();
 if($me['booking_id']){
   $car = car_info($me['booking']['carId']);
 }
+doheader('Start Booking');
 ?>
-<!doctype html>
-
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-
-  <title>Start Booking</title>
-  <link rel="stylesheet" href="css/styles.css">
-
-</head>
-
-<body>
   <div>
     Welcome to <?= $car['license'] ?>!
     Please upload the following photographs before continuing

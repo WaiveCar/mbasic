@@ -1,16 +1,53 @@
 body {
   font-family: Verdana, Geneva, sans-serif;
+  background: #ddd;
+  margin-top: 18px;
 }
 a:visited {
   color: blue;
 }
+.map {
+  width: 100%;
+}
+#account-link {
+  position: absolute;
+  top: 0;
+  right: 0;
+  background: black;
+  color: white;
+  text-decoration: none;
+  padding: 2px 5px;
+}
+.button {
+  display: inline-block;
+  padding: 4px;
+  text-decoration: none;
+  border: 1px solid blue;
+}
+
 .action-list a {
   display: inline-block;
   margin: 0.5em;
   padding: 0.5em;
+  font-size: 12px;
   text-decoration: none;
   border: 1px solid blue;
 }
+.box,.car-row {
+  background: #fff;
+  padding: 4px;
+  margin-bottom: 6px;
+  border-radius: 4px;
+  box-shadow: 0 0 6px 1px rgba(0,0,0,0.4);
+}
+.car-row .button {
+  float:right;
+}
+
+.location-link {
+  text-decoration: none;
+}
+
 .car-row h3 {
   margin: 0;
 }

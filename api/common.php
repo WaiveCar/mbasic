@@ -1,5 +1,6 @@
 <?php
 session_start();
+include('db.php');
 
 function curldo($url, $params = false, $verb = false) {
   if($verb === false) {
@@ -84,9 +85,38 @@ function me($nocache = false) {
   return $whoami;
 }
 
-function location($obj) {
 
+function location($obj) {
+  global $db; 
+  $qs = implode(',', [round($obj['latitude'],3), round($obj['longitude'],3)]);
+  // we try to check our local cache for this lat/lng (rounded to 3 precision points)
+  $location = db_get($qs);
+  if(!$location) {
+    // if we failed, then we ask the goog
+
+    $res = file_get_contents("http://maps.googleapis.com/maps/api/geocode/json?latlng=$qs");
+
+    if ($res) {
+      $resJSON = json_decode($res, true);
+      if(!empty($resJSON['results'])) {
+        if(empty($resJSON['results'][0])) {
+          var_dump($resJSON);
+        }
+        $location = $resJSON['results'][0]['formatted_address'];
+
+        // this just looks stupid, we know the country
+        $location = str_replace(", USA", "", $location);
+
+        // and the state.
+        $location = str_replace(", CA ", " ", $location);
+
+        db_set($qs, $location);
+      }
+    }
+  }
+  return $location;
 }
+
 
 function reserve($car) {
   $me = me();
@@ -144,7 +174,7 @@ function getstate($nocache = false) {
 
   $from = $_SERVER['REQUEST_URI'];
   $to = false;
-  if(!$me) {
+  if(!$me || (isset($me['code']) && $me['code'] === "INVALID_TOKEN")) {
     $to = '/index.php';
   } else if($me['booking']) {
     if($me['booking']['status'] === 'reserved') {
@@ -161,6 +191,24 @@ function getstate($nocache = false) {
 
 }
 
+function getMap($carList) {
+  $key = 'AIzaSyBibUDNVBjFAKpwyPcZirJW4qHq2W2OO8M';//'AIzaSyD3Bf8BTFI_z00lrxWdReV4MpaqnQ8urzc';
+
+  $params = implode('&', array_map(function($row) {
+    if($row['range'] < 40) {
+      $color = 'red';
+    } else if($row['range'] < 60) {
+      $color = 'orange';
+    } else if($row['range'] < 80) {
+      $color = 'yellow';
+    } else {
+      $color = 'green';
+    }
+    return "markers=color:$color%7Clabel:${row['license']}%7C${row['latitude']},${row['longitude']}";
+  }, $carList));
+  return "https://maps.googleapis.com/maps/api/staticmap?zoom=13&size=600x300&maptype=roadmap&$params&key=$key";
+}
+
 // from https://www.geodatasource.com/developers/php
 function distance($lat1, $lon1, $lat2, $lon2) {
   $theta = $lon1 - $lon2;
@@ -168,6 +216,30 @@ function distance($lat1, $lon1, $lat2, $lon2) {
   $dist = acos($dist);
   $dist = rad2deg($dist);
   return $dist * 60 * 1.1515;
+}
+
+function location_link($obj) {
+  $location = location($obj);
+  return "<a target='_blank' class='location-link' href='https://maps.google.com/maps/?q=${obj['latitude']},${obj['longitude']}+(${obj['license']})'>$location</a>";
+}
+
+function doheader($title) {
+  $me = me();
+?>
+<!doctype html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title><?= $title ?></title>
+<link rel="stylesheet" href="css/styles.css">
+</head>
+
+  <body>
+    <a href='/account.php' id='account-link'><?= $me['firstName'] ?> <?= $me['lastName'] ?> </a>
+<?
+  showerror();
 }
 
 function actionList($base, $list) {

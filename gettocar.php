@@ -1,28 +1,18 @@
 <?
 include('api/common.php');
+getstate();
 
 $me = me();
 if($me['booking_id']){
   $car = car_info($me['booking']['carId']);
 }
 
+doheader('Get to Your WaiveCar');
 ?>
-<!doctype html>
-
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-
-  <title>Get to Your WaiveCar</title>
-  <link rel="stylesheet" href="css/styles.css">
-
-</head>
-
-<body>
-  <? showerror(); ?>
-  <div>
+  <div class='box'>
+    <img class='map' src="<?=getMap([$car])?>">
+    <?= location_link($car) ?> 
     You have XXX more minutes to get to <?= $car['license']; ?>.
-    It's at <a href="https://www.google.com/maps/search/?api=1&query=<?= $car['latitude'] ?>,<?= $car['longitude'] ?>"><?= location($car) ?></a> (click to open in maps)
 
     <? actionList('api/carcontrol.php', [
       ['reload', 'Update'],

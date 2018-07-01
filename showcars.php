@@ -8,10 +8,11 @@ $carList = array_filter($carList, function($m) use ($region) {
   return $m['groupCar'][0]['groupRoleId'] === $region;
 });
 $arrow = ['near' => '', 'range'=> '', 'name' => '', 'show' => ''];
+$mapOpts = [];
 if(!empty($_GET['sort'])) {
   if($_GET['sort'] === 'range') {
     uasort($carList, function($a, $b) {
-      return $b['range'] - $a['range'];
+      return $b['range'] > $a['range'] ? 1 : -1;
     });
     $arrow['range'] = '&#9660;';
   } else if($_GET['sort'] === 'name') {
@@ -19,9 +20,26 @@ if(!empty($_GET['sort'])) {
       $car['number'] = intval(preg_replace('/[a-z]*/i','', $car['license']));
     }
     uasort($carList, function($a, $b) {
-      return $a['number'] - $b['number'];
+      return $a['number'] >  $b['number'] ? 1 : -1;
     });
     $arrow['name'] = '&#9660;';
+  } else if ($_GET['sort'] === 'near') {
+    if(empty($_GET['lat'])) {
+      $loc = zip2geo($_GET['zip']);
+      $lat = $loc['lat'];
+      $lng = $loc['lng'];
+    } else {
+      $lat = $_GET['lat'];
+      $lng = $_GET['lng'];
+    }
+    foreach($carList as $key => $car) {
+      $carList[$key]['dist'] = distance($lat, $lng, $car['latitude'], $car['longitude']);
+    }
+    usort($carList, function($a, $b){
+      return $a['dist'] > $b['dist'] ? 1 : -1;
+    });
+    $mapOpts['me'] = ['latitude' => $lat, 'longitude' => $lng];
+    $arrow['near'] = '&#9660;';
   }
 }
 
@@ -31,9 +49,6 @@ if(!empty($_GET['show'])) {
   $arrow['show'] = '&#9660;';
 }
 
-$user_lat = false;
-$user_lng = false;
-extract($_GET, EXTR_PREFIX_ALL | EXTR_OVERWRITE, 'user_');
 $ix = 0;
 
 global $labelGuide;
@@ -41,7 +56,7 @@ doheader('Find Cars');
 ?>
 
   <div class='box map'>
-    <img src="<?=getMap($carList)?>">
+    <img src="<?=getMap($carList, $mapOpts)?>">
     <div  id='sorter'>
     <a class="needsjs" onclick=nearest();><?= $arrow['near'] ?>Nearest</a> <a href="?sort=range"><?= $arrow['range'] ?>Range</a> <a href="?sort=name"><?= $arrow['name'] ?>Name</a> <a href="?sort=range&show=5"><?= $arrow['show'] ?>Best 5</a>
     </div>
@@ -53,10 +68,13 @@ doheader('Find Cars');
   </div>
  
 <? } else {
-  foreach($carList as $car) { ?>
-  <div class='car-row'>
+foreach($carList as $key => $car) { 
+?>
+    <div class='car-row' text=<?=$ix?>>
     <a class='button' href="api/carcontrol.php?action=reserve&car=<?= $car['id']; ?>">Reserve</a> 
-    <h2><?= $car['license']; ?> <small>(<?= $labelGuide[$ix] ?>)</small> </h2>
+    <h2><?= $car['license']; ?> <small>(<?= $labelGuide[$ix] ?><? if (!empty($car['dist'])) { 
+        echo ': ' . round($car['dist'], 2) . ' miles away';
+    } ?>)</small> </h2>
     <h3>Range: <?= $car['range']; ?> miles</h3>
     <?= location_link($car) ?>
   </div>
@@ -66,6 +84,6 @@ $ix++;
 }
 ?>
   </div>
-  <script src="js/scripts.js?<?= rand() ?>"></script>
+  <script src="js/scripts.js"></script>
 </body>
 </html>

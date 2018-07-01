@@ -6,9 +6,13 @@ window.onload = function() {
 }
 function nearest() {
   navigator.geolocation.getCurrentPosition(function(pos) {
-    window.location = 'showcars.php?sort=near&lat=' + pos.latitude + '&lat=' + pos.longitude;
+    
+    window.location = 'showcars.php?sort=near&lat=' + pos.coords.latitude + '&lng=' + pos.coords.longitude;
   }, function(err) {
-    alert("Unable to get your location. Please check your security settings!\n Code: " + err.code + "\n Message: " + err.message);
+    var zip = prompt("Hrmm, we can't seem to get the location from your device. If you tell us your zipcode, we can use that instead.", "ex: 90210");
+    if(zip) {
+      window.location = 'showcars.php?sort=near&zip=' + zip;
+    }
   }, {
     enableHighAccuracy: true,
     timeout: 5000,

@@ -1,7 +1,7 @@
 <?php
 date_default_timezone_set('UTC');
 $db = new SQLite3("${_SERVER['DOCUMENT_ROOT']}/db/main.db");
-$db->query('CREATE TABLE IF NOT EXISTS location_cache (
+$db->exec('CREATE TABLE IF NOT EXISTS location_cache (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
   latlng string,
   name string,

@@ -44,7 +44,12 @@ h4 {
 }
 .map img {
   margin-top: 6px;
+  min-height: 150px;
   width: 100%;
+  background-image: url('/img/ajax-loader.gif');
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: center; 
 }
 .map {
   width: 100%;

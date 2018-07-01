@@ -100,6 +100,26 @@ function me($nocache = false) {
 }
 
 
+function zip2geo($zip) {
+  // we try to check our local cache for this lat/lng (rounded to 3 precision points)
+  $location = db_get($zip);
+  if(!$location) {
+    $res = file_get_contents("http://maps.googleapis.com/maps/api/geocode/json?address=$zip");
+    if ($res) {
+      $resJSON = json_decode($res, true);
+      if(!empty($resJSON['results'])) {
+        if(!empty($resJSON['results'][0])) {
+          $location = json_encode($resJSON['results'][0]['geometry']['location']);
+          db_set($qs, $location);
+        }
+      }
+    }
+  }
+  if($location) {
+    return json_decode($location, true);
+  }
+}
+
 function location($obj) {
   global $db; 
   $qs = implode(',', [round($obj['latitude'],3), round($obj['longitude'],3)]);
@@ -217,12 +237,17 @@ function getstate($nocache = false) {
 
 }
 
-function getMap($carList) {
+function getMap($carList, $opts = []) {
   $key = 'AIzaSyBibUDNVBjFAKpwyPcZirJW4qHq2W2OO8M';//'AIzaSyD3Bf8BTFI_z00lrxWdReV4MpaqnQ8urzc';
 
   global $labelGuide;
   $ix = 0;
   $qmap = [];
+  $center = '';
+  if(!empty($opts['me'])) {
+    $qmap[] = "markers=color:0x0000ff%7C" . $opts['me']['latitude'] . "," . $opts['me']['longitude'];
+    $center = 'center=' . $opts['me']['latitude'] . "," . $opts['me']['longitude'] . '&zoom=12&';
+  }
   foreach($carList as $row) {
     if($row['range'] < 40) {
       $color = 'red';
@@ -238,8 +263,9 @@ function getMap($carList) {
     $qmap[] = "markers=color:$color%7Clabel:${labelGuide[$ix]}%7C${row['latitude']},${row['longitude']}";
     $ix++;
   }
+
   $params = implode("&", $qmap);
-  return "https://maps.googleapis.com/maps/api/staticmap?size=340x300&maptype=roadmap&$params&key=$key";
+  return "https://maps.googleapis.com/maps/api/staticmap?${center}size=400x300&maptype=roadmap&$params&key=$key";
 }
 
 // from https://www.geodatasource.com/developers/php

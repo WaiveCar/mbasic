@@ -8,10 +8,11 @@ getstate();
 <head>
   <meta charset="utf-8">
 
-  <title>WaiveCar Login</title>
+  <title>WaiveCar Basic Login</title>
   <link rel="stylesheet" href="css/styles.css">
+  <meta name="mobile-web-app-capable" content="yes">
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
+  <meta name="description" content="The free electric car sharing program. Join the Waive!" />
 </head>
 
 <body>

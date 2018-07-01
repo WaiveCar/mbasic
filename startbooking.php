@@ -6,23 +6,28 @@ if($me['booking_id']){
 }
 doheader('Start Booking');
 ?>
-  <div>
+  <div class='box'>
+    <h1>
     Welcome to <?= $car['license'] ?>!
+    </h1>
+    <p>
     Please upload the following photographs before continuing
-    <form enctype="multipart/mixed" method="post" action="api/booking.php?action=start">
-      <? imageList([
+    </p>
+    <form enctype="multipart/mixed" method="post" action="api/carcontrol.php?action=start">
+      <? imageList(['required' => false], [
         [ 'Driver Side', 'driver' ],
         [ 'Front', 'front' ],
         [ 'Passenger Side', 'passenger' ],
         [ 'Back', 'back' ],
-        [ 'Anything else', 'other' ],
       ]); ?>
 
-      <input type="submit" value="start ride">
+      <p>Is there anything else, such as trash?</p>
+      <? imageList(['required' => false], [[ 'Anything else', 'other' ]]) ?>
+
+      <input class='button wid-1' type="submit" value="Start Ride">
     </form>
 
   </div>
 
-  <script src="js/scripts.js"></script>
 </body>
 </html>

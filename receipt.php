@@ -1,23 +1,17 @@
-<!doctype html>
+<?
+include('api/common.php');
 
-<html lang="en">
-<head>
-  <meta charset="utf-8">
+doheader('Complete Booking');
+?>
+  <div class='box'>
+    <h1>Thanks for using WaiveCar</h1>
 
-  <title>Complete</title>
-  <link rel="stylesheet" href="css/styles.css">
-
-</head>
-
-<body>
-  <div>
-    Thanks for using WaiveCar
-
+    <p>
     You'll be getting a receipt by email for your booking today.
+    </p>
 
-    <a href="showcars.php">Find Available WaiveCars</a>
+    <a class='button wid-1' href="showcars.php">Find Available WaiveCars</a>
   </div>
 
-  <script src="js/scripts.js"></script>
 </body>
 </html>

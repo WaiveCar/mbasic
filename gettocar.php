@@ -7,21 +7,36 @@ if($me['booking_id']){
   $car = car_info($me['booking']['carId']);
 }
 
+$expire = $me['booking']['reservationEnd'];
+$inBooking = strtotime($expire) - strtotime('now');
+$minutes = floor($inBooking/60);
+$seconds = $inBooking % 60;
+$isExtended = false;
+if($me['booking']['flags']) {
+  $isExtended = strpos($me['booking']['flags'], 'extended');
+}
+
 doheader('Get to Your WaiveCar');
 ?>
   <div class='box'>
-    <img class='map' src="<?=getMap([$car])?>">
-    <?= location_link($car) ?> 
-    You have XXX more minutes to get to <?= $car['license']; ?>.
+  <h1><?= $car['license']; ?></h1>
+    <?= showLocation($car) ?> 
+    <h4>
+    You have <b><?= $minutes ?> minutes</b> to get to <?= $car['license']; ?>.
+    </h4>
+    <p align='center'>
+    <? if ($isExtended) {?> 
+      Reservation Extended
+    <? } else { ?>
+      <a href="api/carcontrol.php?action=extend">Extend Reservation 10 minutes for $1.00</a>
+    <? } ?> 
+    </p>
 
     <? actionList('api/carcontrol.php', [
-      ['reload', 'Update'],
-      ['extend', 'Extend Reservation 10 additional minutes for $1.00'],
-      ['cancel', 'Cancel Booking'],
-      ['start', 'Unlock Car and Start Ride']
+      ['cancel', 'Cancel Booking', '2 danger'],
+      ['start', 'Unlock Car and Start Ride', 2]
     ]); ?>
   </div>
 
-  <script src="js/scripts.js"></script>
 </body>
 </html>

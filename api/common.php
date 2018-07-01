@@ -2,11 +2,14 @@
 session_start();
 include('db.php');
 
+$labelGuide = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
+
 function curldo($url, $params = false, $verb = false) {
   if($verb === false) {
     // this is a problem
   }
-  $HOST = 'http://api-local.waivecar.com:3080';
+  //$HOST = 'http://api-local.waivecar.com:3080';
+  $HOST = 'https://api.waivecar.com';
 
   $ch = curl_init();
 
@@ -15,7 +18,10 @@ function curldo($url, $params = false, $verb = false) {
     $header[] = "Authorization: ${_SESSION['token']}";
   }
     
-  if($params) {
+  if($verb !== 'GET') {
+    if(!$params) {
+      $params = [];
+    }
     $data_string = json_encode($params);
     curl_setopt($ch, CURLOPT_POSTFIELDS, $data_string);  
     $header[] = 'Content-Type: application/json';
@@ -67,6 +73,14 @@ function del($url, $params = false) {
 }
 
 function showerror() {
+  if(isset($_SESSION['lasterror'])) {
+    ?>
+    <div class='error box'>
+      <?= $_SESSION['lasterror'] ?>
+    </div>
+    <? 
+    unset($_SESSION['lasterror']);
+  }
 }
 
 $whoami = false;
@@ -118,20 +132,24 @@ function location($obj) {
 }
 
 
-function reserve($car) {
-  $me = me();
-  return post('/bookings', [
-    'userId' => $me['id'],
-    'carId' => $car,
-    'version' => 'mbasic'
-  ]);
-}
-
 function tis($what) {
   if(array_key_exists('status', $what)) {
     return $what['status'] === 'success';
+  } else {
+    if(!empty($what['message'])) {
+      $_SESSION['lasterror'] = $what['message'];
+    }
   }
 } 
+
+function reserve($car) {
+  $me = me();
+  return tis(post('/bookings', [
+    'userId' => $me['id'],
+    'carId' => $car,
+    'version' => 'mbasic'
+  ]));
+}
 
 function cancel($booking) {
   return tis(del("/bookings/$booking"));
@@ -172,13 +190,18 @@ function unlock($car) {
 function getstate($nocache = false) {
   $me = me($nocache);
 
-  $from = $_SERVER['REQUEST_URI'];
+  $from = $_SERVER['SCRIPT_NAME'];
   $to = false;
   if(!$me || (isset($me['code']) && $me['code'] === "INVALID_TOKEN")) {
     $to = '/index.php';
   } else if($me['booking']) {
     if($me['booking']['status'] === 'reserved') {
       $to = '/gettocar.php';
+    } else if($me['booking']['status'] === 'started') {
+      //$to = '/startbooking.php';
+      $to = '/inbooking.php';
+    } else if($me['booking']['status'] === 'ended') {
+      $to = '/endbooking.php';
     } 
   } else {
     $to = '/showcars.php';
@@ -186,6 +209,9 @@ function getstate($nocache = false) {
 
   if($to && $from !== $to) {
     header("Location: $to");
+    echo "<meta http-equiv='refresh' content='0; url=$to'>";
+    ob_end_flush();
+    flush();
     exit;
   }
 
@@ -194,7 +220,10 @@ function getstate($nocache = false) {
 function getMap($carList) {
   $key = 'AIzaSyBibUDNVBjFAKpwyPcZirJW4qHq2W2OO8M';//'AIzaSyD3Bf8BTFI_z00lrxWdReV4MpaqnQ8urzc';
 
-  $params = implode('&', array_map(function($row) {
+  global $labelGuide;
+  $ix = 0;
+  $qmap = [];
+  foreach($carList as $row) {
     if($row['range'] < 40) {
       $color = 'red';
     } else if($row['range'] < 60) {
@@ -204,9 +233,11 @@ function getMap($carList) {
     } else {
       $color = 'green';
     }
-    return "markers=color:$color%7Clabel:${row['license']}%7C${row['latitude']},${row['longitude']}";
-  }, $carList));
-  return "https://maps.googleapis.com/maps/api/staticmap?zoom=13&size=600x300&maptype=roadmap&$params&key=$key";
+    $ix++;
+    $qmap[] = "markers=color:$color%7Clabel:${labelGuide[$ix]}%7C${row['latitude']},${row['longitude']}";
+  }
+  $params = implode("&", $qmap);
+  return "https://maps.googleapis.com/maps/api/staticmap?size=340x300&maptype=roadmap&$params&key=$key";
 }
 
 // from https://www.geodatasource.com/developers/php
@@ -223,7 +254,7 @@ function location_link($obj) {
   return "<a target='_blank' class='location-link' href='https://maps.google.com/maps/?q=${obj['latitude']},${obj['longitude']}+(${obj['license']})'>$location</a>";
 }
 
-function doheader($title) {
+function doheader($title, $showaccount=true) {
   $me = me();
 ?>
 <!doctype html>
@@ -233,11 +264,13 @@ function doheader($title) {
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title><?= $title ?></title>
-<link rel="stylesheet" href="css/styles.css">
+<link rel="stylesheet" href="/css/styles.css">
 </head>
 
   <body>
-    <a href='/account.php' id='account-link'><?= $me['firstName'] ?> <?= $me['lastName'] ?> </a>
+    <? if ($showaccount) { ?>
+      <a href='/account.php' id='account-link'>Your Account</a>
+    <? } ?>
 <?
   showerror();
 }
@@ -245,16 +278,47 @@ function doheader($title) {
 function actionList($base, $list) {
 ?>
   <div class='action-list'>
-  <? foreach($list as $row) { ?>
-    <a href="<?= $base ?>?action=<?= $row[0] ?>"><?= $row[1] ?></a>
+  <? foreach($list as $row) { 
+    $klass = '';
+    if(count($row) == 3) {
+      $klass = " wid-${row[2]}";
+    }
+  ?>
+    <a class="button<?=$klass?>" href="<?= $base ?>?action=<?= $row[0] ?>"><?= $row[1] ?></a>
   <? } ?>
   </div>
 <?
 }
 
-function imageList($list) {
+function getTag($what, $field = false) {
+  $me = me();
+  foreach($me['tagList'] as $tag) {
+    if($tag['group']['name'] === $what) {
+      if($field) {
+        return $tag['groupRole'][$field];
+      }
+      return $tag['groupRole'];
+    }
+  }
+}
+
+function showLocation($car) {
+  $location = location($car);
+  echo "<a target='_blank' class='map' href='https://maps.google.com/maps/?q=${car['latitude']},${car['longitude']}+(${car['license']})'>";
+  ?>
+      <span> <?= $location ?> </span>
+      <img src="<?=getMap([$car])?>">
+    </a>
+  <?
+}
+
+function imageList($opts, $list) {
+  $required = $opts['required'] ? 'required' : '';
   foreach($list as $row) { ?>
-    <?= $row[0]; ?>
-    <input name="<?= $row[1] ?>" type="file" accept="image/*" required capture="camera" />
+    <div class='image-upload'>
+      <input name="<?= $row[1] ?>" type="file" accept="image/*;capture=camera" <?= $required ?> capture="camera" />
+      <img src='img/camera.gif'>
+      <div> <?= $row[0]; ?></div>
+    </div>
   <? } 
 }

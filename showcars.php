@@ -7,7 +7,7 @@ $carList = get('/cars');
 $carList = array_filter($carList, function($m) use ($region) { 
   return $m['groupCar'][0]['groupRoleId'] === $region;
 });
-$arrow = ['near' => '', 'range'=> '', 'name' => ''];
+$arrow = ['near' => '', 'range'=> '', 'name' => '', 'show' => ''];
 if(!empty($_GET['sort'])) {
   if($_GET['sort'] === 'range') {
     uasort($carList, function($a, $b) {
@@ -25,6 +25,12 @@ if(!empty($_GET['sort'])) {
   }
 }
 
+if(!empty($_GET['show'])) {
+  $carList = array_slice($carList, 0, intval($_GET['show'])); 
+  unset($arrow['range']);
+  $arrow['show'] = '&#9660;';
+}
+
 $user_lat = false;
 $user_lng = false;
 extract($_GET, EXTR_PREFIX_ALL | EXTR_OVERWRITE, 'user_');
@@ -37,7 +43,7 @@ doheader('Find Cars');
   <div class='box map'>
     <img src="<?=getMap($carList)?>">
     <div  id='sorter'>
-    Sort By <a class="needsjs" onclick=nearest();><?= $arrow['near'] ?>Nearest</a> <a href="?sort=range"><?= $arrow['range'] ?>Range</a> <a href="?sort=name"><?= $arrow['name'] ?>Name</a>
+    <a class="needsjs" onclick=nearest();><?= $arrow['near'] ?>Nearest</a> <a href="?sort=range"><?= $arrow['range'] ?>Range</a> <a href="?sort=name"><?= $arrow['name'] ?>Name</a> <a href="?sort=range&show=5"><?= $arrow['show'] ?>Best 5</a>
     </div>
   </div>
 

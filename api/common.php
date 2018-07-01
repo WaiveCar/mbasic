@@ -230,11 +230,13 @@ function getMap($carList) {
       $color = 'orange';
     } else if($row['range'] < 80) {
       $color = 'yellow';
+    } else if($row['range'] < 110) {
+      $color = '0x779900';
     } else {
-      $color = 'green';
+      $color = '0x00AA00';
     }
-    $ix++;
     $qmap[] = "markers=color:$color%7Clabel:${labelGuide[$ix]}%7C${row['latitude']},${row['longitude']}";
+    $ix++;
   }
   $params = implode("&", $qmap);
   return "https://maps.googleapis.com/maps/api/staticmap?size=340x300&maptype=roadmap&$params&key=$key";

@@ -8,8 +8,11 @@ function curldo($url, $params = false, $verb = false) {
   if($verb === false) {
     // this is a problem
   }
-  //$HOST = 'http://api-local.waivecar.com:3080';
-  $HOST = 'https://api.waivecar.com';
+  if($_SERVER["HTTP_HOST"] === 'mbasic.waivecar.com') {
+    $HOST = 'http://api-local.waivecar.com:3080';
+  } else {
+    $HOST = 'https://api.waivecar.com';
+  }
 
   $ch = curl_init();
 

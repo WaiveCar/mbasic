@@ -70,12 +70,19 @@ doheader('Find Cars');
 <? } else {
 foreach($carList as $key => $car) { 
 ?>
-    <div class='car-row' text=<?=$ix?>>
+  <div class='car-row' text=<?=$ix?>>
     <a class='button' href="api/carcontrol.php?action=reserve&car=<?= $car['id']; ?>">Reserve</a> 
-    <h2><?= $car['license']; ?> <small>(<?= $labelGuide[$ix] ?><? if (!empty($car['dist'])) { 
-        echo ': ' . round($car['dist'], 2) . ' miles away';
-    } ?>)</small> </h2>
-    <h3>Range: <?= $car['range']; ?> miles</h3>
+    <div class='car-name'><?= ucfirst(strtolower($car['license'])); ?></div> 
+    <div>
+      <div class='car-label'>
+        (<?= $labelGuide[$ix] ?>) <?= round($car['range']); ?>mi charge
+      </div> 
+      <? if (!empty($car['dist'])) { ?>
+        <div class='car-distance'>
+          <? printf("%.2f", $car['dist']) ?>mi away
+        </div>
+      <? } ?>
+    </div>
     <?= location_link($car) ?>
   </div>
 <? 

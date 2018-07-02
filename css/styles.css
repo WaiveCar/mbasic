@@ -30,6 +30,14 @@ h4 {
   font-size: 22px;
   margin: 0.5em 1%;
 }
+small {
+  color: #444;
+  font-size: 70%;
+}
+a:active {
+  background: blue;
+  color: white;
+}
 
 .logo img {
   vertical-align: middle;
@@ -86,7 +94,7 @@ h4 {
   text-align: center;
   font-size: 12px;
 }
-.box,.car-row {
+.box {
   display:inline-block;
   text-align: left;
   background: #fff;
@@ -97,13 +105,35 @@ h4 {
   border-radius: 4px;
   box-shadow: 0 0 6px 2px rgba(96,96,96,0.2);
 }
+.car-label, .car-distance {
+  display: inline-block;
+}
+.car-label {
+  width: 140px;
+}
+.car-name {
+  font-size: 22px;
+}
 .login {
   padding: 5%;
   text-align: center;
   max-width: 85%;
 }
+
+.car-row {
+  display:block;
+  text-align: left;
+  background: #fff;
+  padding: 2%;
+  margin-bottom: 3px;
+  width: 96%;
+}
+.car-row * { 
+  line-height: 28px;
+}
 .car-row .button {
   float:right;
+  line-height: 16px;
 }
 
 .wid-1 {
@@ -133,10 +163,6 @@ h4 {
 .danger {
   color: red !important;
   border: 1px solid red;
-}
-small {
-  color: #444;
-  font-size: 70%;
 }
 .needsjs {
   color: #aaa;

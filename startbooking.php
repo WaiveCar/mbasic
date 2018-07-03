@@ -6,7 +6,7 @@ if($me['booking_id']){
 }
 doheader('Start Booking');
 ?>
-  <div class='box'>
+  <div class='box center'>
     <h1>
     Welcome to <?= $car['license'] ?>!
     </h1>

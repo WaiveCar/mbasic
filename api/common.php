@@ -216,6 +216,15 @@ function unlock($car) {
   return put("/cars/$car/unlock");
 }
 
+function postFile() {
+  var_dump($_FILES);
+  /*
+  file_contents
+  curl_file_create
+   */
+}
+
+
 function hasFlag($what) {
   $me = me();
   if(!$me['booking'] || !$me['booking']['flags']) {
@@ -261,9 +270,11 @@ function load($ep) {
   $ep = '/' . ltrim($ep, '/');
   header("Location: $ep");
   ?>
-  <meta http-equiv='refresh' content='0; url=/<?= $ep ?>'>
+  <meta http-equiv='refresh' content='0; url=<?= $ep ?>'>
   <script>window.location="<?= $ep ?>";</script>
-  <a class="button" href="<?= $ep ?>">Continue</a>
+  <div class='box'>
+    <a class="button wid-1" href="<?= $ep ?>">Continue</a>
+  </div>
   <?
 }
 

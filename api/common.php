@@ -4,15 +4,25 @@ include('db.php');
 
 $labelGuide = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
 
-function curldo($url, $params = false, $verb = false) {
+$HOST = false;
+function getHost() {
+  global $HOST;
+  if(!$HOST) {
+    if($_SERVER["HTTP_HOST"] === 'mbasic.waivecar.com' || substr($_SERVER["HTTP_HOST"], -1) === '0') {
+      $HOST = 'http://api-local.waivecar.com:3080';
+    } else {
+      $HOST = 'https://api.waivecar.com';
+    }
+  }
+  return $HOST;
+}
+ 
+
+function curldo($url, $params = false, $verb = false, $opts = []) {
   if($verb === false) {
     // this is a problem
   }
-  if($_SERVER["HTTP_HOST"] === 'mbasic.waivecar.com') {
-    $HOST = 'http://api-local.waivecar.com:3080';
-  } else {
-    $HOST = 'https://api.waivecar.com';
-  }
+  $HOST = getHost();
 
   $ch = curl_init();
 
@@ -22,13 +32,23 @@ function curldo($url, $params = false, $verb = false) {
   }
     
   if($verb !== 'GET') {
-    if(!$params) {
-      $params = [];
+    if(!isset($opts['isFile'])) {
+      if(!$params) {
+        $params = [];
+      }
+      $params = json_encode($params);
+      $header[] = 'Content-Type: application/json';
+    } else {
+      $header[] = 'Content-Type: multipart/form-data';
     }
-    $data_string = json_encode($params);
-    curl_setopt($ch, CURLOPT_POSTFIELDS, $data_string);  
-    $header[] = 'Content-Type: application/json';
+    curl_setopt($ch, CURLOPT_POSTFIELDS, $params);  
+    /*
     $header[] = 'Content-Length: ' . strlen($data_string);
+     */
+  }
+
+  if($verb === 'POST') {
+    curl_setopt($ch, CURLOPT_POST,1);
   }
 
   curl_setopt($ch, CURLOPT_HTTPHEADER, $header);
@@ -65,6 +85,9 @@ function get($url, $params = false) {
 
 function post($url, $params = false) {
   return curldo($url, $params, 'POST');
+}
+function postFile($url, $params = false) {
+  return curldo($url, $params, 'POST', ['isFile' => true]);
 }
 
 function put($url, $params = false) {
@@ -193,7 +216,7 @@ function start($booking) {
 }
 
 function finish($booking) {
-  return put("/bookings/$booking/end");
+  return tis(put("/bookings/$booking/end"));
 }
 
 function complete($booking) {
@@ -216,12 +239,32 @@ function unlock($car) {
   return put("/cars/$car/unlock");
 }
 
-function postFile() {
-  var_dump($_FILES);
-  /*
-  file_contents
-  curl_file_create
-   */
+function uploadFiles($list = false) {
+  $res = [];
+  $host = getHost();
+
+  foreach($_FILES as $key => $value) {
+    if($list && array_search($key, $list) === false) {
+      continue;
+    }
+
+    $str = "/usr/bin/curl -X POST $host/files -H 'Authorization: ${_SESSION['token']}' -F file=@${value['tmp_name']}";
+    $resTxt = shell_exec($str);
+    $res[] = json_decode($resTxt);
+    unset($_FILES[$key]);
+  }
+
+  return $res;
+}
+
+function createReport($fileList) {
+  $me = me();
+  foreach($fileList as $file) {
+    $res = post('/reports', [
+      'bookingId' => $me['booking']['id'],
+      'files' => $file
+    ]);
+  }
 }
 
 
@@ -230,8 +273,8 @@ function hasFlag($what) {
   if(!$me['booking'] || !$me['booking']['flags']) {
     return false;
   }
-  var_dump($me['booking']['flags']);
-  exit;
+
+  return strpos($me['booking']['flags'], $what) !== false;
 }
 
 function getstate($nocache = false) {
@@ -357,11 +400,10 @@ function doheader($title, $showaccount=true) {
 <link rel="stylesheet" href="/css/styles.css">
 </head>
 
-  <body>
-    <? if ($showaccount) { ?>
-      <a href='/account.php' id='account-link'>Your Account</a>
-    <? } ?>
-<?
+<body>
+  <? if ($showaccount) { 
+    echo "<a href='/account.php' id='account-link'>Your Account</a>";
+   } 
   showerror();
 }
 
@@ -407,8 +449,6 @@ function imageList($opts, $list) {
   foreach($list as $row) { ?>
     <div class='image-upload'>
       <input name="<?= $row[1] ?>" type="file" accept="image/*;capture=camera" <?= $required ?> capture="camera" />
-      <img src='img/camera.gif'>
-      <div> <?= $row[0]; ?></div>
     </div>
   <? } 
 }

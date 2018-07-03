@@ -34,11 +34,32 @@ if($me['booking_id']) {
   }
 
   if($action === 'start') {
+    $fileList = uploadFiles();
+    if(count($fileList) > 0)  {
+      createReport($fileList);
+    }
     start($me['booking_id']);
   }
 
   if($action === 'finish') {
-    finish($me['booking_id']);
+    $parking = uploadFiles(['parking']);
+    $me = me();
+    $id = $me['booking_id'];
+    $payload = [
+      'data' => [
+        'streetHours' => $_POST['hours'],
+        'bookingId' => $id,
+        'streetSignImage' => $parking[0]
+      ]
+    ];
+
+    tis(put("/bookings/$booking/complete", $payload));
+
+    $fileList = uploadFiles();
+
+    if(count($fileList) > 0) {
+      createReport($fileList);
+    }
   }
   
   if($action === 'complete') {

@@ -10,29 +10,21 @@ doheader('Start Booking');
     <h1>
     Welcome to <?= $car['license'] ?>!
     </h1>
-    <!--
-    <p>
-    Please upload the following photographs before continuing
-    </p>
-    -->
-    <form enctype="multipart/mixed" method="post" action="api/carcontrol.php?action=start">
-      <!--
-      <? imageList(['required' => false], [
-        [ 'Driver Side', 'driver' ],
-        [ 'Front', 'front' ],
-        [ 'Passenger Side', 'passenger' ],
-        [ 'Back', 'back' ],
-      ]); ?>
-      --->
+    <form enctype="multipart/form-data" method="post" action="api/carcontrol.php?action=start">
+      <p>Is there any damage or issues such as trash? (upload up to 4 photos)</p>
 
-      <p>Is there any damage or issues such as trash?</p>
-      <? imageList(['required' => false], [[ 'Anything else', 'other' ]]) ?>
+      <div class='image-upload'>
+        <input name="image0" type="file" accept="image/*;capture=camera" capture="camera" />
+        <input name="image1" type="file" accept="image/*;capture=camera" capture="camera" />
+        <input name="image2" type="file" accept="image/*;capture=camera" capture="camera" />
+        <input name="image3" type="file" accept="image/*;capture=camera" capture="camera" />
+      </div>
 
-      <input class='button wid-1' type="submit" value="Start Ride">
+      <input class='button wid-1 submit' type="submit" value="Start Ride">
     </form>
 
-    <p align=center>
-      <a href="api/carcontrol.php?action=finish">Cancel Booking</a>
+    <p align="center">
+      <small><a href="api/carcontrol.php?action=finish">Cancel Booking</a></small>
     </p>
 
   </div>

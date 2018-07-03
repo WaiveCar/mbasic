@@ -8,6 +8,8 @@ $keys = parse_str($query);
 <head>
   <meta charset="utf-8">
   <title><?= $_GET['prompt'] ?></title>
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="stylesheet" href="css/styles.css?<?= rand() ?>">
 </head>
 <body>

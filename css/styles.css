@@ -73,6 +73,9 @@ a:active {
   color: #44a;
   padding: 0px 5px 2px;
 }
+#account-link:active {
+  color: white;
+}
 .button {
   text-align: center;
   display: inline-block;
@@ -190,4 +193,9 @@ a:active {
 .fuel-amount {
   height: 100%;
   background: #7d7;
+}
+.prompt .input {
+  width: 100%;
+  font-size: 14px;
+  margin-top: 14px;
 }

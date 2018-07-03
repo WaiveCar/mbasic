@@ -249,13 +249,22 @@ function getstate($nocache = false) {
   }
 
   if($to && $from !== $to) {
-    header("Location: $to");
-    echo "<meta http-equiv='refresh' content='0; url=$to'>";
+    load($to);
     ob_end_flush();
     flush();
     exit;
   }
 
+}
+
+function load($ep) {
+  $ep = '/' . ltrim($ep, '/');
+  header("Location: $ep");
+  ?>
+  <meta http-equiv='refresh' content='0; url=/<?= $ep ?>'>
+  <script>window.location="<?= $ep ?>";</script>
+  <a class="button" href="<?= $ep ?>">Continue</a>
+  <?
 }
 
 function getMap($carList, $opts = []) {

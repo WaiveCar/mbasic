@@ -45,9 +45,7 @@ if($me['booking_id']) {
     if(complete($me['booking_id'])) {
       // This is a special use-case
       // for getting to the receipt
-
-      header("Location: /receipt.php");
-      echo "<meta http-equiv='refresh' content='0; url=/receipt.php'>";
+      load('/receipt.php');
       exit;
     }
   }

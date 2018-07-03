@@ -76,6 +76,9 @@ foreach($carList as $key => $car) {
     <div>
       <div class='car-label'>
         (<?= $labelGuide[$ix] ?>) <?= round($car['range']); ?>mi charge
+        <div class='fuel-meter'>
+          <div class='fuel-amount' style='width: <?=$car['range'] * 100 / 140?>%' ></div>
+        </div>
       </div> 
       <? if (!empty($car['dist'])) { ?>
         <div class='car-distance'>

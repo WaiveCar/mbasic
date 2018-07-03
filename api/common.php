@@ -113,7 +113,7 @@ function zip2geo($zip) {
       if(!empty($resJSON['results'])) {
         if(!empty($resJSON['results'][0])) {
           $location = json_encode($resJSON['results'][0]['geometry']['location']);
-          db_set($qs, $location);
+          db_set($zip, $location);
         }
       }
     }
@@ -156,6 +156,12 @@ function location($obj) {
 
 
 function tis($what) {
+  if(is_bool($what) && $what == true) {
+    return true;
+  }
+  if(!$what || is_string($what)) {
+    return false;
+  }
   if(array_key_exists('status', $what)) {
     return $what['status'] === 'success';
   } else {
@@ -210,6 +216,15 @@ function unlock($car) {
   return put("/cars/$car/unlock");
 }
 
+function hasFlag($what) {
+  $me = me();
+  if(!$me['booking'] || !$me['booking']['flags']) {
+    return false;
+  }
+  var_dump($me['booking']['flags']);
+  exit;
+}
+
 function getstate($nocache = false) {
   $me = me($nocache);
 
@@ -221,8 +236,11 @@ function getstate($nocache = false) {
     if($me['booking']['status'] === 'reserved') {
       $to = '/gettocar.php';
     } else if($me['booking']['status'] === 'started') {
-      //$to = '/startbooking.php';
-      $to = '/inbooking.php';
+      if(hasFlag('inspected')) {
+        $to = '/inbooking.php';
+      } else {
+        $to = '/startbooking.php';
+      }
     } else if($me['booking']['status'] === 'ended') {
       $to = '/endbooking.php';
     } 
@@ -249,8 +267,14 @@ function getMap($carList, $opts = []) {
   $center = '';
   if(!empty($opts['me'])) {
     $qmap[] = "markers=color:0x0000ff%7C" . $opts['me']['latitude'] . "," . $opts['me']['longitude'];
-    $center = 'center=' . $opts['me']['latitude'] . "," . $opts['me']['longitude'] . '&zoom=12&';
+    $center = 'center=' . $opts['me']['latitude'] . "," . $opts['me']['longitude'] . '&';
+    $opts['zoom'] = 12;
+  } else if(count($carList) === 1) {
+    $car = $carList[0];
+    $center = 'center=' . $car['latitude'] . "," . $car['longitude'] . '&';
+    $opts['zoom'] = 14;
   }
+
   foreach($carList as $row) {
     if($row['range'] < 40) {
       $color = 'red';
@@ -267,8 +291,23 @@ function getMap($carList, $opts = []) {
     $ix++;
   }
 
+  $locationList = get('/locations');
+  foreach($locationList as $location) {
+    if($location['type'] === 'zone') {
+      $loc = implode('|', array_map(
+        function($a) { return "${a[1]},${a[0]}"; },
+        $location['shape']
+      ));
+      $qmap[] = 'path=fillcolor:0x00AA0050|weight:0|' . $loc;
+    }
+  }
   $params = implode("&", $qmap);
-  return "https://maps.googleapis.com/maps/api/staticmap?${center}size=400x300&maptype=roadmap&$params&key=$key";
+  $zoom = '';
+  if(!empty($opts['zoom'])) {
+    $zoom = "zoom=${opts['zoom']}&";
+  }
+
+  return "https://maps.googleapis.com/maps/api/staticmap?${center}size=400x300&${zoom}maptype=roadmap&$params&key=$key";
 }
 
 // from https://www.geodatasource.com/developers/php
@@ -338,7 +377,7 @@ function showLocation($car) {
   echo "<a target='_blank' class='map' href='https://maps.google.com/maps/?q=${car['latitude']},${car['longitude']}+(${car['license']})'>";
   ?>
       <span> <?= $location ?> </span>
-      <img src="<?=getMap([$car])?>">
+      <img src="<?=getMap([$car], ['zoom' => 13])?>">
     </a>
   <?
 }

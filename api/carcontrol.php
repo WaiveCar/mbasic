@@ -17,9 +17,10 @@ if($me['booking_id']) {
   ?>
   <div class='box'>
     <center>
+    <h1>Please wait</h1>
+    <p>This can take up to 30 seconds.</p>
     <img src="/img/ajax-loader.gif">
     </center>
-    <h1>Please wait...this can take up to 30 seconds.</h1>
   </div>
   <?
   ob_end_flush();

@@ -42,6 +42,10 @@ if($me['booking_id']) {
   }
 
   if($action === 'finish') {
+    finish($me['booking_id']);
+  }
+  
+  if($action === 'complete') {
     $parking = uploadFiles(['parking']);
     $me = me();
     $id = $me['booking_id'];
@@ -53,17 +57,14 @@ if($me['booking_id']) {
       ]
     ];
 
-    tis(put("/bookings/$booking/complete", $payload));
 
     $fileList = uploadFiles();
 
     if(count($fileList) > 0) {
       createReport($fileList);
     }
-  }
-  
-  if($action === 'complete') {
-    if(complete($me['booking_id'])) {
+
+    if(put("/bookings/$booking/complete", $payload)) {
       // This is a special use-case
       // for getting to the receipt
       load('/receipt.php');

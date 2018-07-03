@@ -38,7 +38,13 @@ a:active {
   color: white;
   box-shadow: 0 0 0px 5px blue;
 }
-
+#map-controls {
+  background: rgba(127,127,127,0.4);
+  position: absolute;
+}
+#map-controls a {
+  color: black;
+}
 .logo img {
   vertical-align: middle;
 }
@@ -150,7 +156,7 @@ a:active {
   margin: -1px;
 }
 .wid-2 {
-  width: 45.4%;
+  width: 44.5%;
 }
 .image-upload {
   width: 38%;

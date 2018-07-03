@@ -8,7 +8,7 @@ if($me['booking_id']){
 doheader('Your Account');
 ?>
 
-<div class='box'>
+<div class='box account'>
   <h1>Account Information</h1>
   <p>Hello <?=$me['firstName']?> <?=$me['lastName']?>! Here's your current account details:</p>
   <ul>

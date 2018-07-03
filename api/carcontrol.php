@@ -1,5 +1,17 @@
 <?
 include('common.php');
+doheader('Waiting', false);
+?>
+<div class='box'>
+  <center>
+  <h1>Please wait</h1>
+  <p>This can take up to 30 seconds.</p>
+  <img src="/img/ajax-loader.gif">
+  </center>
+</div>
+<?
+ob_end_flush();
+flush();
 
 $me = me();
 $action = $_GET['action'];
@@ -13,18 +25,6 @@ if($action === 'reserve') {
 
 
 if($me['booking_id']) {
-  doheader('Waiting', false);
-  ?>
-  <div class='box'>
-    <center>
-    <h1>Please wait</h1>
-    <p>This can take up to 30 seconds.</p>
-    <img src="/img/ajax-loader.gif">
-    </center>
-  </div>
-  <?
-  ob_end_flush();
-  flush();
   if($action === 'extend') {
     extend($me['booking_id']);
   }

@@ -1,8 +1,8 @@
 window.onload = function() {
   var allEl = document.getElementsByClassName('needsjs');
   for(var ix = 0; ix < allEl.length; ix++) {
-    allEl[ix].className = allEl[ix].className.replace(/needsjs/, '');
     allEl[ix].removeAttribute('href');
+    allEl[ix].className = allEl[ix].className.replace(/needsjs/, '');
   }
 }
 function getZip() {

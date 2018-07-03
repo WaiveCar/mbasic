@@ -9,6 +9,7 @@ body {
 }
 a {
   color: blue;
+  cursor: pointer;
   text-decoration: none;
 }
 a:visited {
@@ -35,6 +36,7 @@ small {
 a:active {
   background: blue;
   color: white;
+  box-shadow: 0 0 0px 5px blue;
 }
 
 .logo img {
@@ -108,6 +110,9 @@ a:active {
 }
 .center {
   text-align: center;
+}
+.account ul {
+  margin-left: 1.25em;
 }
 .car-label, .car-distance {
   display: inline-block;

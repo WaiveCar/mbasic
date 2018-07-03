@@ -15,7 +15,7 @@ doheader('Current Booking');
     <h1><?= $car['license']; ?></h1>
     <? showLocation($car); ?>
     <h4>
-    You have had <?= $car['license'] ?> for <b><?= $minutes ?> minutes</b>.
+    You have had <?= $car['license'] ?> for <b><?= $minutes ?>min</b>.
     </h4>
     <p align="center">
         <a href="api/carcontrol.php?action=finish">End Ride</a>

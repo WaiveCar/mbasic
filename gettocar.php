@@ -22,7 +22,7 @@ doheader('Get to Your WaiveCar');
   <h1><?= $car['license']; ?></h1>
     <?= showLocation($car) ?> 
     <h4>
-    You have <b><?= $minutes ?> minutes</b> to get to <?= $car['license']; ?>.
+    You have <b><?= $minutes ?>min</b> to get to <?= $car['license']; ?>.
     </h4>
     <p align='center'>
     <? if ($isExtended) {?> 

@@ -34,7 +34,7 @@ doheader('Get to Your WaiveCar');
 
     <? actionList('api/carcontrol.php', [
       ['cancel', 'Cancel Booking', '2 danger'],
-      ['start', 'Unlock Car and Start Ride', 2]
+      ['start', 'Start Ride', 2]
     ]); ?>
   </div>
 

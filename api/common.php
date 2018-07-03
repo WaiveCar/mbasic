@@ -248,7 +248,7 @@ function uploadFiles($list = false) {
       continue;
     }
 
-    $str = "/usr/bin/curl -X POST $host/files -H 'Authorization: ${_SESSION['token']}' -F file=@${value['tmp_name']}";
+    $str = "/usr/bin/curl -s -X POST $host/files -H 'Authorization: ${_SESSION['token']}' -F file=@${value['tmp_name']}";
     $resTxt = shell_exec($str);
     $res[] = json_decode($resTxt);
     unset($_FILES[$key]);

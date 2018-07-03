@@ -9,6 +9,10 @@ $carList = array_filter($carList, function($m) use ($region) {
 });
 $arrow = ['near' => '', 'range'=> '', 'name' => '', 'show' => ''];
 $mapOpts = [];
+if(empty($_GET['sort'])) {
+  $_GET['sort'] = 'none';
+}
+
 if($_GET['sort'] === 'range') {
   uasort($carList, function($a, $b) {
     return $b['range'] > $a['range'] ? 1 : -1;

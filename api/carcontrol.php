@@ -1,5 +1,11 @@
 <?
+ob_start();
 include('common.php');
+$action = $_GET['action'];
+if($action === 'nop') {
+  getstate("nocache");
+  exit;
+}
 doheader('Waiting', false);
 ?>
 <div class='box'>
@@ -14,7 +20,6 @@ ob_end_flush();
 flush();
 
 $me = me();
-$action = $_GET['action'];
 if($action === 'reload') {
   header('Location: gettocar.php');
   exit;
@@ -29,8 +34,15 @@ if($me['booking_id']) {
     extend($me['booking_id']);
   }
 
-  if($action === 'cancel') {
+  if($action === 'cancel4realz') {
     cancel($me['booking_id']);
+  }
+
+  if($action === 'cancel') {
+    confirm("Cancel your booking?", "This will cancel your booking and you'll need to wait 30 minutes to rebook this car.", [
+      [ "Yes, cancel my booking.", "/api/carcontrol.php?action=cancel4realz", 'wid-1 danger'],
+      [ "No, do not cancel my booking", "/api/carcontrol.php?action=nop", 'wid-1 primary' ]
+    ]);
   }
 
   if($action === 'start') {
@@ -39,6 +51,16 @@ if($me['booking_id']) {
       createReport($fileList);
     }
     start($me['booking_id']);
+  }
+
+  if($action === 'end') {
+    confirm("End your booking?", "Are you sure you want to end your booking?", [
+      [ "Yes, I'm done with the WaiveCar.", "/api/carcontrol.php?action=end4realz", 'wid-1'],
+      [ "I'm not done. I want to keep going!", "/api/carcontrol.php?action=nop", 'wid-1 primary' ]
+    ]);
+  }
+  if($action === 'end4realz') {
+    finish($me['booking_id']);
   }
 
   if($action === 'finish') {
@@ -53,7 +75,7 @@ if($me['booking_id']) {
       ]
     ];
 
-    tis(put("/bookings/$booking/complete", $payload));
+    tis(put("/bookings/$id/complete", $payload));
 
     $fileList = uploadFiles();
 

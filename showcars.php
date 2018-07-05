@@ -53,7 +53,7 @@ global $labelGuide;
 doheader('Find Cars');
 ?>
 
-  <div class='box map'>
+  <div class='map'>
 <!--
     <div id='map-control'>
       <a href="">&#xFF0B;</a><a href="">&#65293;</a>
@@ -65,16 +65,16 @@ doheader('Find Cars');
     </div>
   </div>
 
+  <ul>
 <? if(count($carList) === 0) { ?>
-  <div class='box'>
-    <h1>Nothing is currently available.</h1>
-  </div>
+    <li class='car-row'>
+      <h1>No WaiveCars are currently available.</h1>
+    </li>
  
 <? } else {
-echo '<ul>';
 foreach($carList as $key => $car) { 
 ?>
-  <li class='car-row' text=<?=$ix?>>
+  <li class='car-row'>
     <a class='button' href="api/carcontrol.php?action=reserve&car=<?= $car['id']; ?>">Reserve</a> 
     <div class='car-name'><?= ucfirst(strtolower($car['license'])); ?></div> 
     <div>
@@ -95,9 +95,9 @@ foreach($carList as $key => $car) {
 <? 
 $ix++;
   } 
-echo '</ul>';
 }
 ?>
+  </ul>
   </div>
   <script src="js/scripts.js"></script>
 </body>

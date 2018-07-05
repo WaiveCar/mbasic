@@ -48,29 +48,48 @@ a:active {
 #map-controls a {
   color: black;
 }
+.isolated {
+  padding: 0.25em;
+  margin: 1em;
+  display:inline-block;
+}
+.gettocar h4 {
+  text-align: center;
+}
 .logo img {
   vertical-align: middle;
 }
+.login h1 {
+  margin-bottom: 50px;
+}
 .login input {
   display: block;
+  width: 99%;
+  font-size: 24px;
+  margin: 12px -3px;
+  padding: 0.5%; 
+}
+.login input[type="submit"] {
   width: 100%;
-  margin: 12px 0;
 }
 .waive-green {
   color: #25c155;
 }
+.map {
+  display: block;
+  background: white;
+  text-align: center;
+  width: 100%;
+  margin-bottom: 8px;
+}
 .map img {
   margin-top: 6px;
   min-height: 150px;
-  width: 100%;
+  max-width: 100%;
   background-image: url('/img/ajax-loader.gif');
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-position: center; 
-}
-.map {
-  width: 100%;
-  margin-bottom: 8px;
 }
 .map span {
   display: block;
@@ -106,13 +125,12 @@ a:active {
   font-size: 12px;
 }
 .box {
-  display:block;
+  display: block;
   text-align: left;
   background: white;
   padding: 1%;
   margin: 0 auto 6px auto;
   width: 94%;
-  max-width: 400px;
   border-radius: 4px;
   box-shadow: 0 0 6px 2px rgba(96,96,96,0.2);
 }
@@ -153,9 +171,12 @@ a:active {
   line-height: 16px;
 }
 
+.wid-1, .wid-2 {
+  padding: 1% 0;
+}
 .wid-1 {
   width: 98%;
-  margin: -1px;
+  margin: 2% -1px;
 }
 .wid-2 {
   width: 44.8%;
@@ -165,9 +186,18 @@ a:active {
   width: 98%;
   padding: 2% 0;
 }
-.danger {
-  color: red !important;
+.primary {
+  border-width: 2px;
+  font-weight: 600;
+}
+a.danger {
+  color: red;
   border: 1px solid red;
+}
+.danger:active {
+  color: white;
+  background: rgb(255,0,0);
+  box-shadow: 0 0 0px 5px red;
 }
 .needsjs {
   color: #aaa;

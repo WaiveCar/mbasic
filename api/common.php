@@ -126,6 +126,11 @@ function me($nocache = false) {
 }
 
 
+function confirm($title, $prompt, $options) {
+  load('confirm.php?' . http_build_query(['t' => $title, 'p' => $prompt, 'o' => $options]));
+  exit;
+}
+
 function zip2geo($zip) {
   // we try to check our local cache for this lat/lng (rounded to 3 precision points)
   $location = db_get($zip);
@@ -311,7 +316,7 @@ function getstate($nocache = false) {
 
 function load($ep) {
   $ep = '/' . ltrim($ep, '/');
-  header("Location: $ep");
+  @header("Location: $ep");
   ?>
   <meta http-equiv='refresh' content='0; url=<?= $ep ?>'>
   <script>window.location="<?= $ep ?>";</script>

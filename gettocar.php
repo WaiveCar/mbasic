@@ -18,11 +18,11 @@ if($me['booking']['flags']) {
 
 doheader('Get to Your WaiveCar');
 ?>
-  <div class='box'>
+  <div class='box gettocar'>
   <h1><?= $car['license']; ?></h1>
     <?= showLocation($car) ?> 
     <h4>
-    You have <b><?= $minutes ?>min</b> to get to <?= $car['license']; ?>.
+    You have <b><?= $minutes ?>min</b> to get to <?= $car['license']; ?>
     </h4>
     <p align='center'>
     <? if ($isExtended) {?> 

@@ -18,8 +18,7 @@ getstate();
 <body>
   <? showerror(); ?>
   <div class='box login'>
-    <H1 class='logo'><img src='img/circle-logo_32.gif'>Waive<span class='waive-green'>Car</span></H1>
-    Login
+    <H1 class='logo'><img src='img/circle-logo_32.gif'>Waive<span class='waive-green'>Car</span> <small>basic</small></H1>
     <form action="api/login.php" method="post">
       <input name="identifier" type="text" placeholder="Email" />
       <input name="password" type="password" placeholder="Password" />

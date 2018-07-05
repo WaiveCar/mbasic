@@ -10,9 +10,11 @@ doheader('Waiting', false);
 ?>
 <div class='box'>
   <center>
-  <h1>Please wait</h1>
-  <p>This can take up to 30 seconds.</p>
-  <img src="/img/ajax-loader.gif">
+    <h1>Please wait</h1>
+    <p>This can take up to 30 seconds.</p>
+    <p>
+      <img src="/img/ajax-loader.gif">
+    </p>
   </center>
 </div>
 <?
@@ -64,6 +66,11 @@ if($me['booking_id']) {
   }
 
   if($action === 'finish') {
+    finish($me['booking_id']);
+  }
+  
+  if($action === 'complete') {
+    //var_dump($_FILES);
     $parking = uploadFiles(['parking']);
     $me = me();
     $id = $me['booking_id'];
@@ -75,17 +82,13 @@ if($me['booking_id']) {
       ]
     ];
 
-    tis(put("/bookings/$id/complete", $payload));
-
     $fileList = uploadFiles();
 
     if(count($fileList) > 0) {
       createReport($fileList);
     }
-  }
-  
-  if($action === 'complete') {
-    if(complete($me['booking_id'])) {
+
+    if(put("/bookings/$id/complete", $payload)) {
       // This is a special use-case
       // for getting to the receipt
       load('/receipt.php');

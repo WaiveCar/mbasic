@@ -3,12 +3,22 @@ include('api/common.php');
 getstate();
 $me = me();
 $region = getTag('region', 'id');
+
+// If a user doesn't have a region defined we can safely assume
+// that they are in los angeles and then filter based on that.
+if(!$region) {
+  $region = 6;
+}
 $carList = get('/cars');
 $carList = array_filter($carList, function($m) use ($region) { 
   return $m['groupCar'][0]['groupRoleId'] === $region;
 });
 $arrow = ['near' => '', 'range'=> '', 'name' => '', 'show' => ''];
 $mapOpts = [];
+if(empty($_GET['sort'])) {
+  $_GET['sort'] = 'none';
+}
+
 if($_GET['sort'] === 'range') {
   uasort($carList, function($a, $b) {
     return $b['range'] > $a['range'] ? 1 : -1;

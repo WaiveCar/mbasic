@@ -6,7 +6,7 @@ window.onload = function() {
   }
 }
 function getZip() {
-  var zip = prompt("Hrmm, we can't seem to get the location from your device. If you tell us your zipcode, we can use that instead.", "ex: 90210");
+  var zip = prompt("Hrmm, we can't seem to get the location from your device. If you tell us your zipcode, we can use that instead.");
   if(zip) {
     window.location = 'showcars.php?sort=near&zip=' + zip;
   }

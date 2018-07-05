@@ -10,7 +10,7 @@ doheader('End Booking');
   <div class='box'>
     <h1> Thanks for using <?= $car['license'] ?> </h1>
 
-    <form enctype="multipart/mixed" method="post" action="api/carcontrol.php?action=complete">
+    <form enctype="multipart/form-data" method="post" action="api/carcontrol.php?action=complete">
       <ol>
         <li>Please upload a photo of the parking sign
           <p class='image-upload'>
@@ -20,7 +20,7 @@ doheader('End Booking');
 
         <li>How long is the parking valid? <small>(Enter 48 if longer than 2 days)</small>
           <p>
-            <input type='text' name='hours' size='2' required > hours
+            <input type='text' name='hours' size='1' required > hours
           </p>
         </li>
 

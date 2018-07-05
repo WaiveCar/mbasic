@@ -24,7 +24,7 @@ doheader('Start Booking');
     </form>
 
     <p align="center">
-      <small><a href="api/carcontrol.php?action=finish">Cancel Booking</a></small>
+      <small><a href="api/carcontrol.php?action=end">Cancel Booking</a></small>
     </p>
 
   </div>

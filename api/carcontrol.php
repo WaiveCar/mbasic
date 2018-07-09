@@ -77,7 +77,7 @@ if($me['booking_id']) {
     $payload = [
       'data' => [
         'streetHours' => $_POST['hours'],
-        'bookingId' => $id,
+        'id' => $id,
         'streetSignImage' => $parking[0]
       ]
     ];

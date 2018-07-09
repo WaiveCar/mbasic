@@ -252,10 +252,12 @@ function uploadFiles($list = false) {
     if($list && array_search($key, $list) === false) {
       continue;
     }
-
-    $str = "/usr/bin/curl -s -X POST $host/files -H 'Authorization: ${_SESSION['token']}' -F file=@${value['tmp_name']}";
-    $resTxt = shell_exec($str);
-    $res[] = json_decode($resTxt);
+    if($value['size']) {
+      $str = "/usr/bin/curl -s -X POST $host/files -H 'Authorization: ${_SESSION['token']}' -F file=@${value['tmp_name']}";
+      $resTxt = shell_exec($str);
+      $resJson = json_decode($resTxt, true);
+      $res[] = $resJson[0];
+    }
     unset($_FILES[$key]);
   }
 

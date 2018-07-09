@@ -62,7 +62,7 @@ if($me['booking_id']) {
     ]);
   }
   if($action === 'end4realz') {
-    finish($me['booking_id']);
+    load('/endbooking.php');
   }
 
   if($action === 'finish') {
@@ -76,6 +76,8 @@ if($me['booking_id']) {
     $id = $me['booking_id'];
     $payload = [
       'data' => [
+        // TODO: figure out why the type is needed
+        'type' => true,
         'streetHours' => $_POST['hours'],
         'id' => $id,
         'streetSignImage' => $parking[0]
@@ -88,11 +90,14 @@ if($me['booking_id']) {
       createReport($fileList);
     }
 
-    if(put("/bookings/$id/complete", $payload)) {
+    $data = put("/bookings/$id/end", $payload); 
+    if($data) {
       // This is a special use-case
       // for getting to the receipt
-      load('/receipt.php');
-      exit;
+      if(put("/bookings/$id/complete")) {
+        load('/receipt.php');
+        exit;
+      }
     }
   }
 }

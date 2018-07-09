@@ -266,12 +266,10 @@ function uploadFiles($list = false) {
 
 function createReport($fileList) {
   $me = me();
-  foreach($fileList as $file) {
-    $res = post('/reports', [
-      'bookingId' => $me['booking']['id'],
-      'files' => $file
-    ]);
-  }
+  $res = post('/reports', [
+    'bookingId' => $me['booking']['id'],
+    'files' => $fileList
+  ]);
 }
 
 
@@ -298,7 +296,8 @@ function getstate($nocache = false) {
       if(hasFlag('inspected')) {
         $to = '/inbooking.php';
       } else {
-        $to = '/startbooking.php';
+        $to = '/inbooking.php';
+        //$to = '/startbooking.php';
       }
     } else if($me['booking']['status'] === 'ended') {
       $to = '/endbooking.php';

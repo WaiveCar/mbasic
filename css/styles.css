@@ -128,7 +128,7 @@ a:active {
   display: block;
   text-align: left;
   background: white;
-  padding: 1%;
+  padding: 1% 2%;
   margin: 0 auto 6px auto;
   width: 94%;
   border-radius: 4px;
@@ -175,7 +175,7 @@ a:active {
   padding: 1% 0;
 }
 .wid-1 {
-  width: 98%;
+  width: 100%;
   margin: 2% -1px;
 }
 .wid-2 {

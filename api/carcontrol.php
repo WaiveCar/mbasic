@@ -32,12 +32,13 @@ if($action === 'reserve') {
 
 
 if($me['booking_id']) {
+  $booking = $me['booking_id'];
   if($action === 'extend') {
-    extend($me['booking_id']);
+    extend($booking);
   }
 
   if($action === 'cancel4realz') {
-    cancel($me['booking_id']);
+    cancel($booking);
   }
 
   if($action === 'cancel') {
@@ -56,12 +57,15 @@ if($me['booking_id']) {
   }
 
   if($action === 'end') {
-    confirm("End your booking?", "Are you sure you want to end your booking?", [
-      [ "Yes, I'm done with the WaiveCar.", "/api/carcontrol.php?action=end4realz", 'wid-1'],
+    $me = me(['withcar' => true]);
+    $car = $me['car']['license'];
+    confirm("End your booking?", "Are you sure you're done with $car?", [
+      [ "Yes, I'm done with $car.", "/api/carcontrol.php?action=end4realz", 'wid-1'],
       [ "I'm not done. I want to keep going!", "/api/carcontrol.php?action=nop", 'wid-1 primary' ]
     ]);
   }
   if($action === 'end4realz') {
+    tis(put("/bookings/$booking/canend"));
     load('/endbooking.php');
   }
 
@@ -72,8 +76,6 @@ if($me['booking_id']) {
   if($action === 'complete') {
     //var_dump($_FILES);
     $parking = uploadFiles(['parking']);
-    $me = me();
-    $id = $me['booking_id'];
     $payload = [
       'data' => [
         // TODO: figure out why the type is needed
@@ -90,11 +92,11 @@ if($me['booking_id']) {
       createReport($fileList);
     }
 
-    $data = put("/bookings/$id/end", $payload); 
+    $data = put("/bookings/$booking/end", $payload); 
     if($data) {
       // This is a special use-case
       // for getting to the receipt
-      if(put("/bookings/$id/complete")) {
+      if(put("/bookings/$booking/complete")) {
         load('/receipt.php');
         exit;
       }

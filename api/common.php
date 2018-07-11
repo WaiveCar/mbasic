@@ -110,9 +110,8 @@ function showerror() {
 }
 
 $whoami = false;
-function me($nocache = false) {
-  global $whoami;
-  if(!$whoami || $nocache) {
+function me($opts = []) {
+  if(!$whoami || aget($opts, 'nocache')) {
     $whoami = get('/users/me');
     if(!empty($whoami['code']) && $whoami['code'] === 'AUTH_INVALID_TOKEN') {
       return false;
@@ -122,6 +121,14 @@ function me($nocache = false) {
       $whoami['booking_id'] = $whoami['booking']['id'];
     }
   } 
+
+  if( aget($opts, 'withcar') && 
+      !aget($whoami, 'car') && 
+      aget($whoami, 'booking_id')
+  ) {
+    $whoami['car'] = $car = car_info($whoami['booking']['carId']);
+  }
+
   return $whoami;
 }
 
@@ -282,12 +289,27 @@ function hasFlag($what) {
   return strpos($me['booking']['flags'], $what) !== false;
 }
 
+// dot notation array get 
+function aget($source, $keyList) {
+  if(!is_array($keyList)) {
+    $keyList = explode('.', $keyList);
+  }
+  $key = array_shift($keyList);
+
+  if($source && isset($source[$key])) {
+    if(count($keyList) > 0) {
+      return aget($source, $keyList);
+    } 
+    return $source[$key];
+  }
+}
+
 function getstate($nocache = false) {
-  $me = me($nocache);
+  $me = me(['nocache' => $nocache]);
 
   $from = $_SERVER['SCRIPT_NAME'];
   $to = false;
-  if(!$me || (isset($me['code']) && $me['code'] === "INVALID_TOKEN")) {
+  if(!$me || aget($me, 'code') === "INVALID_TOKEN") {
     $to = '/index.php';
   } else if($me['booking']) {
     if($me['booking']['status'] === 'reserved') {

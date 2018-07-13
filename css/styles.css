@@ -109,8 +109,8 @@ a:active {
   display: inline-block;
   padding: 4px;
   border: 1px solid blue;
+  background: rgba(0,0,255,0.03);
   color: blue;
-  background: white;
 }
 
 .action-list {
@@ -186,13 +186,29 @@ a:active {
   width: 98%;
   padding: 2% 0;
 }
+.preferred {
+  color: rgb(0,64,0);
+  background: rgba(0,127,0,0.1);
+  font-size: 105%;
+  border-color: green;
+}
 .primary {
   border-width: 2px;
   font-weight: 600;
 }
+a.ignored {
+  color: grey;
+  border-color: grey;
+  background: white;
+}
+.ignored:active {
+  background: lightgrey;
+  box-shadow: 0 0 0px 5px grey;
+}
 a.danger {
   color: red;
   border: 1px solid red;
+  background: rgba(230,0,0,0.05);
 }
 .danger:active {
   color: white;

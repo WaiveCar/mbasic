@@ -219,8 +219,8 @@ function cancel($booking) {
   return tis(del("/bookings/$booking"));
 }
 
-function extend($booking) {
-  return tis(put("/bookings/$booking/extend"));
+function extend($booking, $howmuch) {
+  return tis(put("/bookings/$booking/extend?howmuch=$howmuch"));
 }
 
 function start($booking) {

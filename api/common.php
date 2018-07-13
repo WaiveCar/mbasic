@@ -244,11 +244,11 @@ function car_info($car) {
 }
 
 function lock($car) {
-  return put("/cars/$car/lock");
+  return get("/cars/$car/lock");
 }
 
 function unlock($car) {
-  return put("/cars/$car/unlock");
+  return get("/cars/$car/unlock");
 }
 
 function uploadFiles($list = false) {

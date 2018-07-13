@@ -251,6 +251,10 @@ function unlock($car) {
   return get("/cars/$car/unlock");
 }
 
+function money($amount) {
+  printf("$%.2f", round($amount / 100, 2));
+}
+
 function uploadFiles($list = false) {
   $res = [];
   $host = getHost();

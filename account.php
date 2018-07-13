@@ -19,7 +19,7 @@ doheader('Your Account');
   <? } ?>
     <li>Email: <?= $me['email']?> </li>
     <li>Phone: <?= $me['phone']?> </li>
-    <li>Credit: $<?= round($me['credit'] / 100, 2) ?></li>
+    <li>Credit: <?= money($me['credit']) ?></li>
     <li>Your account is <?= $me['status'] ?>.
   </ul>
 

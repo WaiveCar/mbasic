@@ -28,7 +28,7 @@ doheader('Get to Your WaiveCar');
     <? if ($isExtended) {?> 
       Reservation Extended
     <? } else { ?>
-      <a href="api/carcontrol.php?action=extend">Extend Reservation 10 minutes for $1.00</a>
+      <a href="api/carcontrol.php?action=extend">Need more time? Extend your reservation</a>
     <? } ?> 
     </p>
 

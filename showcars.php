@@ -14,9 +14,14 @@ $carList = array_filter($carList, function($m) use ($region) {
   return $m['groupCar'][0]['groupRoleId'] === $region;
 });
 $arrow = ['near' => '', 'range'=> '', 'name' => '', 'show' => ''];
+
 $mapOpts = [];
 if(empty($_GET['sort'])) {
   $_GET['sort'] = 'none';
+}
+
+if(isLevel()) {
+  $mapOpts['level'] = true;
 }
 
 if($_GET['sort'] === 'range') {

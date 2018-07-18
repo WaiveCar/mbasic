@@ -42,9 +42,7 @@ function curldo($url, $params = false, $verb = false, $opts = []) {
       $header[] = 'Content-Type: multipart/form-data';
     }
     curl_setopt($ch, CURLOPT_POSTFIELDS, $params);  
-    /*
-    $header[] = 'Content-Length: ' . strlen($data_string);
-     */
+    // $header[] = 'Content-Length: ' . strlen($data_string);
   }
 
   if($verb === 'POST') {
@@ -77,6 +75,16 @@ function curldo($url, $params = false, $verb = false, $opts = []) {
     return $resJSON;
   }
   return $res;
+}
+
+$_isLevel = null;
+function isLevel() {
+  global $_isLevel;
+  if(!is_bool($_isLevel)) {
+    $region = getTag('region', 'id');
+    $_isLevel = $region === 7;
+  }
+  return $_isLevel;
 }
 
 function get($url, $params = false) {
@@ -201,7 +209,8 @@ function tis($what) {
     return $what['status'] === 'success';
   } else {
     if(!empty($what['message'])) {
-      $_SESSION['lasterror'] = $what['message'];
+      $parts = preg_split('/\t/', $what['message']);
+      $_SESSION['lasterror'] = $parts[0];
     }
   }
 } 
@@ -326,7 +335,11 @@ function getstate($nocache = false) {
         //$to = '/startbooking.php';
       }
     } else if($me['booking']['status'] === 'ended') {
-      $to = '/endbooking.php';
+      if(!isLevel()) {
+        $to = '/endbooking.php';
+      } else {
+        $to = '/receipt.php';
+      }
     } 
   } else {
     $to = '/showcars.php';
@@ -370,30 +383,42 @@ function getMap($carList, $opts = []) {
     $opts['zoom'] = 14;
   }
 
-  foreach($carList as $row) {
-    if($row['range'] < 40) {
-      $color = 'red';
-    } else if($row['range'] < 60) {
-      $color = 'orange';
-    } else if($row['range'] < 80) {
-      $color = 'yellow';
-    } else if($row['range'] < 110) {
-      $color = '0x779900';
-    } else {
-      $color = '0x00AA00';
+  if(!isset($opts['level'])) {
+    foreach($carList as $row) {
+      if($row['range'] < 40) {
+        $color = 'red';
+      } else if($row['range'] < 60) {
+        $color = 'orange';
+      } else if($row['range'] < 80) {
+        $color = 'yellow';
+      } else if($row['range'] < 110) {
+        $color = '0x779900';
+      } else {
+        $color = '0x00AA00';
+      }
+      $qmap[] = "markers=color:$color%7Clabel:${labelGuide[$ix]}%7C${row['latitude']},${row['longitude']}";
+      $ix++;
     }
-    $qmap[] = "markers=color:$color%7Clabel:${labelGuide[$ix]}%7C${row['latitude']},${row['longitude']}";
-    $ix++;
   }
 
   $locationList = get('/locations');
   foreach($locationList as $location) {
-    if($location['type'] === 'zone') {
-      $loc = implode('|', array_map(
-        function($a) { return "${a[1]},${a[0]}"; },
-        $location['shape']
-      ));
-      $qmap[] = 'path=fillcolor:0x00AA0050|weight:0|' . $loc;
+    // brooklyn level parking is 1246 ... I know it's not a great method
+    if(isset($opts['level'])) {
+      if($location['id'] == 1246) {
+        $qmap[] = "markers=color:green%7C${location['latitude']},${location['longitude']}";
+        if(!$center) {
+          $center = 'center=' . $location['latitude'] . "," . $location['longitude'] . '&';
+        }
+      }
+    } else {
+      if($location['type'] === 'zone') {
+        $loc = implode('|', array_map(
+          function($a) { return "${a[1]},${a[0]}"; },
+          $location['shape']
+        ));
+        $qmap[] = 'path=fillcolor:0x00AA0050|weight:0|' . $loc;
+      }
     }
   }
   $params = implode("&", $qmap);

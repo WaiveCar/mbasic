@@ -74,7 +74,13 @@ if($me['booking_id']) {
   }
   if($action === 'end4realz') {
     tis(put("/bookings/$booking/canend"));
-    load('/endbooking.php');
+    if(!isLevel()) {
+      load('/endbooking.php');
+    } else {
+      finish($me['booking_id']);
+      complete($me['booking_id']);
+      load('/receipt.php');
+    }
   }
 
   if($action === 'finish') {

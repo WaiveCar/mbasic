@@ -1,6 +1,11 @@
 <?
 include('api/common.php');
 
+$me = me();
+if($me['booking_id']){
+  complete($me['booking_id']);
+}
+
 doheader('Complete Booking');
 ?>
   <div class='box'>

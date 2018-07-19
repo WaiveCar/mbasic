@@ -22,6 +22,11 @@ ob_end_flush();
 flush();
 
 $me = me();
+if($action === 'generic') {
+  $res = $_GET['params'];
+  tis(curldo($res['url'], $res['params'], $res['verb']));
+}
+
 if($action === 'reload') {
   header('Location: gettocar.php');
   exit;

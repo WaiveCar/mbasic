@@ -22,9 +22,11 @@ function curldo($url, $params = false, $verb = false, $opts = []) {
   if($verb === false) {
     // this is a problem
   }
+  $verb = strtoupper($verb);
   $HOST = getHost();
 
   $ch = curl_init();
+  $url = '/' . ltrim($url, '/');
 
   $header = [];
   if(isset($_SESSION['token'])) {
@@ -56,9 +58,8 @@ function curldo($url, $params = false, $verb = false, $opts = []) {
   curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 
   $res = curl_exec($ch);
-  /*
-  var_dump(curl_getinfo ($ch));
   
+  /*
   $tolog = json_encode([
       'verb' => $verb,
       'header' => $header,
@@ -66,6 +67,8 @@ function curldo($url, $params = false, $verb = false, $opts = []) {
       'params' => $params,
       'res' => $res
   ]);
+  var_dump(['>>>', curl_getinfo ($ch), json_decode($tolog, true)]);
+  
 
   file_put_contents('/tmp/log.txt', $tolog, FILE_APPEND);
    */
@@ -108,12 +111,25 @@ function del($url, $params = false) {
 
 function showerror() {
   if(isset($_SESSION['lasterror'])) {
-    ?>
-    <div class='error box'>
-      <?= $_SESSION['lasterror'] ?>
-    </div>
-    <? 
+    echo "<div class='error box'>";
+    echo $_SESSION['lasterror'];
+
+    if(isset($_SESSION['options'])) { 
+      foreach($_SESSION['options'] as $option) { 
+        if(is_string($option['action']['params'])) {
+          $option['action']['params'] = json_decode($option['action']['params'], true);
+        }
+        $qstr = http_build_query([
+          'action' => 'generic',
+          'params' => $option['action']
+        ]);
+        echo "<a class='button' href='/api/carcontrol.php?$qstr'>${option['title']}</a>";
+       }
+    }
+    echo '</div>';
+
     unset($_SESSION['lasterror']);
+    unset($_SESSION['options']);
   }
 }
 
@@ -121,7 +137,10 @@ $whoami = false;
 function me($opts = []) {
   if(!$whoami || aget($opts, 'nocache')) {
     $whoami = get('/users/me');
-    if(!empty($whoami['code']) && $whoami['code'] === 'AUTH_INVALID_TOKEN') {
+    if(!empty($whoami['code']) && (
+      $whoami['code'] === 'AUTH_INVALID_TOKEN' ||
+      $whoami['code'] === 'INVALID_TOKEN'
+    )) {
       return false;
     }
     $whoami['booking_id'] = false;
@@ -211,6 +230,9 @@ function tis($what) {
     if(!empty($what['message'])) {
       $parts = preg_split('/\t/', $what['message']);
       $_SESSION['lasterror'] = $parts[0];
+      if(!empty($what['options'])) {
+        $_SESSION['options'] = $what['options'];
+      }
     }
   }
 } 

@@ -3,6 +3,8 @@ include('api/common.php');
 $me = me();
 if($me['booking_id']){
   $car = car_info($me['booking']['carId']);
+} else {
+  load('/showcars.php');
 }
 doheader('End Booking');
 ?>

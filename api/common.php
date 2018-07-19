@@ -111,8 +111,11 @@ function del($url, $params = false) {
 
 function showerror() {
   if(isset($_SESSION['lasterror'])) {
-    echo "<div class='error box'>";
-    echo $_SESSION['lasterror'];
+   ?>
+   <div class='error box'>
+   <p><?= $_SESSION['lasterror'] ?></p>
+   <div>
+    <?
 
     if(isset($_SESSION['options'])) { 
       foreach($_SESSION['options'] as $option) { 
@@ -126,6 +129,7 @@ function showerror() {
         echo "<a class='button' href='/api/carcontrol.php?$qstr'>${option['title']}</a>";
        }
     }
+    echo "</div>";
     echo '</div>';
 
     unset($_SESSION['lasterror']);
@@ -489,13 +493,14 @@ function doheader($title, $showaccount=true) {
 function actionList($base, $list) {
 ?>
   <div class='action-list'>
-  <? foreach($list as $row) { 
-    $klass = '';
-    if(count($row) == 3) {
-      $klass = " wid-${row[2]}";
-    }
-  ?>
-    <a class="button<?=$klass?>" href="<?= $base ?>?action=<?= $row[0] ?>"><?= $row[1] ?></a>
+  <? 
+    foreach($list as $row) { 
+      $klass = '';
+      if(count($row) == 3) {
+        $klass = " wid-${row[2]}";
+      }
+      ?>
+      <a class="button<?= $klass ?>" href="<?= $base ?>?action=<?= $row[0] ?>"><?= $row[1] ?></a>
   <? } ?>
   </div>
 <?

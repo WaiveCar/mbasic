@@ -7,7 +7,7 @@ if($me['booking_id']){
 }
 $started = $me['booking']['details'][0]['createdAt'];
 $inBooking = strtotime('now') - strtotime($started);
-$minutes = floor($inBooking/60);
+$minutes = ceil($inBooking/60);
 $seconds = $inBooking % 60;
 doheader('Current Booking');
 ?>

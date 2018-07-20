@@ -76,7 +76,7 @@ doheader('Find Cars');
 -->
     <img src="<?=getMap($carList, $mapOpts)?>">
     <div  id='sorter'>
-    <a class="needsjs" href="prompt.php?prompt=Please enter your zip code&var=zip" onclick=nearest();><?= $arrow['near'] ?>Nearest</a> <a href="?sort=range"><?= $arrow['range'] ?>Range</a> <a href="?sort=name"><?= $arrow['name'] ?>Name</a> <a href="?sort=range&show=5"><?= $arrow['show'] ?>Best 5</a>
+    <a class="needsjs" href="prompt.php?prompt=Please enter your zip code&var=zip" onclick="nearest();"><?= $arrow['near'] ?>Nearest</a> <a href="?sort=range"><?= $arrow['range'] ?>Range</a> <a href="?sort=name"><?= $arrow['name'] ?>Name</a> <a href="?sort=range&show=5"><?= $arrow['show'] ?>Best 5</a>
     </div>
   </div>
 
@@ -103,8 +103,8 @@ foreach($carList as $key => $car) {
         <div class='car-distance'>
           <? printf("%.2f", $car['dist']) ?>mi away
         </div>
-      <? } ?>
-    </div>
+      <? } 
+  ?></div>
     <?= location_link($car) ?>
   </li>
 <? 

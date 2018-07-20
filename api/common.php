@@ -111,29 +111,38 @@ function del($url, $params = false) {
 
 function showerror() {
   if(isset($_SESSION['lasterror'])) {
+   $err = $_SESSION['lasterror'];
    ?>
-   <div class='error box'>
-   <p><?= $_SESSION['lasterror'] ?></p>
-   <div>
-    <?
 
-    if(isset($_SESSION['options'])) { 
-      foreach($_SESSION['options'] as $option) { 
-        if(is_string($option['action']['params'])) {
-          $option['action']['params'] = json_decode($option['action']['params'], true);
+   <div class='error box'>
+   <? if (!empty($err['title'])) { ?>
+     <div class='title'><?= $err['title'] ?></div>
+   <? } ?>
+
+     <div class='content'>
+      <div class='message'><?= $err['message'] ?></div>
+      <?
+
+      if(isset($err['options'])) { 
+        echo '<div class="options">';
+
+        foreach($err['options'] as $option) { 
+          if(is_string($option['action']['params'])) {
+            $option['action']['params'] = json_decode($option['action']['params'], true);
+          }
+          $qstr = http_build_query([
+            'action' => 'generic',
+            'params' => $option['action']
+          ]);
+          echo "<a class='button' href='/api/carcontrol.php?$qstr'>${option['title']}</a>";
         }
-        $qstr = http_build_query([
-          'action' => 'generic',
-          'params' => $option['action']
-        ]);
-        echo "<a class='button' href='/api/carcontrol.php?$qstr'>${option['title']}</a>";
-       }
-    }
-    echo "</div>";
-    echo '</div>';
+        echo '</div>'; // options
+      }
+      echo '</div>'; // content
+
+    echo '</div>'; // box
 
     unset($_SESSION['lasterror']);
-    unset($_SESSION['options']);
   }
 }
 
@@ -229,15 +238,17 @@ function tis($what) {
   if(!$what || is_string($what)) {
     return false;
   }
-  if(array_key_exists('status', $what)) {
-    return $what['status'] === 'success';
-  } else {
+  if(!array_key_exists('status', $what)) {
     if(!empty($what['message'])) {
       $parts = preg_split('/\t/', $what['message']);
-      $_SESSION['lasterror'] = $parts[0];
-      if(!empty($what['options'])) {
-        $_SESSION['options'] = $what['options'];
-      }
+
+      $_SESSION['lasterror'] = [ 
+        'message' => $parts[0],
+        'options' => aget($what, 'options'),
+        'title' => aget($what, 'title', 'Notice') 
+      ];
+
+      return false;
     }
   }
   return $what;
@@ -331,7 +342,7 @@ function hasFlag($what) {
 }
 
 // dot notation array get 
-function aget($source, $keyList) {
+function aget($source, $keyList, $default = null) {
   if(!is_array($keyList)) {
     $keyList = explode('.', $keyList);
   }
@@ -343,6 +354,8 @@ function aget($source, $keyList) {
     } 
     return $source[$key];
   }
+
+  return $default;
 }
 
 function getstate($nocache = false) {
@@ -480,15 +493,16 @@ function doheader($title, $showaccount=true) {
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title><?= $title ?></title>
+<link rel="shortcut icon" href="img/circle-logo_32.gif">
 <link rel="stylesheet" href="/css/styles.css">
 </head>
 
 <body>
   <? if ($showaccount) { 
     echo "<a href='/account.php' id='account-link'>Your Account</a>";
-   } 
+  } 
   showerror();
 }
 

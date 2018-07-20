@@ -227,15 +227,32 @@ a.danger {
   margin: 0 0 0 10px;
 }
 .box.error {
-  background: rgb(255,216,216);
+  background: rgb(255,216,216, 0.4);
   font-weight: 400;
+  padding: 0;
+  width: auto;
+}
+.error .content {
   padding: 0.5em;
+}
+.error .message {
+  margin: 0.75em 0;
+}
+.error .options {
+  text-align: right;
+}
+.error .title {
+  background: rgb(216,127,127);
+  padding: 0.5em;
+  font-weight: bold;
+  color: #fff;
 }
 .error p {
   margin: 0 0 0.5em;
 }
 .error a.button {
   padding: 0.25em 0.5em;
+  background: rgba(255,255,255,0.4);
 }
 .fuel-meter {
   width: 100%;

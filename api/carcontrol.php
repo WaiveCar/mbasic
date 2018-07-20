@@ -86,18 +86,25 @@ if($me['booking_id']) {
     ]);
   }
   if($action === 'end4realz') {
-    echo '<pre style="text-align:left;font-size:10px">';
-    var_dump(put("/bookings/$booking/canend"));
     $res = tis(put("/bookings/$booking/canend"));
-    var_dump($res);
-    exit;
 
-    if(!isLevel()) {
-      load('/endbooking.php');
-    } else {
-      finish($me['booking_id']);
-      complete($me['booking_id']);
-      load('/receipt.php');
+    // this is not false if the user can end here.
+    if($res) {
+
+      // if we aren't a level car or if we are ending 
+      // in a zone then just load the end booking
+      if(!isLevel() && aget($res,'type') === 'zone') {
+        load('/endbooking.php');
+      } else {
+        // otherwise we either are a level car or we're
+        // ending in a valid place which is not a zone 
+        // (thus a homebase hub or charging station)
+        // and we can skip things.
+        finish($me['booking_id']);
+        complete($me['booking_id']);
+        load('/receipt.php');
+      } 
+      exit;
     }
   }
 

@@ -37,7 +37,15 @@ if($action === 'reserve') {
 
 
 if($me['booking_id']) {
+
   $booking = $me['booking_id'];
+  $carId = $me['booking']['carId'];
+
+  if($action === 'lock' || $action === 'unlock') {
+    $action($carId);
+    getstate();
+    exit;
+  }
 
   if($action === 'extend4realz') {
     extend($booking, $_GET['howmuch']);
@@ -78,7 +86,12 @@ if($me['booking_id']) {
     ]);
   }
   if($action === 'end4realz') {
-    tis(put("/bookings/$booking/canend"));
+    echo '<pre style="text-align:left;font-size:10px">';
+    var_dump(put("/bookings/$booking/canend"));
+    $res = tis(put("/bookings/$booking/canend"));
+    var_dump($res);
+    exit;
+
     if(!isLevel()) {
       load('/endbooking.php');
     } else {

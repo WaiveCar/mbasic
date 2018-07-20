@@ -139,6 +139,7 @@ function showerror() {
 
 $whoami = false;
 function me($opts = []) {
+  global $whoami;
   if(!$whoami || aget($opts, 'nocache')) {
     $whoami = get('/users/me');
     if(!empty($whoami['code']) && (
@@ -239,6 +240,7 @@ function tis($what) {
       }
     }
   }
+  return $what;
 } 
 
 function reserve($car) {
@@ -279,11 +281,11 @@ function car_info($car) {
 }
 
 function lock($car) {
-  return get("/cars/$car/lock");
+  return put("/cars/$car/lock");
 }
 
 function unlock($car) {
-  return get("/cars/$car/unlock");
+  return put("/cars/$car/unlock");
 }
 
 function money($amount) {

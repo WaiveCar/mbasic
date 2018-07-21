@@ -512,13 +512,13 @@ function doheader($title, $showaccount=true) {
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title><?= $title ?></title>
-<link rel="shortcut icon" href="img/circle-logo_32.gif">
+<link rel="shortcut icon" href="/img/circle-logo_32.gif">
 <link rel="stylesheet" href="/css/styles.css">
 </head>
 
 <body>
   <? if ($showaccount) { 
-    echo "<a href='/account.php' id='account-link'>Your Account</a>";
+    echo "<div id='acnt'><a href='me.php'>Your Account</a></div>";
   } 
   showerror();
 }
@@ -555,7 +555,7 @@ function showLocation($car) {
   $location = location($car);
   echo "<div class='map'>";
   getMap([$car], ['zoom' => 13]); 
-  echo "<a target='_blank' href='https://maps.google.com/maps/?q=${car['latitude']},${car['longitude']}+(${car['license']})'> $location</a>";
+  echo "<br/><a target='_blank' href='https://maps.google.com/maps/?q=${car['latitude']},${car['longitude']}+(${car['license']})'>$location</a>";
   echo "</div>";
 }
 

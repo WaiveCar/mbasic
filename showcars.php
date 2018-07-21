@@ -69,13 +69,12 @@ doheader('Find Cars');
 ?>
 
   <div class='map'>
-<!--
-    <div id='map-control'>
-      <a href="">&#xFF0B;</a><a href="">&#65293;</a>
+
+    <div class='content'>
+      <? getMap($carList, $mapOpts); ?>
+
     </div>
--->
-    <img src="<?=getMap($carList, $mapOpts)?>">
-    <div  id='sorter'>
+    <div id='sorter'>
     <a class="needsjs" href="prompt.php?prompt=Please enter your zip code&var=zip" onclick="nearest();"><?= $arrow['near'] ?>Nearest</a> <a href="?sort=range"><?= $arrow['range'] ?>Range</a> <a href="?sort=name"><?= $arrow['name'] ?>Name</a> <a href="?sort=range&show=5"><?= $arrow['show'] ?>Best 5</a>
     </div>
   </div>

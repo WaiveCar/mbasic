@@ -42,13 +42,6 @@ a:active {
   color: white;
   box-shadow: 0 0 0px 5px blue;
 }
-#map-controls {
-  background: rgba(127,127,127,0.4);
-  position: absolute;
-}
-#map-controls a {
-  color: black;
-}
 .isolated {
   padding: 0.25em;
   margin: 1em;
@@ -82,18 +75,42 @@ a:active {
   text-align: center;
   width: 100%;
   margin-bottom: 8px;
+  position: relative;
+}
+.map .nop {
+  width: 400px;
+  height: 300px;
+  box-shadow: inset 0px 0px 2px #777;
+  background: url('/img/circle-logo_32.gif') no-repeat;
+  background-position: center;
 }
 .map img {
-  margin-top: 6px;
   min-height: 150px;
   max-width: 100%;
-  background-image: url('/img/ajax-loader.gif');
-  background-repeat: no-repeat;
+  background: url('/img/ajax-loader.gif') no-repeat;
   background-attachment: fixed;
   background-position: center; 
 }
 .map span {
   display: block;
+}
+.map .content {
+  display: inline-block;
+  margin-top: 6px;
+}
+.map-controls {
+  position: relative;
+  text-align: left;
+  background: pink;
+  top: 3px;
+  height: 0;
+}
+.map-controls a {
+  color: black;
+  background: rgba(240,240,255,0.9);
+  box-shadow: inset 0px 0px 1px #222;
+  padding: 3px 8px;
+  margin: 0 0.5em 0 0;
 }
 #account-link {
   position: absolute;

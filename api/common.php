@@ -389,8 +389,15 @@ function getstate($nocache = false) {
 
 }
 
+function goback() {
+  load($_SERVER['HTTP_REFERER']);
+  exit;
+}
+
 function load($ep) {
-  $ep = '/' . ltrim($ep, '/');
+  if(strpos($ep, 'http') !== 0) {
+    $ep = '/' . ltrim($ep, '/');
+  }
   @header("Location: $ep");
   ?>
   <meta http-equiv='refresh' content='0; url=<?= $ep ?>'>
@@ -402,6 +409,27 @@ function load($ep) {
 }
 
 function getMap($carList, $opts = []) {
+  $hide = aget($_SESSION, 'hide');
+  $verb = $hide ? 'show' : 'hide';
+  ?>
+  <div class='content'>
+    <div class='map-controls'>
+      <a href="api/control.php?action=<?= $verb ?>"><?= ucfirst($verb) ?></a>
+      <? /*
+       if (!$hide) { ?>
+        <a class='zoom' href="">&#xFF0B;</a><a class='zoom' href="">&#x2014;</a> 
+      <? }*/ ?>
+    </div>
+
+    <? if (!$hide) { ?>
+      <img src="<?=getMapUrl($carList, $mapOpts)?>">
+    <? } else { ?>
+      <img class='nop'>
+    <? } ?>
+  </div> <?
+}
+
+function getMapUrl($carList, $opts = []) {
   $key = 'AIzaSyBibUDNVBjFAKpwyPcZirJW4qHq2W2OO8M';//'AIzaSyD3Bf8BTFI_z00lrxWdReV4MpaqnQ8urzc';
 
   global $labelGuide;
@@ -530,11 +558,13 @@ function getTag($what, $field = false) {
 
 function showLocation($car) {
   $location = location($car);
-  echo "<a target='_blank' class='map' href='https://maps.google.com/maps/?q=${car['latitude']},${car['longitude']}+(${car['license']})'>";
+  echo "<div class='map'>";
+  echo "<a target='_blank' href='https://maps.google.com/maps/?q=${car['latitude']},${car['longitude']}+(${car['license']})'>";
   ?>
-      <span> <?= $location ?> </span>
-      <img src="<?=getMap([$car], ['zoom' => 13])?>">
+      <span> <?= $location ?> </span></a>
+      <? getMap([$car], ['zoom' => 13]); ?>
     </a>
+  </div>
   <?
 }
 

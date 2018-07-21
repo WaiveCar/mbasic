@@ -17,7 +17,9 @@ $arrow = ['near' => '', 'range'=> '', 'name' => '', 'show' => ''];
 
 $mapOpts = [];
 if(empty($_GET['sort'])) {
-  $_GET['sort'] = 'none';
+  $_GET['sort'] = aget($_SESSION, 'sort', 'none');
+} else {
+  $_SESSION['sort'] = $_GET['sort'];
 }
 
 if(isLevel()) {

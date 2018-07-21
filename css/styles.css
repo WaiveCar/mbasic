@@ -37,9 +37,9 @@ small {
 ol  {
   padding-left: 22px;
 }
-a:active {
+a:active, a.btn:active {
   background: blue;
-  color: white;
+  color: white !important;
   box-shadow: 0 0 0px 5px blue;
 }
 .isolated {
@@ -74,12 +74,9 @@ a:active {
   background: white;
   text-align: center;
   width: 100%;
-  margin-bottom: 8px;
   position: relative;
 }
 .map .nop {
-  width: 400px;
-  height: 300px;
   box-shadow: inset 0px 0px 2px #777;
   background: url('/img/circle-logo_32.gif') no-repeat;
   background-position: center;
@@ -88,7 +85,6 @@ a:active {
   min-height: 150px;
   max-width: 100%;
   background: url('/img/ajax-loader.gif') no-repeat;
-  background-attachment: fixed;
   background-position: center; 
 }
 .map span {
@@ -101,26 +97,19 @@ a:active {
 .map-controls {
   position: relative;
   text-align: left;
-  background: pink;
-  top: 3px;
   height: 0;
 }
 .map-controls a {
-  color: black;
   background: rgba(240,240,255,0.9);
   box-shadow: inset 0px 0px 1px #222;
+  border-width: 0;
   padding: 3px 8px;
   margin: 0 0.5em 0 0;
 }
 #account-link {
   position: absolute;
   top: 0;
-  right: 0;
-  color: #44a;
-  padding: 0px 5px 2px;
-}
-#account-link:active {
-  color: white;
+  right: 5px;
 }
 .btn {
   text-align: center;
@@ -176,10 +165,10 @@ a:active {
   display:block;
   text-align: left;
   background: #fff;
-  padding: 2%;
-  margin-bottom: 3px;
+  padding: 8px;
+  margin-top: 4px;
   line-height: 28px;
-  width: 96%;
+  width: auto;
 }
 .car-row a {
   line-height: 15px;
@@ -228,8 +217,7 @@ a.danger {
   border: 1px solid red;
   background: rgba(230,0,0,0.05);
 }
-.danger:active {
-  color: white;
+a.danger:active {
   background: rgb(255,0,0);
   box-shadow: 0 0 0px 5px red;
 }
@@ -268,7 +256,7 @@ a.danger {
 .error p {
   margin: 0 0 0.5em;
 }
-.error a.btn {
+.error .btn {
   padding: 0.25em 0.5em;
   background: rgba(255,255,255,0.4);
 }

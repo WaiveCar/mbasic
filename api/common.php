@@ -414,7 +414,7 @@ function getMap($carList, $opts = []) {
   ?>
   <div class='content'>
     <div class='map-controls'>
-      <a href="api/control.php?action=<?= $verb ?>"><?= ucfirst($verb) ?></a>
+      <a class='btn' href="api/control.php?action=<?= $verb ?>"><?= ucfirst($verb) ?></a>
       <? /*
        if (!$hide) { ?>
         <a class='zoom' href="">&#xFF0B;</a><a class='zoom' href="">&#x2014;</a> 
@@ -424,7 +424,7 @@ function getMap($carList, $opts = []) {
     <? if (!$hide) { ?>
       <img src="<?=getMapUrl($carList, $opts)?>">
     <? } else { ?>
-      <img class='nop'>
+      <img class='nop' src='img/blank.png'>
     <? } ?>
   </div> <?
 }

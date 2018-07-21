@@ -422,7 +422,7 @@ function getMap($carList, $opts = []) {
     </div>
 
     <? if (!$hide) { ?>
-      <img src="<?=getMapUrl($carList, $mapOpts)?>">
+      <img src="<?=getMapUrl($carList, $opts)?>">
     <? } else { ?>
       <img class='nop'>
     <? } ?>

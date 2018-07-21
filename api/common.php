@@ -115,9 +115,7 @@ function showerror() {
    ?>
 
    <div class='error box'>
-   <? if (!empty($err['title'])) { ?>
      <div class='title'><?= $err['title'] ?></div>
-   <? } ?>
 
      <div class='content'>
       <div class='message'><?= $err['message'] ?></div>

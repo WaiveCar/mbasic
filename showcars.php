@@ -87,8 +87,8 @@ doheader('Find Cars');
 foreach($carList as $key => $car) { 
 ?>
   <li>
-    <a class='btn' href="api/carcontrol.php?action=reserve&car=<?= $car['id']; ?>">Reserve</a> 
     <h3><?= ucfirst(strtolower($car['license'])); ?></h3> 
+    <a class='btn' href="book/<?= $car['id']; ?>">Reserve</a> 
     <div>
       <div class='car-label'>
         (<?= $labelGuide[$ix] ?>) <?= round($car['range']); ?>mi charge

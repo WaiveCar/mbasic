@@ -19,16 +19,15 @@ if($me['booking']['flags']) {
 doheader('Get to Your WaiveCar');
 ?>
   <div class='box gettocar'>
-  <h1><?= $car['license']; ?></h1>
     <?= showLocation($car) ?> 
     <h4>
-    You have <b><?= $minutes ?>min</b> to get to <?= $car['license']; ?>
+    <b><?= $minutes ?>min</b> left to get to <?= $car['license']; ?>
     </h4>
     <p align='center'>
     <? if ($isExtended) {?> 
       Reservation Extended
     <? } else { ?>
-      <a href="api/carcontrol.php?action=extend">Need more time? Extend your reservation</a>
+      Need longer? <a href="api/carcontrol.php?action=extend">Extend your reservation</a>.
     <? } ?> 
     </p>
 

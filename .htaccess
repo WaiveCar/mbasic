@@ -1,0 +1,2 @@
+RewriteEngine On
+RewriteRule ^book/(.*)$ /api/carcontrol.php?action=reserve&car=$1 [R=301,L]

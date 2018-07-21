@@ -40,7 +40,7 @@ doheader('End Booking');
 
     <p>When finished, remove your belongings, close the doors, and tap "End Ride"</p>
 
-    <input class='button wid-1' type="submit" value="End Ride">
+    <input class='btn wid-1' type="submit" value="End Ride">
   </form>
 
 </div>

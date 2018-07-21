@@ -15,7 +15,7 @@ doheader('Complete Booking');
     You'll be getting a receipt by email for your booking today.
     </p>
 
-    <a class='button wid-1' href="showcars.php">Find Available WaiveCars</a>
+    <a class='btn wid-1' href="showcars.php">Find Available WaiveCars</a>
   </div>
 
 </body>

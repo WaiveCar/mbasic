@@ -19,7 +19,7 @@
           if(count($row) > 2) {
             $klass = $row[2];
           }
-          echo "<a class='button $klass' href='${row[1]}'>${row[0]}</a>";
+          echo "<a class='btn $klass' href='${row[1]}'>${row[0]}</a>";
         }
       ?> 
     </p>

@@ -79,7 +79,7 @@ doheader('Find Cars');
     </div>
   </div>
 
-  <ul>
+  <ul class='car-row'>
 <? if(count($carList) === 0) { ?>
     <li class='car-row'>
       <h1>No WaiveCars are currently available.</h1>
@@ -88,15 +88,13 @@ doheader('Find Cars');
 <? } else {
 foreach($carList as $key => $car) { 
 ?>
-  <li class='car-row'>
-    <a class='button' href="api/carcontrol.php?action=reserve&car=<?= $car['id']; ?>">Reserve</a> 
-    <div class='car-name'><?= ucfirst(strtolower($car['license'])); ?></div> 
+  <li>
+    <a class='btn' href="api/carcontrol.php?action=reserve&car=<?= $car['id']; ?>">Reserve</a> 
+    <h3><?= ucfirst(strtolower($car['license'])); ?></h3> 
     <div>
       <div class='car-label'>
         (<?= $labelGuide[$ix] ?>) <?= round($car['range']); ?>mi charge
-        <div class='fuel-meter'>
-          <div class='fuel-amount' style='width: <?=$car['range'] * 100 / 140?>%' ></div>
-        </div>
+        <div class='fuel'><div style='width:<?=round($car['range'] * 100 / 140, 2)?>%'></div></div>
       </div> 
       <? if (!empty($car['dist'])) { ?>
         <div class='car-distance'>
@@ -104,8 +102,7 @@ foreach($carList as $key => $car) {
         </div>
       <? } 
   ?></div>
-    <?= location_link($car) ?>
-  </li>
+    <?= location_link($car) ?></li>
 <? 
 $ix++;
   } 

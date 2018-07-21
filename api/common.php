@@ -132,7 +132,7 @@ function showerror() {
             'action' => 'generic',
             'params' => $option['action']
           ]);
-          echo "<a class='button' href='/api/carcontrol.php?$qstr'>${option['title']}</a>";
+          echo "<a class='btn' href='/api/carcontrol.php?$qstr'>${option['title']}</a>";
         }
         echo '</div>'; // options
       }
@@ -403,7 +403,7 @@ function load($ep) {
   <meta http-equiv='refresh' content='0; url=<?= $ep ?>'>
   <script>window.location="<?= $ep ?>";</script>
   <div class='box'>
-    <a class="button wid-1" href="<?= $ep ?>">Continue</a>
+    <a class="btn wid-1" href="<?= $ep ?>">Continue</a>
   </div>
   <?
 }
@@ -504,7 +504,7 @@ function distance($lat1, $lon1, $lat2, $lon2) {
 
 function location_link($obj) {
   $location = location($obj);
-  return "<a target='_blank' class='loc' href='https://maps.google.com/maps/?q=${obj['latitude']},${obj['longitude']}+(${obj['license']})'>$location</a>";
+  return "<a target='_blank' href='//maps.google.com/maps/?q=${obj['latitude']},${obj['longitude']}+(${obj['license']})'>$location</a>";
 }
 
 function doheader($title, $showaccount=true) {
@@ -538,7 +538,7 @@ function actionList($base, $list) {
         $klass = " wid-${row[2]}";
       }
       ?>
-      <a class="button<?= $klass ?>" href="<?= $base ?>?action=<?= $row[0] ?>"><?= $row[1] ?></a>
+      <a class="btn<?= $klass ?>" href="<?= $base ?>?action=<?= $row[0] ?>"><?= $row[1] ?></a>
   <? } ?>
   </div>
 <?

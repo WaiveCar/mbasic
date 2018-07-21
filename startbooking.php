@@ -20,7 +20,7 @@ doheader('Start Booking');
         <input name="image3" type="file" accept="image/*;capture=camera" capture="camera" />
       </div>
 
-      <input class='button wid-1 submit' type="submit" value="Start Ride">
+      <input class='btn wid-1 submit' type="submit" value="Start Ride">
     </form>
 
     <p align="center">

@@ -22,7 +22,7 @@ getstate();
     <form action="api/login.php" method="post">
       <input name="identifier" type="text" placeholder="Email" />
       <input name="password" type="password" placeholder="Password" />
-      <input class='button wid-1' type="submit" value="Login">
+      <input class='btn wid-1' type="submit" value="Login">
     </form>
 
   </div>

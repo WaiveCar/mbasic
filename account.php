@@ -46,7 +46,7 @@ doheader('Your Account');
   You can call or text us at <a href="tel:+18559248355">1 (855) WAIVE-55</a>
   </p>
 
-  <a class='button' href="api/logout.php">Logout</a>
+  <a class='btn' href="api/logout.php">Logout</a>
 </div>
 </body>
 </html>

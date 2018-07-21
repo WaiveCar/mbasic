@@ -199,7 +199,7 @@ function zip2geo($zip) {
 
 function location($obj) {
   global $db; 
-  $qs = implode(',', [round($obj['latitude'],3), round($obj['longitude'],3)]);
+  $qs = implode(',', [round($obj['latitude'] * 2,3)/2, round($obj['longitude'] * 2,3)/2]);
   // we try to check our local cache for this lat/lng (rounded to 3 precision points)
   $location = db_get($qs);
   if(!$location) {
@@ -215,11 +215,7 @@ function location($obj) {
         }
         $location = $resJSON['results'][0]['formatted_address'];
 
-        // this just looks stupid, we know the country
-        $location = str_replace(", USA", "", $location);
-
-        // and the state.
-        $location = str_replace(", CA ", " ", $location);
+        $location = preg_replace('/, [A-Z]{2} \d{5}, USA$/', '', $location);
 
         db_set($qs, $location);
       }
@@ -480,7 +476,7 @@ function distance($lat1, $lon1, $lat2, $lon2) {
 
 function location_link($obj) {
   $location = location($obj);
-  return "<a target='_blank' class='location-link' href='https://maps.google.com/maps/?q=${obj['latitude']},${obj['longitude']}+(${obj['license']})'>$location</a>";
+  return "<a target='_blank' class='loc' href='https://maps.google.com/maps/?q=${obj['latitude']},${obj['longitude']}+(${obj['license']})'>$location</a>";
 }
 
 function doheader($title, $showaccount=true) {

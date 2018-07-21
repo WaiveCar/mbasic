@@ -161,10 +161,11 @@ a:active {
   background: #fff;
   padding: 2%;
   margin-bottom: 3px;
+  line-height: 28px;
   width: 96%;
 }
-.car-row  { 
-  line-height: 28px;
+.car-row a {
+  line-height: 15px;
 }
 .car-row .button {
   float:right;

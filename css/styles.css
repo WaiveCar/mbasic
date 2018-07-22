@@ -56,14 +56,14 @@ a:active, a.btn:active {
 .login h1 {
   margin: 3% 0 8%;
 }
-.login input {
+form input {
   display: block;
   width: 99%;
   font-size: 24px;
   margin: 12px -3px;
   padding: 0.5%; 
 }
-.login input[type="submit"] {
+form input[type="submit"] {
   width: 100%;
 }
 .waive-green {
@@ -221,10 +221,6 @@ a.danger:active {
   background: rgb(255,0,0);
   box-shadow: 0 0 0px 5px red;
 }
-.needsjs {
-  color: #aaa;
-  text-decoration: none;
-}
 #sorter {
   text-align: center;
   margin-right: 10px;
@@ -270,11 +266,6 @@ a.danger:active {
 .fuel div {
   height: 100%;
   background: #7d7;
-}
-.prompt .input {
-  font-size: 14px;
-  width: 100%;
-  margin-top: 14px;
 }
 .submit {
   margin-top: 18px;

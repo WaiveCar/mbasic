@@ -420,11 +420,8 @@ function getMap($carList, $opts = []) {
         <a class='zoom' href="">&#xFF0B;</a><a class='zoom' href="">&#x2014;</a> 
       <? }*/ ?>
     </div>
-
-    <? if (!$hide) { ?>
-      <img src="<?=getMapUrl($carList, $opts)?>">
-    <? } else { ?>
-      <img class='nop' src='img/blank.png'>
+    <? if (!$hide) { ?><img lowsrc='img/blank.png' width=400 src="<?=getMapUrl($carList, $opts)?>">
+    <? } else { ?><img class='nop' src='img/blank.png'>
     <? } ?>
   </div> <?
 }
@@ -511,26 +508,24 @@ function doheader($title, $showaccount=true) {
   $me = me();
 ?>
 <!doctype html>
-
-<html lang="en">
+<html>
 <head>
-<meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title><?= $title ?></title>
-<link rel="shortcut icon" href="img/circle-logo_32.gif">
+<link rel="shortcut icon" href="/img/circle-logo_32.gif">
 <link rel="stylesheet" href="/css/styles.css">
 </head>
 
 <body>
   <? if ($showaccount) { 
-    echo "<a href='/account.php' id='account-link'>Your Account</a>";
+    echo "<div id='acnt'><a href='me.php'>Your Account</a></div>";
   } 
   showerror();
 }
 
 function actionList($base, $list) {
 ?>
-  <div class='action-list'>
+  <ul class='action-list'>
   <? 
     foreach($list as $row) { 
       $klass = '';
@@ -538,9 +533,9 @@ function actionList($base, $list) {
         $klass = " wid-${row[2]}";
       }
       ?>
-      <a class="btn<?= $klass ?>" href="<?= $base ?>?action=<?= $row[0] ?>"><?= $row[1] ?></a>
+      <li><a class="btn<?= $klass ?>" href="<?= $base ?>?action=<?= $row[0] ?>"><?= $row[1] ?></a>
   <? } ?>
-  </div>
+  </ul>
 <?
 }
 
@@ -559,13 +554,9 @@ function getTag($what, $field = false) {
 function showLocation($car) {
   $location = location($car);
   echo "<div class='map'>";
-  echo "<a target='_blank' href='https://maps.google.com/maps/?q=${car['latitude']},${car['longitude']}+(${car['license']})'>";
-  ?>
-      <span> <?= $location ?> </span></a>
-      <? getMap([$car], ['zoom' => 13]); ?>
-    </a>
-  </div>
-  <?
+  getMap([$car], ['zoom' => 13]); 
+  echo "<br/><a target='_blank' href='https://maps.google.com/maps/?q=${car['latitude']},${car['longitude']}+(${car['license']})'>$location</a>";
+  echo "</div>";
 }
 
 function imageList($opts, $list) {

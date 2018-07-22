@@ -16,7 +16,10 @@ $carList = array_filter($carList, function($m) use ($region) {
 $arrow = ['near' => '', 'range'=> '', 'name' => '', 'show' => ''];
 
 $mapOpts = [];
-if(empty($_GET['sort']) && empty($_GET['zip'])) {
+if(!empty($_GET['zip'])) {
+  $_GET['sort'] = 'nearest';
+}
+if(empty($_GET['sort'])) {
   $_GET['sort'] = aget($_SESSION, 'sort', 'none');
 } else {
   $_SESSION['sort'] = $_GET['sort'];
@@ -87,22 +90,17 @@ doheader('Find Cars');
 foreach($carList as $key => $car) { 
 ?>
   <li>
-    <a class='btn' href="api/carcontrol.php?action=reserve&car=<?= $car['id']; ?>">Reserve</a> 
     <h3><?= ucfirst(strtolower($car['license'])); ?></h3> 
-    <div>
-      <div class='car-label'>
-        (<?= $labelGuide[$ix] ?>) <?= round($car['range']); ?>mi charge
-        <div class='fuel'><div style='width:<?=round($car['range'] * 100 / 140, 2)?>%'></div></div>
-      </div> 
-      <? if (!empty($car['dist'])) { ?>
-        <div class='car-distance'>
-          <? printf("%.2f", $car['dist']) ?>mi away
-        </div>
-      <? } 
-  ?></div>
-    <?= location_link($car) ?></li>
-<? 
-$ix++;
+    <a class='btn' href="book/<?= $car['id']; ?>">Reserve</a> 
+    <div class='car-label'>
+      (<?= $labelGuide[$ix] ?>) <?= round($car['range']); ?>mi charge
+      <div class='fuel'><div style='width:<?=round($car['range'] * 100 / 140, 2)?>%'></div></div>
+    </div> 
+    <? if (!empty($car['dist'])) { ?>
+      <div class='car-distance'><? printf("%.2f", $car['dist']) ?>mi away</div>
+    <? } 
+    echo "<div>" . location_link($car) . "</div></li>"; 
+    $ix++;
   } 
 }
 ?>

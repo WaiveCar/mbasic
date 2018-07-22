@@ -2,10 +2,10 @@ h1,h2,h3,body,ul,li { margin: 0; padding: 0 }
 body {
   font-family: Verdana, Geneva, sans-serif;
   background: #E9E9Ec;
-  margin-top: 19px;
   width: 100%;
   height: 100%;
   font-size: 15px;
+  margin-top: 20px;
   text-align: center;
 }
 a {
@@ -28,7 +28,7 @@ h1 {
 h4 {
   font-weight: 300;
   font-size: 22px;
-  margin: 0.5em 1%;
+  margin: 18px 0;
 }
 small {
   color: #444;
@@ -37,9 +37,10 @@ small {
 ol  {
   padding-left: 22px;
 }
-a:active, a.btn:active {
+a:active, .btn:active, a.btn:active {
   background: blue;
   color: white !important;
+  outline: 0;
   box-shadow: 0 0 0px 5px blue;
 }
 .isolated {
@@ -47,14 +48,23 @@ a:active, a.btn:active {
   margin: 1em;
   display:inline-block;
 }
+.box.gettocar {
+  padding-top: 8px;
+}
 .gettocar h4 {
   text-align: center;
 }
-.logo img {
+.box.login {
+  padding: 20px;
+  box-sizing: border-box;
+}
+.login img {
   margin-right: 10px;
+  vertical-align: top;
 }
 .login h1 {
-  margin: 3% 0 8%;
+  margin: 18px 0 24px;
+  text-align:center;
 }
 form input {
   display: block;
@@ -64,6 +74,12 @@ form input {
   padding: 0.5%; 
 }
 form input[type="submit"] {
+  display: inline-block;
+  font-size: 18px;
+  margin: 6px -1px;
+  padding: 4px 0;
+  text-indent: 10px;
+  border-width: 1px;
   width: 100%;
 }
 .waive-green {
@@ -77,22 +93,18 @@ form input[type="submit"] {
   position: relative;
 }
 .map .nop {
-  box-shadow: inset 0px 0px 2px #777;
   background: url('/img/circle-logo_32.gif') no-repeat;
   background-position: center;
 }
 .map img {
   min-height: 150px;
   max-width: 100%;
+  box-shadow: 0px 0px 1px #777;
   background: url('/img/ajax-loader.gif') no-repeat;
   background-position: center; 
 }
-.map span {
-  display: block;
-}
 .map .content {
   display: inline-block;
-  margin-top: 6px;
 }
 .map-controls {
   position: relative;
@@ -101,15 +113,14 @@ form input[type="submit"] {
 }
 .map-controls a {
   background: rgba(240,240,255,0.9);
-  box-shadow: inset 0px 0px 1px #222;
   border-width: 0;
   padding: 3px 8px;
   margin: 0 0.5em 0 0;
 }
-#account-link {
-  position: absolute;
-  top: 0;
-  right: 5px;
+#acnt {
+  display:block;
+  text-align:right;
+  margin: -20px 4px 0 0;
 }
 .btn {
   text-align: center;
@@ -119,10 +130,10 @@ form input[type="submit"] {
   background: rgba(0,0,255,0.03);
   color: blue;
 }
-
-.action-list {
+.action-list li {
+  display: inline;
   font-size: 0;
-}
+} 
 .action-list a {
   display: inline-block;
   margin: 2% 1%;
@@ -137,7 +148,6 @@ form input[type="submit"] {
   padding: 1% 2%;
   margin: 0 auto 6px auto;
   width: 94%;
-  border-radius: 4px;
   box-shadow: 0 0 6px 2px rgba(96,96,96,0.2);
 }
 .center {
@@ -154,11 +164,6 @@ form input[type="submit"] {
 }
 .car-row h3 {
   font-size: 22px;
-}
-.login {
-  padding: 5%;
-  text-align: center;
-  max-width: 85%;
 }
 
 .car-row li {
@@ -179,14 +184,14 @@ form input[type="submit"] {
 }
 
 .wid-1, .wid-2 {
-  padding: 1% 0;
+  padding: 9px 0;
 }
 .wid-1 {
   width: 100%;
-  margin: 2% -1px;
+  margin: 9px -1px;
 }
 .wid-2 {
-  width: 44.8%;
+  width: 45.2%;
 }
 .image-upload input {
   vertical-align: middle;
@@ -221,12 +226,35 @@ a.danger:active {
   background: rgb(255,0,0);
   box-shadow: 0 0 0px 5px red;
 }
+<<<<<<< HEAD
 #sorter {
   text-align: center;
   margin-right: 10px;
+=======
+.needsjs {
+  color: #aaa;
+  text-decoration: none;
+>>>>>>> d14242e75660e8d0003894b6dc9e5aa899c95624
 }
 #sorter a {
-  margin: 0 0 0 10px;
+  margin: 0 5px;
+}
+.box.prompt {
+  padding: 0;
+  width: 96%;
+}
+.prompt .content, .prompt h1 {
+  padding: 15px 22px;
+}
+.prompt .copy {
+  padding: 4px 0;
+}
+.prompt h1 {
+  background: rgb(127,127,140);
+  font-weight: bold;
+  font-size: 22px;
+  color: white;
+  margin: 0;
 }
 .box.error {
   background: rgb(255,216,216, 0.4);

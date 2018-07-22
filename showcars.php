@@ -16,7 +16,7 @@ $carList = array_filter($carList, function($m) use ($region) {
 $arrow = ['near' => '', 'range'=> '', 'name' => '', 'show' => ''];
 
 $mapOpts = [];
-if(empty($_GET['sort'])) {
+if(empty($_GET['sort']) && empty($_GET['zip'])) {
   $_GET['sort'] = aget($_SESSION, 'sort', 'none');
 } else {
   $_SESSION['sort'] = $_GET['sort'];

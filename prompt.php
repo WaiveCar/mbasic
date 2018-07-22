@@ -13,7 +13,7 @@ $keys = parse_str($query);
   <div class='box login'>
     <h1><?= $_GET['prompt'] ?></h1>
     <form method="get" action="<?= $path ?>" class='prompt'>
-      <?  foreach($query as $key => $value) { ?>
+      <? foreach($query as $key => $value) { ?>
         <input name="<?=$key?>" type="hidden" value="<?= $value ?>">
       <? } ?>
       <input class='input' type="text" name="<?= $_GET['var'] ?>" autofocus>

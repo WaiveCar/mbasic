@@ -226,15 +226,9 @@ a.danger:active {
   background: rgb(255,0,0);
   box-shadow: 0 0 0px 5px red;
 }
-<<<<<<< HEAD
 #sorter {
   text-align: center;
   margin-right: 10px;
-=======
-.needsjs {
-  color: #aaa;
-  text-decoration: none;
->>>>>>> d14242e75660e8d0003894b6dc9e5aa899c95624
 }
 #sorter a {
   margin: 0 5px;

@@ -413,6 +413,8 @@ function getMap($carList, $opts = []) {
   $verb = $hide ? 'show' : 'hide';
   ?>
   <div class='content'>
+    <? if (!$hide) { ?><img class='img' width=400 src="<?=getMapUrl($carList, $opts)?>"><? } ?>
+    <img class='nop' src='img/blank.png'>
     <div class='map-controls'>
       <a class='btn' href="api/control.php?action=<?= $verb ?>"><?= ucfirst($verb) ?></a>
       <? /*
@@ -420,9 +422,6 @@ function getMap($carList, $opts = []) {
         <a class='zoom' href="">&#xFF0B;</a><a class='zoom' href="">&#x2014;</a> 
       <? }*/ ?>
     </div>
-    <? if (!$hide) { ?><img lowsrc='img/blank.png' width=400 src="<?=getMapUrl($carList, $opts)?>">
-    <? } else { ?><img class='nop' src='img/blank.png'>
-    <? } ?>
   </div> <?
 }
 
@@ -533,7 +532,7 @@ function actionList($base, $list) {
         $klass = " wid-${row[2]}";
       }
       ?>
-      <li><a class="btn<?= $klass ?>" href="<?= $base ?>?action=<?= $row[0] ?>"><?= $row[1] ?></a>
+      <li><a class="btn<?= $klass ?>" href="<?= $base ?>/<?= $row[0] ?>"><?= $row[1] ?></a>
   <? } ?>
   </ul>
 <?

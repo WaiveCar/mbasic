@@ -92,24 +92,26 @@ form input[type="submit"] {
   width: 100%;
   position: relative;
 }
+.map .content {
+  display: inline-block;
+  position: relative;
+}
+.map .img {
+  position: absolute;
+}
 .map .nop {
   background: url('/img/circle-logo_32.gif') no-repeat;
+  box-shadow: 0px 0px 1px #777;
   background-position: center;
 }
 .map img {
-  min-height: 150px;
   max-width: 100%;
-  box-shadow: 0px 0px 1px #777;
-  background: url('/img/ajax-loader.gif') no-repeat;
   background-position: center; 
 }
-.map .content {
-  display: inline-block;
-}
 .map-controls {
-  position: relative;
-  text-align: left;
-  height: 0;
+  position: absolute;
+  top: 0;
+  left: 0;
 }
 .map-controls a {
   background: rgba(240,240,255,0.9);

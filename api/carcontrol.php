@@ -51,7 +51,7 @@ if($me['booking_id']) {
     confirm("Extend Your Reservation", "You can buy either an extra 10 or 20 minutes to get to your WaiveCar.<p><em>Reminder:</em> If you don't make it in time, you'll have to wait 30 minutes to rebook the same WaiveCar.</p>", [
       [ "$4.20 for 20 extra minutes", "/api/carcontrol.php?action=extend4realz&howmuch=20", 'wid-1 primary preferred'],
       [ "$1.00 for 10 extra minutes", "/api/carcontrol.php?action=extend4realz&howmuch=10", 'wid-1 '],
-      [ "No thanks! I'll make it in time", "/api/carcontrol.php?action=nop", 'wid-1 ignored' ]
+      [ "No thanks! I'll make it in time", "control/nop", 'wid-1 ignored' ]
     ]);
   }
 
@@ -61,8 +61,8 @@ if($me['booking_id']) {
 
   if($action === 'cancel') {
     confirm("Cancel Your Booking", "Are you sure you want to cancel your booking?<p><em>Reminder:</em> If you cancel, you need to wait 30 minutes to rebook the same WaiveCar.</p>", [
-      [ "Yes, cancel my booking.", "/api/carcontrol.php?action=cancel4realz", 'wid-1 danger'],
-      [ "No, do not cancel my booking", "/api/carcontrol.php?action=nop", 'wid-1 primary' ]
+      [ "Yes, cancel my booking.", "control/cancel4realz", 'wid-1 danger'],
+      [ "No, do not cancel my booking", "control/nop", 'wid-1 primary' ]
     ]);
   }
 
@@ -78,8 +78,8 @@ if($me['booking_id']) {
     $me = me(['withcar' => true]);
     $car = $me['car']['license'];
     confirm("End Your Booking", "Are you sure you're done with $car?", [
-      [ "Yes, I'm done with $car.", "/api/carcontrol.php?action=end4realz", 'wid-1'],
-      [ "I'm not done. I want to keep going!", "/api/carcontrol.php?action=nop", 'wid-1 primary' ]
+      [ "Yes, I'm done with $car.", "control/end4realz", 'wid-1'],
+      [ "I'm not done. I want to keep going!", "control/nop", 'wid-1 primary' ]
     ]);
   }
   if($action === 'end4realz') {

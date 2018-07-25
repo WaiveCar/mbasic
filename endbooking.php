@@ -12,7 +12,7 @@ doheader('End Booking');
 <div class='box'>
   <h1> Thanks for using <?= $car['license'] ?> </h1>
 
-  <form enctype="multipart/form-data" method="post" action="api/carcontrol.php?action=complete">
+  <form enctype="multipart/form-data" method="post" action="control/complete">
     <ol>
       <li>Please upload a photo of the parking sign
         <p class='image-upload'>

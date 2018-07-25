@@ -10,7 +10,7 @@ doheader('Start Booking');
     <h1>
     Welcome to <?= $car['license'] ?>!
     </h1>
-    <form enctype="multipart/form-data" method="post" action="api/carcontrol.php?action=start">
+    <form enctype="multipart/form-data" method="post" action="control/start">
       <p>Is there any damage or issues such as trash? (upload up to 4 photos)</p>
 
       <div class='image-upload'>
@@ -24,7 +24,7 @@ doheader('Start Booking');
     </form>
 
     <p align="center">
-      <small><a href="api/carcontrol.php?action=end">Cancel Booking</a></small>
+      <small><a href="control/end">Cancel Booking</a></small>
     </p>
 
   </div>

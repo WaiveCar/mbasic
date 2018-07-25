@@ -27,11 +27,11 @@ doheader('Get to Your WaiveCar');
     <? if ($isExtended) {?> 
       Reservation Extended
     <? } else { ?>
-      Need longer? <a href="api/carcontrol.php?action=extend">Extend your reservation</a>.
+      Need longer? <a href="control/extend">Extend your reservation</a>.
     <? } ?> 
     </p>
 
-    <? actionList('api/carcontrol.php', [
+    <? actionList('control', [
       ['cancel', 'Cancel Booking', '2 danger'],
       ['start', 'Start Ride', 2]
     ]); ?>

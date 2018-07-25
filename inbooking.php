@@ -16,10 +16,11 @@ doheader('Current Booking');
     <? showLocation($car); ?>
     <div align='center'>
       <h4>You have had <?= $car['license'] ?> for <b><?= $minutes ?>min</b>.</h4>
-      <a class='isolated' href="api/carcontrol.php?action=end">End Ride</a>
+      <a class='isolated' href="control/end">End Ride</a>
+      Can't find parking? <a href='control/handoff'>Try and hand-off the car to someone else!</a>
     </div>
 
-    <? actionList('api/carcontrol.php', [
+    <? actionList('control', [
       ['unlock', 'Unlock', 2],
       ['lock', 'Lock', 2]
     ]); ?>

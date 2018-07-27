@@ -17,7 +17,7 @@ $arrow = ['near' => '', 'range'=> '', 'name' => '', 'show' => ''];
 
 $mapOpts = [];
 if(!empty($_GET['zip'])) {
-  $_GET['sort'] = 'nearest';
+  $_GET['sort'] = 'near';
 }
 if(empty($_GET['sort'])) {
   $_GET['sort'] = aget($_SESSION, 'sort', 'none');
@@ -43,14 +43,23 @@ if($_GET['sort'] === 'range') {
   });
   $arrow['name'] = '&#9660;';
 } else if ($_GET['sort'] === 'near' || !empty($_GET['zip'])) {
-  if(empty($_GET['lat'])) {
+
+  if(!empty($_GET['zip'])) {
     $loc = zip2geo($_GET['zip']);
+
     $lat = $loc['lat'];
     $lng = $loc['lng'];
-  } else {
+  } else if (!empty($_GET['lat'])) {
     $lat = $_GET['lat'];
     $lng = $_GET['lng'];
+  } else {
+    $lat = $_SESSION['lat'];
+    $lng = $_SESSION['lng'];
   }
+
+  $_SESSION['lat'] = $lat;
+  $_SESSION['lng'] = $lng;
+
   foreach($carList as $key => $car) {
     $carList[$key]['dist'] = distance($lat, $lng, $car['latitude'], $car['longitude']);
   }
@@ -76,7 +85,7 @@ doheader('Find Cars');
   <div class='map'>
     <? getMap($carList, $mapOpts); ?>
     <div id='sorter'>
-    <a class="needsjs" href="prompt.php?prompt=Please enter your zip code&var=zip" onclick="nearest();"><?= $arrow['near'] ?>Nearest</a> <a href="?sort=range"><?= $arrow['range'] ?>Range</a> <a href="?sort=name"><?= $arrow['name'] ?>Name</a> <a href="?sort=range&show=5"><?= $arrow['show'] ?>Best 5</a>
+    <a class="needsjs" href="prompt.php?prompt=Please enter your zip code&var=zip" onclick="nearest();"><?= $arrow['near'] ?>Nearest</a> <a href="?sort=range"><?= $arrow['range'] ?>Range</a> <a href="?sort=name"><?= $arrow['name'] ?>Name</a> <a href="?sort=range&show=6"><?= $arrow['show'] ?>Best 5</a>
     </div>
   </div>
 
@@ -91,7 +100,9 @@ foreach($carList as $key => $car) {
 ?>
   <li>
     <h3><?= ucfirst(strtolower($car['license'])); ?></h3> 
+    <? if ($car['isReallyAvailable']) { ?>
     <a class='btn' href="book/<?= $car['id']; ?>">Reserve</a> 
+    <? } ?>
     <div class='car-label'>
       (<?= $labelGuide[$ix] ?>) <?= round($car['range']); ?>mi charge
       <div class='fuel'><div style='width:<?=round($car['range'] * 100 / 140, 2)?>%'></div></div>

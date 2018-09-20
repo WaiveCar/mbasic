@@ -3,6 +3,7 @@ include('api/common.php');
 getstate();
 $me = me();
 $region = getTag('region', 'id');
+$showdibs = false;
 
 // If a user doesn't have a region defined we can safely assume
 // that they are in los angeles and then filter based on that.
@@ -59,9 +60,13 @@ if($_GET['sort'] === 'range') {
 
   $_SESSION['lat'] = $lat;
   $_SESSION['lng'] = $lng;
+  $showdibs = true;
 
   foreach($carList as $key => $car) {
     $carList[$key]['dist'] = distance($lat, $lng, $car['latitude'], $car['longitude']);
+    if($carList[$key]['dist'] < 0.5) {
+      $showdibs = false;
+    }
   }
   usort($carList, function($a, $b){
     return $a['dist'] > $b['dist'] ? 1 : -1;
@@ -96,6 +101,8 @@ doheader('Find Cars');
     </li>
  
 <? } else {
+
+echo $showdibs;
 foreach($carList as $key => $car) { 
 ?>
   <li>

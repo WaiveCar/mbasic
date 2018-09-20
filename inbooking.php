@@ -9,17 +9,17 @@ $started = $me['booking']['details'][0]['createdAt'];
 $inBooking = strtotime('now') - strtotime($started);
 $minutes = ceil($inBooking / 60);
 $seconds = $inBooking % 60;
+$name = $car['license'];
 doheader('Current Booking');
 ?>
   <div class='box'>
     <h1><?= $car['license']; ?></h1>
     <? showLocation($car); ?>
     <div align='center'>
-      <h4>You have had <?= $car['license'] ?> for <b><?= $minutes ?>min</b>.</h4>
-      <a class='isolated' href="control/end">End Ride</a>
+      <h4>You have had <?= $name ?> for <b><?= $minutes ?>min</b>.</h4>
+        <a class='isolated' href="control/end">Park And End Ride</a>
       <p>
-      You can charge the vehicle for free
-      Can't find parking? <a href='control/handoff'>Try and hand-off the car to someone else!</a>
+        Charge <?= $name ?> for free!
       </p>
     </div>
 

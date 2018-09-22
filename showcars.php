@@ -102,7 +102,6 @@ doheader('Find Cars');
  
 <? } else {
 
-echo $showdibs;
 foreach($carList as $key => $car) { 
 ?>
   <li>

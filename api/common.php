@@ -181,7 +181,7 @@ function zip2geo($zip) {
   // we try to check our local cache for this lat/lng (rounded to 3 precision points)
   $location = db_get($zip);
   if(!$location) {
-    $res = file_get_contents("http://maps.googleapis.com/maps/api/geocode/json?address=$zip");
+    $res = file_get_contents("http://maps.googleapis.com/maps/api/geocode/json?address=$zip&key=AIzaSyA77YUSEIo77Ms26dlAKllaBFYl-XAaELs");
     if ($res) {
       $resJSON = json_decode($res, true);
       if(!empty($resJSON['results'])) {

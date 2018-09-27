@@ -111,7 +111,7 @@ foreach($carList as $key => $car) {
     <? } ?>
     <div class='car-label'>
       (<?= $labelGuide[$ix] ?>) <?= round($car['range']); ?>mi charge
-      <div class='fuel'><div style='width:<?=round($car['range'] * 100 / 140, 2)?>%'></div></div>
+      <p><b style='width:<?=round($car['range'] * 100 / 140, 2)?>%'></b></p>
     </div> 
     <? if (!empty($car['dist'])) { ?>
       <div class='car-distance'><? printf("%.2f", $car['dist']) ?>mi away</div>
@@ -122,7 +122,6 @@ foreach($carList as $key => $car) {
 }
 ?>
   </ul>
-  </div>
   <script src="js/scripts.js"></script>
 </body>
 </html>

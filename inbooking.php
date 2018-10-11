@@ -17,10 +17,7 @@ doheader('Current Booking');
     <? showLocation($car); ?>
     <div align='center'>
       <h4>You have had <?= $name ?> for <b><?= $minutes ?>min</b>.</h4>
-        <a class='isolated' href="control/end">Park And End Ride</a>
-      <p>
-        Charge <?= $name ?> for free!
-      </p>
+      <a class='isolated' href="control/end">Park And End Ride</a>
     </div>
 
     <? actionList('control', [

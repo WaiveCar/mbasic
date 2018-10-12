@@ -5,7 +5,7 @@ getstate();
 <!doctype html>
 <html>
 <head>
-  <title>WaiveCar Basic Login</title>
+  <title>WaiveBasic Login</title>
   <link rel="stylesheet" href="css/styles.css">
   <link rel="shortcut icon" href="img/circle-logo_32.gif">
   <meta name="mobile-web-app-capable" content="yes">

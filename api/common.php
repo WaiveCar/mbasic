@@ -344,7 +344,7 @@ function aget($source, $keyList, $default = null) {
 
   if($source && isset($source[$key])) {
     if(count($keyList) > 0) {
-      return aget($source, $keyList);
+      return aget($source[$key], $keyList);
     } 
     return $source[$key];
   }

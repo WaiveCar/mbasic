@@ -97,9 +97,12 @@ if($me['booking_id']) {
         // ending in a valid place which is not a zone 
         // (thus a homebase hub or charging station)
         // and we can skip things.
-        finish($me['booking_id']);
-        complete($me['booking_id']);
-        load('/receipt.php');
+        $res = finish($me['booking_id']);
+        if(tis(complete($me['booking_id']))) {
+          load('/receipt.php');
+        } else {
+          goback();
+        }
       } 
       exit;
     }

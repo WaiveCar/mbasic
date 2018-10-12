@@ -34,8 +34,11 @@ small {
   color: #444;
   font-size: 70%;
 }
-ol  {
-  padding-left: 22px;
+ol {
+  padding-left: 16px;
+}
+ol li {
+  margin-bottom: 2em;
 }
 a:active, .btn:active, a.btn:active {
   background: blue;
@@ -81,6 +84,9 @@ form input[type="submit"] {
   text-indent: 10px;
   border-width: 1px;
   width: 100%;
+}
+form input[type="file"] {
+  font-size: 14px;
 }
 .waive-green {
   color: #25c155;
@@ -198,7 +204,8 @@ form input[type="submit"] {
 .image-upload input {
   vertical-align: middle;
   width: 98%;
-  padding: 2% 0;
+  padding: 0.25rem 0;
+  margin-left: 0;
 }
 .preferred {
   color: rgb(0,64,0);
@@ -278,6 +285,7 @@ a.danger:active {
 }
 .error .btn {
   padding: 0.25em 0.5em;
+  margin-left: 0.5em;
   background: rgba(255,255,255,0.4);
 }
 .car-label p {
@@ -290,6 +298,11 @@ a.danger:active {
   display: block;
   height: 100%;
   background: #7d7;
+}
+.input-inline {
+  width: 3rem;
+  display: inline-block;
+  margin: 0.25rem 0.25rem 0 0;
 }
 .submit {
   margin-top: 18px;

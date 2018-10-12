@@ -26,7 +26,7 @@ function db_incrstats($what) {
   $me = me();
   $id = $me['id'];
 
-  $db->exec("insert into users(user_id) values($id)");
+  @$db->exec("insert into users(user_id) values($id)");
   $db->exec("update users set $what = $what + 1, last = current_timestamp where user_id = $id");
 }
 

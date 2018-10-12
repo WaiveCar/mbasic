@@ -2,6 +2,8 @@
 include('api/common.php');
 getstate();
 $me = me();
+db_incrstats('car');
+
 $region = getTag('region', 'id');
 $showdibs = false;
 

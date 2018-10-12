@@ -2,6 +2,8 @@
 include('api/common.php');
 getstate();
 $me = me();
+db_incrstats('dash');
+
 if($me['booking_id']){
   $car = car_info($me['booking']['carId']);
 }

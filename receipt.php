@@ -1,7 +1,8 @@
 <?
 include('api/common.php');
-
 $me = me();
+db_incrstats('end');
+
 if($me['booking_id']){
   complete($me['booking_id']);
 }

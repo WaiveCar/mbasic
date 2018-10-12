@@ -124,6 +124,6 @@ foreach($carList as $key => $car) {
 }
 ?>
   </ul>
-  <script src="js/scripts.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>

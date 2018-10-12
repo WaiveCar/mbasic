@@ -307,3 +307,9 @@ a.danger:active {
 .submit {
   margin-top: 18px;
 }
+#ajax {
+  background: url('/img/circle-logo_32.gif");
+  width: 32px;
+  height: 32px;
+}
+

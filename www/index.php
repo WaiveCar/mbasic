@@ -6,7 +6,7 @@ getstate();
 <html>
 <head>
   <title>WaiveBasic Login</title>
-  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="style.css">
   <link rel="shortcut icon" href="img/circle-logo_32.gif">
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />

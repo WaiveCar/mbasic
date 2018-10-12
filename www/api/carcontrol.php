@@ -12,7 +12,7 @@ doheader('Waiting', false);
     <h1>Please wait</h1>
     <p>This can take up to 30 seconds.</p>
     <p>
-      <img src="/img/ajax-loader.gif">
+      <img id="ajax" src="/img/ajax-loader.gif">
     </p>
   </div>
 <?

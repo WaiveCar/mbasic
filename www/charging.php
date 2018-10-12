@@ -77,6 +77,6 @@ foreach($carList as $key => $car) {
 ?>
   </ul>
   </div>
-  <script src="js/scripts.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>

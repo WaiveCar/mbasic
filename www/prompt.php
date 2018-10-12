@@ -7,7 +7,7 @@ $keys = parse_str($query);
 <head>
   <title><?= $_GET['prompt'] ?></title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="stylesheet" href="css/styles.css?<?= rand() ?>">
+  <link rel="stylesheet" href="style.css?<?= rand() ?>">
 </head>
 <body>
   <div class='box login'>

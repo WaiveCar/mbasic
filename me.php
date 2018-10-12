@@ -32,7 +32,7 @@ doheader('Your Account');
     <? } ?>
 
     <p>
-    This is WaiveCar Basic. 
+    This is WaiveBasic. 
     </p>
 
     <p>

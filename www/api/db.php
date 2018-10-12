@@ -1,10 +1,10 @@
 <?php
 date_default_timezone_set('UTC');
-$dbPath = "${_SERVER['DOCUMENT_ROOT']}/db/main.db";
+$dbPath = "${_SERVER['DOCUMENT_ROOT']}/../db/main.db";
 if(!file_exists($dbPath)) {
   touch($dbPath);
 }
-$db = new SQLite3("${_SERVER['DOCUMENT_ROOT']}/db/main.db");
+$db = new SQLite3($dbPath);
 $db->exec('CREATE TABLE IF NOT EXISTS location_cache (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
   latlng string,

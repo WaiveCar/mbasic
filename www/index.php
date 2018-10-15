@@ -22,5 +22,7 @@ getstate();
     </form>
   </div>
 
+  <p>Do you normally log in through facebook? To use WaiveBasic, you'll need to <a href="https://lb.waivecar.com/reset-password">give yourself a password</a>.</p>
+
 </body>
 </html>

@@ -110,14 +110,14 @@ foreach($carList as $key => $car) {
   <li>
     <h3><?= ucfirst(strtolower($car['license'])); ?></h3> 
     <? if ($car['isReallyAvailable']) { ?>
-    <a class='btn' href="book/<?= $car['id']; ?>">Reserve</a> 
+      <a class=btn href=book/<?= $car['id']; ?>>Reserve</a> 
     <? } ?>
-    <div class='car-label'>
+    <div class=car-label>
       (<?= $labelGuide[$ix] ?>) <?= round($car['range']); ?>mi charge
-      <p><b style='width:<?=round($car['range'] * 100 / 140, 2)?>%'></b></p>
+      <p><b style=width:<?=round($car['range'] * 100 / 140, 2)?>%></b></p>
     </div> 
     <? if (!empty($car['dist'])) { ?>
-      <div class='car-distance'><? printf("%.2f", $car['dist']) ?>mi away</div>
+      <div class=car-distance><? printf("%.2f", $car['dist']) ?>mi away</div>
     <? } 
     echo "<div>" . location_link($car) . "</div></li>"; 
     $ix++;

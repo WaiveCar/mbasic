@@ -432,11 +432,11 @@ function getMap($carList, $opts = []) {
   $hide = aget($_SESSION, 'hide');
   $verb = $hide ? 'show' : 'hide';
   ?>
-  <div class='content'>
-    <? if (!$hide) { ?><img class='img' width=400 src="<?=getMapUrl($carList, $opts)?>"><? } ?>
-    <img class='nop' src='img/blank.png'>
-    <div class='map-controls'>
-      <a class='btn' href="api/control.php?action=<?= $verb ?>"><?= ucfirst($verb) ?></a>
+  <div class=content>
+    <? if (!$hide) { ?><img class=img width=400 src="<?=getMapUrl($carList, $opts)?>"><? } ?>
+    <img class=nop src=img/blank.png>
+    <div class=map-controls>
+      <a class=btn href=api/control.php?action=<?= $verb ?>><?= ucfirst($verb) ?></a>
       <? /*
        if (!$hide) { ?>
         <a class='zoom' href="">&#xFF0B;</a><a class='zoom' href="">&#x2014;</a> 
@@ -491,7 +491,7 @@ function getMapUrl($carList, $opts = []) {
         }
       }
     } else {
-      if($location['type'] === 'zone') {
+      if($location['type'] === 'zone' && !isset($opts['nozone'])) {
         $loc = implode('|', array_map(
           function($a) { return "${a[1]},${a[0]}"; },
           $location['shape']
@@ -520,7 +520,7 @@ function distance($lat1, $lon1, $lat2, $lon2) {
 
 function location_link($obj) {
   $location = location($obj);
-  return "<a target='_blank' href='//maps.google.com/maps/?q=${obj['latitude']},${obj['longitude']}+(${obj['license']})'>$location</a>";
+  return "<a target=_blank href='//maps.google.com/maps/?q=${obj['latitude']},${obj['longitude']}+(${obj['license']})'>$location</a>";
 }
 
 function doheader($title, $showaccount=true, $extraHtml='') {
@@ -530,21 +530,21 @@ function doheader($title, $showaccount=true, $extraHtml='') {
 <html>
   <head>
     <title><?= $title ?></title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <link rel="shortcut icon" href="/img/circle-logo_32.gif">
-    <link rel="stylesheet" href="/style.css">
+    <meta name=viewport content="width=device-width,initial-scale=1.0">
+    <link rel="shortcut icon" href=/img/circle-logo_32.gif>
+    <link rel=stylesheet href=/style.css>
     <?= $extraHtml; ?>
   </head>
 <body>
   <? if ($showaccount) { 
-    echo "<div id='acnt'><a href='me.php'>Your Account</a></div>";
+    echo "<div id=acnt><a href=me.php>Your Account</a></div>";
   } 
   showerror();
 }
 
 function actionList($base, $list) {
 ?>
-  <ul class='action-list'>
+  <ul class=action-list>
   <? 
     foreach($list as $row) { 
       $klass = '';
@@ -570,11 +570,12 @@ function getTag($what, $field = false) {
   }
 }
 
-function showLocation($car) {
+function showLocation($car, $opts = []) {
   $location = location($car);
-  echo "<div class='map'>";
-  getMap([$car], ['zoom' => 13]); 
-  echo "<br/><a target='_blank' href='https://maps.google.com/maps/?q=${car['latitude']},${car['longitude']}+(${car['license']})'>$location</a>";
+  echo "<div class=map>";
+  $opts['zoom'] = 13;
+  getMap([$car], $opts); 
+  echo "<br/><a target=_blank href=\"https://maps.google.com/maps/?q=${car['latitude']},${car['longitude']}+(${car['license']})\">$location</a>";
   echo "</div>";
 }
 

@@ -19,14 +19,14 @@ if($me['booking']['flags']) {
 
 ob_start("sanitize_output");
 
-doheader('Get to Your WaiveCar', true, '<meta http-equiv="refresh" content="30">');
+doheader('Get to Your WaiveCar', true, '<meta http-equiv=refresh content=30>');
 ?>
   <div class='box gettocar'>
-    <?= showLocation($car) ?> 
+    <?= showLocation($car, ['nozone' => true]) ?> 
     <h4>
     <b><?= $minutes ?>min</b> left to get to <?= $car['license']; ?>
     </h4>
-    <p align='center'>
+    <p align=center>
     <? if ($isExtended) {?> 
       Reservation Extended
     <? } else { ?>

@@ -23,8 +23,8 @@ doheader('Start Booking');
       <input class='btn wid-1 submit' type="submit" value="Start Ride">
     </form>
 
-    <p align="center">
-      <small><a href="control/end">Cancel Booking</a></small>
+    <p align=center>
+      <small><a href=control/end>Cancel Booking</a></small>
     </p>
 
   </div>

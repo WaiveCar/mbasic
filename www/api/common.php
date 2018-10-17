@@ -503,19 +503,12 @@ function location_link($obj) {
   return "<a target='_blank' href='//maps.google.com/maps/?q=${obj['latitude']},${obj['longitude']}+(${obj['license']})'>$location</a>";
 }
 
-function doheader($title, $showaccount=true) {
+function doheader($title, $showaccount=true, $extraHtml='') {
   $me = me();
 ?>
 <!doctype html>
-<html>
-<head>
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title><?= $title ?></title>
-<link rel="shortcut icon" href="/img/circle-logo_32.gif">
-<link rel="stylesheet" href="/style.css">
-</head>
-
-<body>
+<html><head><title><?= $title ?></title><meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<link rel="shortcut icon" href="/img/circle-logo_32.gif"><link rel="stylesheet" href="/style.css"><?= $extraHtml; ?></head><body>
   <? if ($showaccount) { 
     echo "<div id='acnt'><a href='me.php'>Your Account</a></div>";
   } 

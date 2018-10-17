@@ -10,14 +10,14 @@ if($me['booking_id']){
 
 $expire = $me['booking']['reservationEnd'];
 $inBooking = strtotime($expire) - strtotime('now');
-$minutes = floor($inBooking/60);
+$minutes = round($inBooking/60);
 $seconds = $inBooking % 60;
 $isExtended = false;
 if($me['booking']['flags']) {
   $isExtended = strpos($me['booking']['flags'], 'extended');
 }
 
-doheader('Get to Your WaiveCar');
+doheader('Get to Your WaiveCar', true, '<meta http-equiv="refresh" content="30">');
 ?>
   <div class='box gettocar'>
     <?= showLocation($car) ?> 

@@ -201,7 +201,7 @@ function zip2geo($zip) {
   // we try to check our local cache for this lat/lng (rounded to 3 precision points)
   $location = db_get($zip);
   if(!$location) {
-    $res = file_get_contents("http://maps.googleapis.com/maps/api/geocode/json?address=$zip&key=AIzaSyD3Bf8BTFI_z00lrxWdReV4MpaqnQ8urzc");
+    $res = file_get_contents("https://maps.googleapis.com/maps/api/geocode/json?address=$zip&key=AIzaSyD3Bf8BTFI_z00lrxWdReV4MpaqnQ8urzc");
     if ($res) {
       $resJSON = json_decode($res, true);
       if(!empty($resJSON['results'])) {
@@ -506,7 +506,7 @@ function getMapUrl($carList, $opts = []) {
     $zoom = "zoom=${opts['zoom']}&";
   }
 
-  return "https://maps.googleapis.com/maps/api/staticmap?${center}size=400x300&${zoom}maptype=roadmap&$params&key=$key";
+  return "//maps.googleapis.com/maps/api/staticmap?${center}size=400x300&${zoom}maptype=roadmap&$params&key=$key";
 }
 
 // from https://www.geodatasource.com/developers/php
@@ -575,7 +575,7 @@ function showLocation($car, $opts = []) {
   echo "<div class=map>";
   $opts['zoom'] = 13;
   getMap([$car], $opts); 
-  echo "<br/><a target=_blank href=\"https://maps.google.com/maps/?q=${car['latitude']},${car['longitude']}+(${car['license']})\">$location</a>";
+  echo "<br/><a target=_blank href=\"//maps.google.com/maps/?q=${car['latitude']},${car['longitude']}+(${car['license']})\">$location</a>";
   echo "</div>";
 }
 

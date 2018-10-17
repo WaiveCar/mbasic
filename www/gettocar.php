@@ -17,6 +17,8 @@ if($me['booking']['flags']) {
   $isExtended = strpos($me['booking']['flags'], 'extended');
 }
 
+ob_start("sanitize_output");
+
 doheader('Get to Your WaiveCar', true, '<meta http-equiv="refresh" content="30">');
 ?>
   <div class='box gettocar'>

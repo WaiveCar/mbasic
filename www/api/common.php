@@ -16,7 +16,27 @@ function getHost() {
   }
   return $HOST;
 }
- 
+
+// from https://stackoverflow.com/questions/6225351/how-to-minify-php-page-html-output
+function sanitize_output($buffer) {
+
+    $search = array(
+        '/\>[^\S ]+/s',     // strip whitespaces after tags, except space
+        '/[^\S ]+\</s',     // strip whitespaces before tags, except space
+        '/(\s)+/s',         // shorten multiple whitespace sequences
+    );
+
+    $replace = array(
+        '>',
+        '<',
+        '\\1',
+        ''
+    );
+
+    $buffer = preg_replace($search, $replace, $buffer);
+
+    return str_replace('> <','><', $buffer);
+} 
 
 function curldo($url, $params = false, $verb = false, $opts = []) {
   if($verb === false) {
@@ -507,8 +527,15 @@ function doheader($title, $showaccount=true, $extraHtml='') {
   $me = me();
 ?>
 <!doctype html>
-<html><head><title><?= $title ?></title><meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<link rel="shortcut icon" href="/img/circle-logo_32.gif"><link rel="stylesheet" href="/style.css"><?= $extraHtml; ?></head><body>
+<html>
+  <head>
+    <title><?= $title ?></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="shortcut icon" href="/img/circle-logo_32.gif">
+    <link rel="stylesheet" href="/style.css">
+    <?= $extraHtml; ?>
+  </head>
+<body>
   <? if ($showaccount) { 
     echo "<div id='acnt'><a href='me.php'>Your Account</a></div>";
   } 

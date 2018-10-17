@@ -113,14 +113,13 @@ if($me['booking_id']) {
   }
   
   if($action === 'complete') {
-    //var_dump($_FILES);
     $parking = uploadFiles(['parking']);
     $payload = [
       'data' => [
-        // TODO: figure out why the type is needed
-        'type' => true,
+        'type' => 'street',
         'streetHours' => $_POST['hours'],
-        'id' => $id,
+        'streetMinutes' => null,
+        'streetOvernightRest' => false,
         'streetSignImage' => $parking[0]
       ]
     ];

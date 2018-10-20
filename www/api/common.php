@@ -192,7 +192,7 @@ function me($opts = []) {
       !aget($whoami, 'car') && 
       aget($whoami, 'booking_id')
   ) {
-    $whoami['car'] = $car = car_info($whoami['booking']['carId']);
+    $whoami['car'] = car_info($whoami['booking']['carId']);
   }
 
   return $whoami;

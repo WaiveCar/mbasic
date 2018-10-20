@@ -17,6 +17,13 @@ function getHost() {
   return $HOST;
 }
 
+// a secret version of vardump that hides things.
+function svar_dump() {
+  echo '<script type=text/plain>';
+  call_user_func_array('var_dump', func_get_args());
+  echo '</script>';
+}
+
 // from https://stackoverflow.com/questions/6225351/how-to-minify-php-page-html-output
 function sanitize_output($buffer) {
 

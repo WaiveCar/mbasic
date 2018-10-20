@@ -14,7 +14,7 @@ if(!$region) {
 }
 $carList = get('/cars');
 $carList = array_filter($carList, function($m) use ($region) { 
-  return aget($m, 'groupCar.0.groupRoleId', false) === $region;
+  return aget($m, 'tagList.0.groupRoleId', false) === $region;
 });
 $arrow = ['near' => '', 'range'=> '', 'name' => '', 'show' => ''];
 

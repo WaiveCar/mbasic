@@ -1,7 +1,8 @@
 <?
 include('api/common.php');
-$time = intval(aget($_GET, 'time', 1));
-$revenueList = curldo('/revenue/' . $time);
+$start = intval(aget($_GET, 'start', 1));
+$end = intval(aget($_GET, 'end', 0));
+$revenueList = curldo('/revenue/' . $start . '/' . $end);
 $revenueList = array_filter($revenueList, function($row) { 
   return $row['ttl'] > 0;
 });
@@ -13,12 +14,13 @@ $map = [
   'revenue' => function($row) { return sprintf("%.2f", $row['ttl']/100); },
   'tx count' => function($row) { return $row['charges']; },
   'credit' => function($row) { return sprintf("%.2f", $row['credit']/100); },
+  'monthly' => function($row) { global $end,$start;return sprintf("%.2f", $row['ttl']/(100 * ($start - $end))); },
   'percent' => function($row) { global $ttl;return sprintf("%.2f",  100 *$row['ttl']/$ttl); }
 
 ];
 
 ?>
-Last <?= $time ?>mo.
+  <?= $start ?> - <?= $end ?>mo
 <table>
   <thead>
     <? foreach(array_keys($map) as $column) { 

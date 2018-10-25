@@ -1,6 +1,6 @@
 <?
 include('api/common.php');
-$time = intval(aget($_GET, 'time', 1)) . '%20month';
+$time = intval(aget($_GET, 'time', 1));
 $revenueList = curldo('/revenue/' . $time);
 $map = [
   'name' => function($row) { return "<a href=//lb.waivecar.com/users/${row['id']}>{$row['first_name']} {$row['last_name']}</a>"; },

@@ -3,6 +3,8 @@ session_start();
 include('db.php');
 
 $labelGuide = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
+//$googleKey = 'AIzaSyDuTxwQN4WKCktkzkLTHZSD7EzHvCn3WHs';
+$googleKey = 'AIzaSyBibUDNVBjFAKpwyPcZirJW4qHq2W2OO8M';//'AIzaSyD3Bf8BTFI_z00lrxWdReV4MpaqnQ8urzc';
 
 $HOST = false;
 function getHost() {
@@ -27,26 +29,27 @@ function svar_dump() {
 // from https://stackoverflow.com/questions/6225351/how-to-minify-php-page-html-output
 function sanitize_output($buffer) {
 
-    $search = array(
-        '/\>[^\S ]+/s',     // strip whitespaces after tags, except space
-        '/[^\S ]+\</s',     // strip whitespaces before tags, except space
-        '/(\s)+/s',         // shorten multiple whitespace sequences
-    );
+  $search = array(
+    '/\>[^\S ]+/s',     // strip whitespaces after tags, except space
+    '/[^\S ]+\</s',     // strip whitespaces before tags, except space
+    '/(\s)+/s',         // shorten multiple whitespace sequences
+  );
 
-    $replace = array(
-        '>',
-        '<',
-        '\\1',
-        ''
-    );
+  $replace = array(
+    '>',
+    '<',
+    '\\1',
+    ''
+  );
 
-    $buffer = preg_replace($search, $replace, $buffer);
+  $buffer = preg_replace($search, $replace, $buffer);
 
-    return str_replace('> <','><', $buffer);
+  return str_replace('> <','><', $buffer);
 } 
 
 function curldo($url, $params = false, $verb = false, $opts = []) {
   if($verb === false) {
+    $verb = 'GET';
     // this is a problem
   }
   $verb = strtoupper($verb);
@@ -206,9 +209,10 @@ function confirm($title, $prompt, $options) {
 
 function zip2geo($zip) {
   // we try to check our local cache for this lat/lng (rounded to 3 precision points)
+  global $googleKey;
   $location = db_get($zip);
   if(!$location) {
-    $res = file_get_contents("https://maps.googleapis.com/maps/api/geocode/json?address=$zip&key=AIzaSyD3Bf8BTFI_z00lrxWdReV4MpaqnQ8urzc");
+    $res = file_get_contents("https://maps.googleapis.com/maps/api/geocode/json?address=$zip&key=$googleKey");
     if ($res) {
       $resJSON = json_decode($res, true);
       if(!empty($resJSON['results'])) {
@@ -226,13 +230,14 @@ function zip2geo($zip) {
 
 function location($obj) {
   global $db; 
+  global $googleKey;
   $qs = implode(',', [round($obj['latitude'] * 2,3)/2, round($obj['longitude'] * 2,3)/2]);
   // we try to check our local cache for this lat/lng (rounded to 3 precision points)
   $location = db_get($qs);
   if(!$location) {
     // if we failed, then we ask the goog
 
-    $res = file_get_contents("https://maps.googleapis.com/maps/api/geocode/json?latlng=$qs&key=AIzaSyD3Bf8BTFI_z00lrxWdReV4MpaqnQ8urzc");
+    $res = file_get_contents("https://maps.googleapis.com/maps/api/geocode/json?latlng=$qs&key=$googleKey");
 
     if ($res) {
       $resJSON = json_decode($res, true);
@@ -453,9 +458,11 @@ function getMap($carList, $opts = []) {
 }
 
 function getMapUrl($carList, $opts = []) {
-  $key = 'AIzaSyBibUDNVBjFAKpwyPcZirJW4qHq2W2OO8M';//'AIzaSyD3Bf8BTFI_z00lrxWdReV4MpaqnQ8urzc';
+  //$key = 'AIzaSyBibUDNVBjFAKpwyPcZirJW4qHq2W2OO8M';//'AIzaSyD3Bf8BTFI_z00lrxWdReV4MpaqnQ8urzc';
 
   global $labelGuide;
+  global $googleKey;
+
   $ix = 0;
   $qmap = [];
   $center = '';
@@ -513,7 +520,7 @@ function getMapUrl($carList, $opts = []) {
     $zoom = "zoom=${opts['zoom']}&";
   }
 
-  return "//maps.googleapis.com/maps/api/staticmap?${center}size=400x300&${zoom}maptype=roadmap&$params&key=$key";
+  return "//maps.googleapis.com/maps/api/staticmap?${center}size=400x300&${zoom}maptype=roadmap&$params&key=$googleKey";
 }
 
 // from https://www.geodatasource.com/developers/php

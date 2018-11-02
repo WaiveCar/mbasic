@@ -1,6 +1,7 @@
 <?
 include('api/common.php');
 getstate();
+ob_start("sanitize_output");
 ?>
 <!doctype html>
 <html>

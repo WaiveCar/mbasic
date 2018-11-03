@@ -26,7 +26,7 @@ doheader('Current Booking', true, '<meta http-equiv="refresh" content="90">');
     <? showLocation($car); ?>
     <div align=center>
       <h4>You started <b><?= $timeStr ?>min</b> ago.</h4>
-      <a class='isolated' href="control/end">End Ride</a>
+      <a class='isolated' href="control/end">Park and End Ride</a>
     </div>
 
     <? actionList('control', [

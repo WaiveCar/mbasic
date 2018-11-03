@@ -51,11 +51,13 @@ a:active, .btn:active, a.btn:active {
 }
 .isolated {
   padding: 0.25em;
-  margin: 1em;
-  margin-top: -18px;
+  margin: -14px 0 12px;
   display:inline-block;
 }
-a.isolated { color: red }
+a.isolated { 
+  color: red;
+  text-decoration: underline;
+}
 .box.gettocar {
   padding-top: 8px;
 }

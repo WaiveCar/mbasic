@@ -25,8 +25,8 @@ doheader('Current Booking', true, '<meta http-equiv="refresh" content="90">');
     <h1><?= $car['license']; ?></h1>
     <? showLocation($car); ?>
     <div align=center>
-      <h4>You have had <?= $name ?> for <b><?= $timeStr ?>min</b>.</h4>
-      <a class='isolated' href="control/end">Park And End Ride</a>
+      <h4>You started <b><?= $timeStr ?>min</b> ago.</h4>
+      <a class='isolated' href="control/end">End Ride</a>
     </div>
 
     <? actionList('control', [

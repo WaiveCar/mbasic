@@ -13,7 +13,7 @@ doheader('End Booking');
 
   <div class=content>
     <form enctype=multipart/form-data method=post action="api/carcontrol.php?action=complete">
-      <ol>
+      <ol id='endchecklist'>
         <li>Take a photo of the parking sign<br/><small>If there is no parking sign, take a photo of the intersection to show that no sign is posted</small>
           <p class='image-upload ingroup'>
             <input name=parking type=file accept="image/*;capture=camera" required capture=camera />

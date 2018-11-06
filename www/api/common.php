@@ -139,15 +139,35 @@ function del($url, $params = false) {
   return curldo($url, $params, 'DELETE');
 }
 
+function infobox($title, $content, $klass = '') {
+  if(!is_array($content)) {
+    $content = [$content];
+  }
+?>
+   <div class='box <?=$klass?>'>
+     <div class='title'><?= $title ?></div>
+
+     <div class=content>
+       <div class='message'><?
+          foreach($content as $p) {
+            echo "<p>$p</p>";
+          } 
+          ?>
+       </div>
+     </div> 
+   </div>
+<?
+}
+
 function showerror() {
   if(isset($_SESSION['lasterror'])) {
    $err = $_SESSION['lasterror'];
    ?>
 
    <div class='error box'>
-     <div class='title'><?= $err['title'] ?></div>
+     <div class=title><?= $err['title'] ?></div>
 
-     <div class='content'>
+     <div class=content>
       <div class='message'><?= $err['message'] ?></div>
       <?
 
@@ -537,7 +557,11 @@ function location_link($obj) {
   return "<a target=_blank href='//maps.google.com/maps/?q=${obj['latitude']},${obj['longitude']}+(${obj['license']})'>$location</a>";
 }
 
-function doheader($title, $showaccount=true, $extraHtml='') {
+function doheader($title, $opts = []) {
+  $showaccount = aget($opts, 'showaccount', true);
+  $extraHtml = aget($opts, 'extraHtml', '');
+  $icon = aget($opts, 'icon', '/img/circle-logo_96.png');
+
   $me = me();
 ?>
 <!doctype html>
@@ -545,7 +569,7 @@ function doheader($title, $showaccount=true, $extraHtml='') {
   <head>
     <title><?= $title ?></title>
     <meta name=viewport content="width=device-width,initial-scale=1.0">
-    <link rel="shortcut icon" href=/img/circle-logo_32.gif>
+    <link rel=icon href=<?= $icon ?>>
     <link rel=stylesheet href=/style.css>
     <?= $extraHtml; ?>
   </head>

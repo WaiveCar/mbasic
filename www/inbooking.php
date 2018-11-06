@@ -20,7 +20,7 @@ if($hours > 0) {
 
 $name = $car['license'];
 ob_start("sanitize_output");
-doheader('Current Booking', true, '<meta http-equiv="refresh" content="90">');
+doheader('Current Booking', ['extraHtml' => '<meta http-equiv="refresh" content="90">']);
 ?>
   <div class=box>
     <h1><?= $car['license']; ?></h1>

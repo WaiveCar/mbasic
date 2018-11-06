@@ -37,10 +37,10 @@ small {
   color: #444;
   font-size: 0.8rem;
 }
-ol {
+#endchecklist {
   padding-left: 16px;
 }
-ol li {
+#endchecklist li {
   margin-bottom: 2em;
 }
 a:active, .btn:active, a.btn:active {
@@ -263,33 +263,47 @@ a.danger:active {
 .prompt .copy {
   padding: 4px 0;
 }
-.prompt h1 {
+.box .title {
+  padding: 0.5em;
+  font-weight: bold;
+  color: #fff;
+}
+.prompt h1, .prompt .title {
+  padding: 15px 22px;
   background: rgb(127,127,140);
   font-weight: bold;
   font-size: 22px;
   color: white;
   margin: 0;
 }
-.box.error {
-  background: rgb(255,216,216, 0.4);
+.box {
   font-weight: 400;
   padding: 0;
   width: auto;
 }
-.error .content {
-  padding: 0.5em;
+.box .title {
+  background: rgb(127,127,140);
 }
-.error .message {
-  margin: 0.75em 0;
+.box.info {
+  background: rgb(216,216,255, 0.4);
+}
+.info .title {
+  background: rgb(127,127,216);
 }
 .error .options {
   text-align: right;
 }
 .error .title {
   background: rgb(216,127,127);
+}
+.box.error {
+  background: rgb(255,216,216, 0.4);
+}
+.box .content {
   padding: 0.5em;
-  font-weight: bold;
-  color: #fff;
+}
+.box .message {
+  margin: 0.75em 0;
 }
 .error p {
   margin: 0 0 0.5em;

@@ -2,7 +2,7 @@ RewriteEngine On
 RewriteBase /
 
 RewriteRule ^book/(.*)$ /api/carcontrol.php?action=reserve&car=$1 [R=301,L]
-RewriteRule ^control/(.*)$ /api/carcontrol.php?action=$1 [R=301,L]
+RewriteRule ^control/(.*)$ /api/carcontrol.php?action=$1 [L]
 
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteCond %{REQUEST_FILENAME}\.php -f

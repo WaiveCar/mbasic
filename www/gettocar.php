@@ -19,7 +19,9 @@ if($me['booking']['flags']) {
 
 ob_start("sanitize_output");
 
-doheader('Get to Your WaiveCar', true, '<meta http-equiv=refresh content=30>');
+doheader('Get to Your WaiveCar', [
+  'extraHtml' =>  '<meta http-equiv=refresh content=30>'
+]);
 ?>
   <div class='box gettocar'>
     <?= showLocation($car, ['nozone' => true]) ?> 

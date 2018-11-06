@@ -1,4 +1,16 @@
 <?
+function instructions($what) {
+  doheader(ucfirst($what), [
+    'icon' => '/img/' . $what . '.png',
+    'showaccount' => false]
+  );
+  infobox("Add a link to $what a WaiveCar", [
+    '<b>Android:</b><ol><li>Tap the 3 dots in the upper left to get to the menu. <li>Scroll down and tap on "Add to Home screen"</ol>',
+    '<b>iPhone:</b><ol><li>Tap on the share button which looks like a square with an upward arrow on it. <li>Scroll and tap "Add to Home Screen" which is a grey box with a plus sign.</ol>',
+    "After you're done, press the back button and add any other functions you'd like."
+  ], 'prompt');
+}
+
 ob_start();
 include('common.php');
 $action = $_GET['action'];
@@ -6,7 +18,12 @@ if($action === 'nop') {
   getstate("nocache");
   exit;
 }
-doheader('Waiting', false);
+if(strpos($_SERVER['HTTP_REFERER'], 'shortcut') !== false) {
+  instructions($action);
+  exit;
+}
+
+doheader(ucfirst($action), ['showaccount' => false]);
 ?>
   <div class='box center'>
     <h1>Please wait</h1>

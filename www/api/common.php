@@ -545,7 +545,7 @@ function doheader($title, $showaccount=true, $extraHtml='') {
   <head>
     <title><?= $title ?></title>
     <meta name=viewport content="width=device-width,initial-scale=1.0">
-    <link rel="shortcut icon" href=/img/circle-logo_32.gif>
+    <link rel=icon href=/img/circle-logo_64.png>
     <link rel=stylesheet href=/style.css>
     <?= $extraHtml; ?>
   </head>

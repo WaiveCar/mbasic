@@ -9,8 +9,10 @@ $revenueList = array_filter($revenueList, function($row) {
 $ttl = array_sum(array_map(function($row) { return $row['ttl']; }, $revenueList));
 
 $map = [
+  /*
   'name' => function($row) { return "<a href=//lb.waivecar.com/users/${row['id']}>{$row['first_name']} {$row['last_name']}</a>"; },
   'status' => function($row) { return $row['status']; },
+   */
   'revenue' => function($row) { return sprintf("%.2f", $row['ttl']/100); },
   'tx count' => function($row) { return $row['charges']; },
   'credit' => function($row) { return sprintf("%.2f", $row['credit']/100); },
@@ -20,7 +22,7 @@ $map = [
 ];
 
 ?>
-  <?= $start ?> - <?= $end ?>mo
+  <?= $start ?> - <?= $end ?>mo (total: <?= count($revenueList) ?>)
 <table>
   <thead>
     <? foreach(array_keys($map) as $column) { 

@@ -1,7 +1,9 @@
 <?
 function instructions($what) {
+  $icon = '/img/' . $what . '.png';
   doheader(ucfirst($what), [
-    'icon' => '/img/' . $what . '.png',
+    'icon' => $icon,
+    'extraHtml' => "<link rel='shortcut icon' href=$icon><link rel=apple-touch-icon sizes=76x76 href=$icon><link rel=apple-touch-icon sizes=72x72 href=$icon><link rel=apple-touch-icon sizes=60x60 href=$icon>",
     'showaccount' => false]
   );
   infobox("Add a link to $what a WaiveCar", [
@@ -31,11 +33,11 @@ if(($action === 'lock' || $action === 'unlock') && !$me['booking_id']) {
   exit;
 }
 
+$title = '';
 if($action === 'lock' || $action === 'unlock') {
-  $title = ucfirst(action) . "ing. Please wait";
-} else {
-  $title = "Please Wait";
+  $title = ucfirst($action) . "ing. ";
 }
+$title .= "Please wait...";
 infobox($title, [
   "This can take up to 30 seconds.",
   '<img id=ajax src=/img/ajax-loader.gif>'

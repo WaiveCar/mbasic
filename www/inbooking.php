@@ -36,5 +36,6 @@ doheader('Current Booking', ['extraHtml' => '<meta http-equiv="refresh" content=
     ]); ?>
   </div>
 
+<? infobox("Exclusive for Basic Users", "Add a shortcut on your smartphone home screen for quickly locking and unlocking WaiveCars. <a href=/shortcuts.php>Find out more!</a>", 'info'); ?>
 </body>
 </html>

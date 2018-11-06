@@ -23,7 +23,7 @@ h1,h2,h3 {
   font-weight: 300;
 }
 h1 {
-  margin-top: 0.25em;
+  padding-top: 0.25em;
 }
 h4 {
   font-weight: 300;
@@ -131,6 +131,9 @@ form input[type="submit"] {
   text-align:right;
   margin: -20px 4px 0 0;
 }
+.btn-group {
+  text-align: center;
+}
 .btn {
   font-family: Verdana, Geneva, sans-serif;
   text-align: center;
@@ -140,6 +143,10 @@ form input[type="submit"] {
   border: 1px solid blue;
   background: rgba(0,0,255,0.03);
   color: blue;
+}
+.btn.cta {
+  font-size: 18px;
+  min-width: 25%;
 }
 .action-list li {
   display: inline;
@@ -298,9 +305,6 @@ a.danger:active {
 }
 .box.error {
   background: rgb(255,216,216, 0.4);
-}
-.box .content {
-  padding: 0.5em;
 }
 .box .message {
   margin: 0.75em 0;

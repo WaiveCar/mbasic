@@ -96,7 +96,6 @@ doheader('Find Cars');
     <a class=needsjs href="prompt.php?prompt=Please enter your zip code&var=zip" onclick=nearest()><?= $arrow['near'] ?>Nearest</a> <a href=?sort=range><?= $arrow['range'] ?>Range</a> <a href=?sort=name><?= $arrow['name'] ?>Name</a> <a href=?sort=range&show=6><?= $arrow['show'] ?>Best 5</a>
     </div>
   </div>
-<? infobox("Exclusive for Basic Users", "Add a shortcut on your smartphone home screen for quickly locking and unlocking WaiveCars. <a href=/shortcuts.php>Find out more!</a>", 'info'); ?>
   <ul class=car-row>
 <? if(count($carList) === 0) { ?>
     <li class=car-row>

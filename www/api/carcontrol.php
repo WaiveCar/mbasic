@@ -24,18 +24,24 @@ if(strpos($_SERVER['HTTP_REFERER'], 'shortcut') !== false) {
 }
 
 doheader(ucfirst($action), ['showaccount' => false]);
-?>
-  <div class='box center'>
-    <h1>Please wait</h1>
-    <p>This can take up to 30 seconds.</p>
-    <p>
-      <img id="ajax" src="/img/ajax-loader.gif">
-    </p>
-  </div>
-<?
+
+$me = me();
+if(($action === 'lock' || $action === 'unlock') && !$me['booking_id']) {
+  infobox("No Active Booking", "Cannot $action because there's no active booking. <div class=btn-group><a href='/showcars.php' class='btn cta'>Find WaiveCars</a></div>", 'error');
+  exit;
+}
+
+if($action === 'lock' || $action === 'unlock') {
+  $title = ucfirst(action) . "ing. Please wait";
+} else {
+  $title = "Please Wait";
+}
+infobox($title, [
+  "This can take up to 30 seconds.",
+  '<img id=ajax src=/img/ajax-loader.gif>'
+], 'prompt center');
 ob_end_flush();
 flush();
-$me = me();
 if($action === 'generic') {
   $res = $_GET['params'];
   tis(curldo($res['url'], $res['params'], $res['verb']));

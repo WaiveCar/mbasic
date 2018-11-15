@@ -1,7 +1,6 @@
 <?
 include('api/common.php');
-getstate();
-$me = me();
+$me = getstate();
 db_incrstats('car');
 
 $region = getTag('region', 'id');

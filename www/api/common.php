@@ -200,8 +200,13 @@ function showerror() {
 $whoami = false;
 function me($opts = []) {
   global $whoami;
+  $from = aget($opts, 'from', '');
+  if(aget($opts, 'yescache') && !empty($_SESSION['me'])) {
+    $whoami = $_SESSION['me'];
+  }
+
   if(!$whoami || aget($opts, 'nocache')) {
-    $whoami = get('/users/me');
+    $whoami = get('/users/me?' . $from);
     if(!empty($whoami['code']) && (
       $whoami['code'] === 'AUTH_INVALID_TOKEN' ||
       $whoami['code'] === 'INVALID_TOKEN'
@@ -220,6 +225,7 @@ function me($opts = []) {
   ) {
     $whoami['car'] = car_info($whoami['booking']['carId']);
   }
+  $_SESSION['me'] = $whoami;
 
   return $whoami;
 }
@@ -408,7 +414,7 @@ function aget($source, $keyList, $default = null) {
 }
 
 function getstate($nocache = false) {
-  $me = me(['nocache' => $nocache]);
+  $me = me(['nocache' => $nocache, 'from'=>'getstate']);
 
   $from = $_SERVER['SCRIPT_NAME'];
   $to = false;
@@ -441,6 +447,7 @@ function getstate($nocache = false) {
     flush();
     exit;
   }
+  return $me;
 
 }
 
@@ -517,26 +524,29 @@ function getMapUrl($carList, $opts = []) {
     }
   }
 
-  $locationList = get('/locations');
-  foreach($locationList as $location) {
-    // brooklyn level parking is 1246 ... I know it's not a great method
-    if(isset($opts['level'])) {
-      if($location['id'] == 1246) {
-        $qmap[] = "markers=color:green%7C${location['latitude']},${location['longitude']}";
-        if(!$center) {
-          $center = 'center=' . $location['latitude'] . "," . $location['longitude'] . '&';
+  if(!isset($opts['nozone'])) {
+    $locationList = get('/locations');
+    foreach($locationList as $location) {
+      // brooklyn level parking is 1246 ... I know it's not a great method
+      if(isset($opts['level'])) {
+        if($location['id'] == 1246) {
+          $qmap[] = "markers=color:green%7C${location['latitude']},${location['longitude']}";
+          if(!$center) {
+            $center = 'center=' . $location['latitude'] . "," . $location['longitude'] . '&';
+          }
         }
-      }
-    } else {
-      if($location['type'] === 'zone' && !isset($opts['nozone'])) {
-        $loc = implode('|', array_map(
-          function($a) { return "${a[1]},${a[0]}"; },
-          $location['shape']
-        ));
-        $qmap[] = 'path=fillcolor:0x00AA0050|weight:0|' . $loc;
+      } else {
+        if($location['type'] === 'zone' && !isset($opts['nozone'])) {
+          $loc = implode('|', array_map(
+            function($a) { return "${a[1]},${a[0]}"; },
+            $location['shape']
+          ));
+          $qmap[] = 'path=fillcolor:0x00AA0050|weight:0|' . $loc;
+        }
       }
     }
   }
+
   $params = implode("&", $qmap);
   $zoom = '';
   if(!empty($opts['zoom'])) {

@@ -36,7 +36,12 @@ doheader('Your Account');
     </p>
 
     <p>
+    <h5>WaiveSMS</h5>
+Many things are available over text message. This requires no mobile data whatsoever. <a href="https://medium.com/@Waive/how-to-control-a-waivecar-over-text-7a1cc6176b45">Read our documentation to find out more.</a>
+    <p>
+    <h5>On Smartphones</h5>
     We have a full-featured app:
+    </p>
     <ul>
     <li><a href="https://play.google.com/store/apps/details?id=com.waivecardrive.app&hl=en_US">Download for Android</a>
     <li><a href="https://itunes.apple.com/us/app/waivecar/id1051144802?mt=8">Download for iPhone</a>

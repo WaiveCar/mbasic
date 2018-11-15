@@ -247,7 +247,7 @@ form input[type="submit"] {
   color: rgb(0,64,0);
   background: rgba(0,127,0,0.1);
   font-size: 105%;
-  border-color: green;
+  box-shadow: 0 0 0 1px green;
 }
 .primary {
   border-width: 2px;
@@ -255,8 +255,8 @@ form input[type="submit"] {
 }
 a.ignored {
   color: grey;
-  border-color: grey;
   background: white;
+  box-shadow: 0 0 0 1px grey;
 }
 .ignored:active {
   background: lightgrey;

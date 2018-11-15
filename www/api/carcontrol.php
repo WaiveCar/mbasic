@@ -74,9 +74,9 @@ if($me['booking_id']) {
   }
   if($action === 'extend') {
     confirm("Extend Your Reservation", "You can buy either an extra 10 or 20 minutes to get to your WaiveCar.<p><em>Reminder:</em> If you don't make it in time, you'll have to wait 30 minutes to rebook the same WaiveCar.</p>", [
-      [ "$4.20 for 20 extra minutes", "/api/carcontrol.php?action=extend4realz&howmuch=20", 'wid-1 primary preferred'],
+      [ "$4.20 for 20 extra minutes", "/api/carcontrol.php?action=extend4realz&howmuch=20", 'wid-1 primary prefer'],
       [ "$1.00 for 10 extra minutes", "/api/carcontrol.php?action=extend4realz&howmuch=10", 'wid-1 '],
-      [ "No thanks! I'll make it in time", "control/nop", 'wid-1 ignored' ]
+      [ "No thanks! I'll make it in time", "control/nop", 'wid-1 ignore' ]
     ]);
   }
 

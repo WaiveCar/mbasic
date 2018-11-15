@@ -23,10 +23,9 @@ ob_start("sanitize_output");
 doheader('Current Booking', ['extraHtml' => '<meta http-equiv="refresh" content="90">']);
 ?>
   <div class=box>
-    <h1><?= $car['license']; ?></h1>
     <? showLocation($car); ?>
     <div align=center>
-      <h4>You started <b><?= $timeStr ?>min</b> ago.</h4>
+      <h4><b><?= $timeStr ?>min</b> in <?= $car['license']; ?></h4>
       <a class=isolated href=control/end>Park and End Ride</a>
     </div>
 

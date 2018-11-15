@@ -162,9 +162,10 @@ function infobox($title, $content, $klass = '') {
 function showerror() {
   if(isset($_SESSION['lasterror'])) {
    $err = $_SESSION['lasterror'];
+   $verb = isset($err['options']) ? 'info' : 'error';
    ?>
 
-   <div class='error box'>
+   <div class='<?=$verb ?> box'>
      <div class=title><?= $err['title'] ?></div>
 
      <div class=content>
@@ -178,11 +179,12 @@ function showerror() {
           if(is_string($option['action']['params'])) {
             $option['action']['params'] = json_decode($option['action']['params'], true);
           }
+          $klass = aget($option, 'priority');
           $qstr = http_build_query([
             'action' => 'generic',
             'params' => $option['action']
           ]);
-          echo "<a class='btn' href='/api/carcontrol.php?$qstr'>${option['title']}</a>";
+          echo "<a class='btn wid-1 $klass' href='/api/carcontrol.php?$qstr'>${option['title']}</a>";
         }
         echo '</div>'; // options
       }

@@ -32,11 +32,6 @@ h4 {
   font-size: 22px;
   margin: 18px 0;
 }
-h5 {
-  margin: 0 0 0.25rem;
-  color: #333;
-  font-size: 1rem;
-}
 h1 small {
   font-size: 22px;
 }
@@ -191,6 +186,13 @@ form input[type="submit"] {
 .center {
   text-align: center;
 }
+.account b {
+  margin: 0;
+  color: #333;
+  font-size: 1rem;
+  font-weight: 600;
+  display: block;
+}
 .account ul {
   margin-left: 1.25em;
 }
@@ -243,9 +245,9 @@ form input[type="submit"] {
   font-family: sans-serif;
   color: #444;
 }
-.preferred {
-  color: rgb(0,64,0);
-  background: rgba(0,127,0,0.1);
+.prefer {
+  color: rgb(0,48,0);
+  background: rgba(0,160,0,0.1);
   font-size: 105%;
   box-shadow: 0 0 0 2px green;
 }
@@ -253,12 +255,12 @@ form input[type="submit"] {
   border-width: 2px;
   font-weight: 600;
 }
-a.ignored {
-  color: grey;
-  background: white;
+a.ignore {
+  color: #444;
+  background: rgba(160,160,172,0.1);
   box-shadow: 0 0 0 1px grey;
 }
-.ignored:active {
+.ignore:active {
   background: lightgrey;
   box-shadow: 0 0 0 5px grey;
 }
@@ -305,11 +307,15 @@ a.danger:active {
   padding: 0;
   width: auto;
 }
-.box .title, .prompt h1, .prompt .title, .box.info {
+.box .title, .prompt h1, .prompt .title {
   color: #002;
   background: rgb(216,216,220);
 }
+.box.info {
+  background: rgb(236,236,250);
+}
 .info .title {
+  color: #f4f4ff;
   background: rgb(127,127,216);
 }
 .error .options {
@@ -326,8 +332,7 @@ a.danger:active {
   padding: 0.25em 0.5em;
 }
 .error .btn {
-  padding: 0.25em 0.5em;
-  margin-left: 0.5em;
+  padding: 0.25em 0;
   background: rgba(255,255,255,0.4);
 }
 .car-label p {

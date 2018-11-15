@@ -247,7 +247,7 @@ form input[type="submit"] {
   color: rgb(0,64,0);
   background: rgba(0,127,0,0.1);
   font-size: 105%;
-  box-shadow: 0 0 0 1px green;
+  box-shadow: 0 0 0 2px green;
 }
 .primary {
   border-width: 2px;

@@ -10,7 +10,8 @@
     <h1><?= $_GET['t'] ?></h1>
     <div class='content'>
       <div class='copy'><?= $_GET['p'] ?></div>
-      <div class='actions'>
+      <div>
+      <div class='action'>
         <? 
           foreach($_GET['o'] as $row) { 
             $klass = '';
@@ -20,7 +21,7 @@
             echo "<a class='btn $klass' href='${row[1]}'>${row[0]}</a>";
           }
         ?> 
-      </p>
+      </div>
     </div>
   </div>
 </body>

@@ -168,7 +168,7 @@ function showerror() {
      <div class=title><?= $err['title'] ?></div>
 
      <div class=content>
-      <div class='message'><?= $err['message'] ?></div>
+      <div class='message'><p><?= $err['message'] ?></p>
       <?
 
       if(isset($err['options'])) { 
@@ -186,6 +186,7 @@ function showerror() {
         }
         echo '</div>'; // options
       }
+      echo '</div>'; // message
       echo '</div>'; // content
 
     echo '</div>'; // box
@@ -464,7 +465,7 @@ function getMap($carList, $opts = []) {
   $hide = aget($_SESSION, 'hide');
   $verb = $hide ? 'show' : 'hide';
   ?>
-  <div class=content>
+  <div class=container>
     <? if (!$hide) { ?><img class=img width=400 src="<?=getMapUrl($carList, $opts)?>"><? } ?>
     <img class=nop src=img/blank.png>
     <div class=map-controls>
@@ -582,15 +583,13 @@ function doheader($title, $opts = []) {
 
 function actionList($base, $list) {
 ?>
-  <ul class=action-list>
-  <? 
+  <ul class=action-list><? 
     foreach($list as $row) { 
       $klass = '';
       if(count($row) == 3) {
         $klass = " wid-${row[2]}";
       }
-      ?>
-      <li><a class="btn<?= $klass ?>" href="<?= $base ?>/<?= $row[0] ?>"><?= $row[1] ?></a>
+      ?><li><a class="btn<?= $klass ?>" href="<?= $base ?>/<?= $row[0] ?>"><?= $row[1] ?></a>
   <? } ?>
   </ul>
 <?

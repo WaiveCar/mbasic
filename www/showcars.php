@@ -112,7 +112,7 @@ foreach($carList as $key => $car) {
       <a class=btn href=book/<?= $car['id']; ?>>Reserve</a> 
     <? } ?>
     <div class=car-label>
-      (<?= $labelGuide[$ix] ?>) <?= round($car['range']); ?>mi charge
+      (<?= $labelGuide[$ix] ?>) <?= round($car['range']); ?>mi left
       <p><b style=width:<?=round($car['range'] * 100 / 140, 2)?>%></b></p>
     </div> 
     <? if (!empty($car['dist'])) { ?>

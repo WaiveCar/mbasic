@@ -77,7 +77,7 @@ form input {
   text-indent: 0.5rem;
   padding: 0.5rem 0;
   border: 0;
-  box-shadow: 0 0 0 1px grey;
+  box-shadow: 0 0 0 1px #bbb;
 }
 form input[type="submit"] {
   display: inline-block;

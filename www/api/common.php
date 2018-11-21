@@ -560,7 +560,14 @@ function getMapUrl($carList, $opts = []) {
 }
 
 // from https://www.geodatasource.com/developers/php
-function distance($lat1, $lon1, $lat2, $lon2) {
+function distance($lat1, $lon1, $lat2 = false, $lon2 = false) {
+  if(!$lat2) {
+    $lon2 = $lon1['longitude'];
+    $lat2 = $lon1['latitude'];
+    $lon1 = $lat1['longitude'];
+    $lat1 = $lat1['latitude'];
+  }
+
   $theta = $lon1 - $lon2;
   $dist = sin(deg2rad($lat1)) * sin(deg2rad($lat2)) +  cos(deg2rad($lat1)) * cos(deg2rad($lat2)) * cos(deg2rad($theta));
   $dist = acos($dist);
@@ -570,7 +577,8 @@ function distance($lat1, $lon1, $lat2, $lon2) {
 
 function location_link($obj) {
   $location = location($obj);
-  return "<a target=_blank href='//maps.google.com/maps/?q=${obj['latitude']},${obj['longitude']}+(${obj['license']})'>$location</a>";
+  $name = aget($obj,'license','charger');
+  return "<a target=_blank href='//maps.google.com/maps/?q=${obj['latitude']},${obj['longitude']}+($name)'>$location</a>";
 }
 
 function doheader($title, $opts = []) {

@@ -7,8 +7,18 @@ if($me['booking_id']){
 }
 
 $locationList = get('/locations');
-$chargerList = array_filter($locationList, function($m) use ($region) { 
-  return $m['type'] === 'chargingStation';
+$chargerList = [];
+foreach($locationList as $m) {
+  if ($m['type'] === 'chargingStation') {
+    $dist = distance($car, $m);
+    if($dist < 7) {
+      $m['dist'] = $dist;
+      $chargerList[] = $m;
+    }
+  }
+};
+usort($chargerList, function($a, $b){
+  return $a['dist'] > $b['dist'] ? 1 : -1;
 });
 
 $mapOpts = ['me' => $car, 'zoom' => 11];
@@ -24,28 +34,44 @@ doheader('Charge Car');
       <a class='inactive' href='inbooking.php'> &#128663; <?= $car['license'] ?></a>
       <span> &#128268; Chargers </span>
     </div>
-  <div class='map'>
-    <? getMap($chargerList, $mapOpts); ?>
+    <div class='map'>
+      <? getMap($chargerList, $mapOpts); ?>
+    </div>
   </div>
-  </div>
-
-  <ul class='car-row'>
+<?
+infobox("Under Development","Vehicle charging on WaiveBasic currently <u>Does Not Work</u> (Nov 21, 2018).  This is a sneak preview of the interface in development. Thanks for your interest. Please check back in the next few days. <i>Note: This message will be removed when it is functional.</i>", 'error');
+?>
+  <ul class='car-row charge-list'>
 <? if(count($chargerList) === 0) { ?>
     <li class='car-row'>
       <h1>No chargers are currently in range.</h1>
     </li>
  
 <? } else {
-foreach($chargerList as $key => $car) { 
+foreach($chargerList as $key => $charger) { 
 ?>
   <li>
-    <h3> (<?= $labelGuide[$ix] ?>) <?= ucfirst(strtolower($car['name'])); ?></h3> 
-    <div class='car-label'>
-    </div> 
-    <? if (!empty($car['dist'])) { ?>
-      <div class='car-distance'><? printf("%.2f", $car['dist']) ?>mi away</div>
-    <? } 
-    echo "<div>" . location_link($car) . "</div></li>"; 
+    <h3> (<?= $labelGuide[$ix] ?>) <?= $charger['name'] ?></h3> 
+    <div><?= location_link($charger) ?><span class='charger-distance'>(<? printf("%.2f", $charger['dist']) ?>mi away)</span></div>
+    <?
+    $chargerSet = ['fast' => [], 'slow' => []];
+    foreach($charger['portList'] as $port) {
+      $chargerSet[$port['type']][] = $port;
+    }
+    foreach(['fast', 'slow'] as $type) {
+      $list = $chargerSet[$type];
+      echo "<div class='port-list'>";
+      echo "<span>".ucfirst($type)."</span>";
+      if(count($list) > 0) {
+        foreach($chargerSet[$type] as $port) {
+          echo "<a><img src=charger-{$port['type']}.png>${port['name']}</a>";
+        }
+      } else {
+        echo "<span><em>None</em></span>";
+      }
+      echo '</div>';
+    }
+    echo '</li>';
     $ix++;
   } 
 }

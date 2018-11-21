@@ -594,7 +594,7 @@ function doheader($title, $opts = []) {
     <title><?= $title ?></title>
     <meta name=viewport content="width=device-width,initial-scale=1.0">
     <link rel=icon href=<?= $icon ?>>
-    <link rel=stylesheet href=/style.css?2018>
+    <link rel=stylesheet href=/style.css?1>
     <?= $extraHtml; ?>
   </head>
 <body>

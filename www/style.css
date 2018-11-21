@@ -47,6 +47,8 @@ a:active, .btn:active, a.btn:active {
   color: white !important;
   outline: 0;
   box-shadow: 0 0 0 5px blue;
+  z-index: 1000;
+  position: relative;
 }
 .isolated {
   padding: 0.25em;
@@ -110,7 +112,6 @@ input[type="file"] {
 }
 .map .nop {
   background: url('/img/circle-logo_32.gif') no-repeat;
-  box-shadow: 0 0 1px #777;
   background-position: center;
 }
 .map img {
@@ -384,7 +385,7 @@ a.danger:active {
 .tab-container span,
 .tab-container a {
   background: #fff;
-  line-height: 2.25rem;
+  line-height: 1.9rem;
   width: 35%;
   text-align: center;
   list-style: none;
@@ -398,7 +399,6 @@ a.danger:active {
   background: blue;
 }
 .tab-container a.inactive {
-  line-height:1.75rem;
   background: #DADAE3;
   color: #447;
 }

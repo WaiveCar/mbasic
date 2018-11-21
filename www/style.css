@@ -88,6 +88,9 @@ form input[type="submit"] {
   border-width: 1px;
   width: 100%;
 }
+input[type="file"] {
+  text-indent: 0;
+}
 .waive-green {
   color: #25c155;
 }
@@ -365,4 +368,31 @@ a.danger:active {
 }
 #endchecklist li {
   margin-bottom: 2em;
+}
+.tab-container {
+  background: #ECECEF;
+  padding-left:0.25rem;
+  margin-bottom: 0.5rem;
+  margin-top:-0.75rem;
+}
+.tab-container span,
+.tab-container a {
+  background: #fff;
+  line-height: 2.25rem;
+  width: 35%;
+  text-align: center;
+  list-style: none;
+  white-space: nowrap;
+  display: inline-block;
+  vertical-align: bottom;
+  cursor: pointer;
+  border-radius: 7px 7px 0 0;
+}
+.tab-container a.inactive:active {
+  background: blue;
+}
+.tab-container a.inactive {
+  line-height:1.75rem;
+  background: #DADAE3;
+  color: #447;
 }

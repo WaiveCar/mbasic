@@ -1,71 +1,46 @@
 <?
 include('api/common.php');
-getstate();
 $me = me();
-$region = getTag('region', 'id');
 
-// If a user doesn't have a region defined we can safely assume
-// that they are in los angeles and then filter based on that.
-if(!$region) {
-  $region = 6;
+if($me['booking_id']){
+  $car = car_info($me['booking']['carId']);
 }
+
 $locationList = get('/locations');
-$carList = array_filter($carList, function($m) use ($region) { 
-  return $m['groupCar'][0]['groupRoleId'] === $region;
+$chargerList = array_filter($locationList, function($m) use ($region) { 
+  return $m['type'] === 'chargingStation';
 });
-$arrow = ['near' => '', 'range'=> '', 'name' => '', 'show' => ''];
 
-$mapOpts = [];
-if(!empty($_GET['zip'])) {
-  $_GET['sort'] = 'near';
-}
-if(empty($_GET['sort'])) {
-  $_GET['sort'] = aget($_SESSION, 'sort', 'none');
-} else {
-  $_SESSION['sort'] = $_GET['sort'];
-}
-
-if(isLevel()) {
-  $mapOpts['level'] = true;
-}
-
-
-if(!empty($_GET['show'])) {
-  $carList = array_slice($carList, 0, intval($_GET['show'])); 
-  unset($arrow['range']);
-  $arrow['show'] = '&#9660;';
-}
+$mapOpts = ['me' => $car, 'zoom' => 11];
 
 $ix = 0;
 
 global $labelGuide;
-doheader('Find Cars');
+doheader('Charge Car');
 ?>
 
-  <div class='map'>
-    <? getMap($carList, $mapOpts); ?>
-    <div id='sorter'>
-    <a class="needsjs" href="prompt.php?prompt=Please enter your zip code&var=zip" onclick="nearest();"><?= $arrow['near'] ?>Nearest</a> <a href="?sort=range"><?= $arrow['range'] ?>Range</a> <a href="?sort=name"><?= $arrow['name'] ?>Name</a> <a href="?sort=range&show=6"><?= $arrow['show'] ?>Best 5</a>
+  <div class=box>
+    <div class='tab-container'>
+      <a class='inactive' href='inbooking.php'> &#128663; <?= $car['license'] ?></a>
+      <span> &#128268; Chargers </span>
     </div>
+  <div class='map'>
+    <? getMap($chargerList, $mapOpts); ?>
+  </div>
   </div>
 
   <ul class='car-row'>
-<? if(count($carList) === 0) { ?>
+<? if(count($chargerList) === 0) { ?>
     <li class='car-row'>
-      <h1>No WaiveCars are currently available.</h1>
+      <h1>No chargers are currently in range.</h1>
     </li>
  
 <? } else {
-foreach($carList as $key => $car) { 
+foreach($chargerList as $key => $car) { 
 ?>
   <li>
-    <h3><?= ucfirst(strtolower($car['license'])); ?></h3> 
-    <? if ($car['isReallyAvailable']) { ?>
-    <a class='btn' href="book/<?= $car['id']; ?>">Reserve</a> 
-    <? } ?>
+    <h3> (<?= $labelGuide[$ix] ?>) <?= ucfirst(strtolower($car['name'])); ?></h3> 
     <div class='car-label'>
-      (<?= $labelGuide[$ix] ?>) <?= round($car['range']); ?>mi charge
-      <div class='fuel'><div style='width:<?=round($car['range'] * 100 / 140, 2)?>%'></div></div>
     </div> 
     <? if (!empty($car['dist'])) { ?>
       <div class='car-distance'><? printf("%.2f", $car['dist']) ?>mi away</div>

@@ -260,6 +260,9 @@ function zip2geo($zip) {
 function location($obj) {
   global $db; 
   global $googleKey;
+  if(isset($obj['address'])) {
+    return $obj['address'];
+  }
   $qs = implode(',', [round($obj['latitude'] * 2,3)/2, round($obj['longitude'] * 2,3)/2]);
   // we try to check our local cache for this lat/lng (rounded to 3 precision points)
   $location = db_get($qs);
@@ -499,11 +502,11 @@ function getMapUrl($carList, $opts = []) {
   if(!empty($opts['me'])) {
     $qmap[] = "markers=color:0x0000ff%7C" . $opts['me']['latitude'] . "," . $opts['me']['longitude'];
     $center = 'center=' . $opts['me']['latitude'] . "," . $opts['me']['longitude'] . '&';
-    $opts['zoom'] = 12;
+    $opts['zoom'] = aget($opts, 'zoom', 12);
   } else if(count($carList) === 1) {
     $car = $carList[0];
     $center = 'center=' . $car['latitude'] . "," . $car['longitude'] . '&';
-    $opts['zoom'] = 14;
+    $opts['zoom'] = aget($opts, 'zoom', 14);
   }
 
   if(!isset($opts['level'])) {

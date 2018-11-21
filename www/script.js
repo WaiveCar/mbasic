@@ -11,16 +11,20 @@ function getZip() {
   }
 }
 
+function loc(cb,err) {
+  navigator.geolocation.getCurrentPosition(cb, err || function(){}, {
+    enableHighAccuracy: true,
+    timeout: 5000,
+    maximumAge: 0
+  });
+}
+
 function nearest() {
   if(!navigator.geolocation) {
     return getZip();
   }
 
-  navigator.geolocation.getCurrentPosition(function(pos) {
+  loc(function(pos){
     window.location = 'showcars.php?sort=near&lat=' + pos.coords.latitude + '&lng=' + pos.coords.longitude;
-  }, getZip, {
-    enableHighAccuracy: true,
-    timeout: 5000,
-    maximumAge: 0
-  });
+  }, getZip);
 }

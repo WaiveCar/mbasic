@@ -18,9 +18,9 @@ doheader('Your Account');
     <? } else { ?>
       <li>You're currently not in a WaiveCar. </li>
     <? } ?>
+      <li>Credit: <?= money($me['credit']) ?></li>
       <li>Email: <?= $me['email']?> </li>
       <li>Phone: <?= $me['phone']?> </li>
-      <li>Credit: <?= money($me['credit']) ?></li>
       <li>Your account is <?= $me['status'] ?>.
     </ul>
 
@@ -32,7 +32,9 @@ doheader('Your Account');
     <? } ?>
 
     <p>
+    <b>WaiveBasic</b>
     This is WaiveBasic. 
+    Add a shortcut on your smartphone home screen for quickly locking and unlocking WaiveCars. <a href=/shortcuts.php>Find out more!</a>
     </p>
 
     <p>

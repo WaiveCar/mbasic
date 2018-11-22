@@ -25,12 +25,14 @@ doheader('Get to Your WaiveCar', [
 ?>
   <div class='box gettocar'>
     <?= showLocation($car, ['nozone' => true]) ?> 
-    <h4>
-    <b><?= $minutes ?>min</b> left to get to <?= $car['license']; ?>
-    </h4>
+    <? if ($isExtended) {?> 
+      <h4><?= $car['license'] ?> is yours!</h4>
+    <? } else { ?>
+      <h4><b><?= $minutes ?>min</b> left to get to <?= $car['license']; ?></h4>
+    <? } ?> 
     <p align=center>
     <? if ($isExtended) {?> 
-      Reservation Extended
+      Your extension <?= $minutes > 0 ? "begins in ${minutes}min" : "began ${minutes} ago" ?>.
     <? } else { ?>
       Need longer? <a href="control/extend">Extend your reservation</a>.
     <? } ?> 

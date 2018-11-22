@@ -156,9 +156,11 @@ input[type="file"] {
 .action > a {
   margin: 1.5rem 0;
 }
-.content > :first-child,
-.action > :first-child {
+.content > :first-child {
   margin-top: 0;
+}
+.action > :first-child {
+  margin-top: 1rem;
 }
 .action > :last-child {
   margin-bottom: 0.5rem;
@@ -299,6 +301,10 @@ a.danger:active {
 }
 .prompt .copy {
   padding: 4px 0;
+  line-height: 1.4rem;
+}
+.copy b {
+  font-weight: bold;
 }
 .box .title {
   padding: 0.5em;

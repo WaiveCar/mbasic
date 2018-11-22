@@ -408,6 +408,7 @@ a.danger:active {
   color: #447;
 }
 .port-list {
+  margin-top:1rem;
   display:inline-block;
   width: 45%;
   vertical-align: text-top;
@@ -421,7 +422,6 @@ a.danger:active {
   display:block;
   font-size: 12px;
   color: #333;
-  margin-bottom: -0.25rem;
 }
 .port-list a {
   display: inline-block;

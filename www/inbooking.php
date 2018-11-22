@@ -23,9 +23,9 @@ ob_start("sanitize_output");
 doheader('Current Booking', ['extraHtml' => '<meta http-equiv="refresh" content="90">']);
 ?>
   <div class=box>
-    <div class='tab-container'>
+    <div class=tab-container>
       <span> &#128663; <?= $car['license'] ?></span>
-      <a class='inactive' href="charging.php"> &#128268; Chargers </a>
+      <a class=inactive href=chargeList.php> &#128268; Chargers </a>
     </div>
     <? showLocation($car); ?>
     <div align=center>

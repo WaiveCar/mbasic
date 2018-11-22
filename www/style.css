@@ -206,7 +206,6 @@ input[type="file"] {
 .charger-distance { 
   font-size: 13px;
   line-height: 19px;
-  color: #555;
   margin-left: 0.25rem;
 }
 .car-label {
@@ -433,3 +432,18 @@ a.danger:active {
   display: block;
   margin: 0 auto 0.5rem;
 }
+.charge-list {
+  color: #555;
+}
+.charge-list .zero {
+  opacity: 0.4;
+}
+.charge-list .fast,
+.charge-list .slow {
+  color: #444;
+  margin-right: 0.5rem; 
+}
+.charge-list .fast {
+  font-weight: bold;
+}
+

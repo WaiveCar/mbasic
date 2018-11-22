@@ -511,16 +511,19 @@ function getMapUrl($carList, $opts = []) {
 
   if(!isset($opts['level'])) {
     foreach($carList as $row) {
-      if($row['range'] < 40) {
-        $color = 'red';
-      } else if($row['range'] < 60) {
-        $color = 'orange';
-      } else if($row['range'] < 80) {
-        $color = 'yellow';
-      } else if($row['range'] < 110) {
-        $color = '0x779900';
-      } else {
-        $color = '0x00AA00';
+      $color = aget($row, 'color', '0x00AA00');
+      if(!empty($row['range'])) {
+        if($row['range'] < 40) {
+          $color = 'red';
+        } else if($row['range'] < 60) {
+          $color = 'orange';
+        } else if($row['range'] < 80) {
+          $color = 'yellow';
+        } else if($row['range'] < 110) {
+          $color = '0x779900';
+        } else {
+          $color = '0x00AA00';
+        }
       }
       $qmap[] = "markers=color:$color%7Clabel:${labelGuide[$ix]}%7C${row['latitude']},${row['longitude']}";
       $ix++;

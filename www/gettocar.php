@@ -11,6 +11,7 @@ if($me['booking_id']){
 $expire = $me['booking']['reservationEnd'];
 $inBooking = strtotime($expire) - strtotime('now');
 $minutes = round($inBooking/60);
+$absMinutes = abs($minutes);
 $seconds = $inBooking % 60;
 $isExtended = false;
 if($me['booking']['flags']) {
@@ -32,7 +33,7 @@ doheader('Get to Your WaiveCar', [
     <? } ?> 
     <p align=center>
     <? if ($isExtended) {?> 
-      Your extension <?= $minutes > 0 ? "begins in ${minutes}min" : "began ${minutes} ago" ?>.
+      Your extension <?= $minutes > 0 ? "begins in ${minutes}min" : "began ${absMinutes}min ago" ?>.
     <? } else { ?>
       Need longer? <a href="control/extend">Extend your reservation</a>.
     <? } ?> 

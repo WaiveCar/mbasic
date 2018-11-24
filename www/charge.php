@@ -1,14 +1,36 @@
 <?
 include('api/common.php');
 $me = me();
+?>
+<!doctype html>
+<html>
+<head>
+  <title><?= $name ?></title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="/style.css" />
+</head>
+<body>
+<?
 $id = $_GET['charger'];
+$portSearch = $_GET['port'];
 
 $locationList = get('/locations');
 // yeah all CS history is telling me this is bad ... oh well.
 foreach($locationList as $m) {
-  if($m['id'] === $id) { 
-    $charger = $m;
-    break;
+  if($m['type'] === 'chargingStation') {
+    if($m['id'] === $id) { 
+      $charger = $m;
+      break;
+    }
+    if($portSearch) {
+      foreach($m['portList'] as $attempt) {
+        if($attempt['name'] === $portSearch) {
+          infoBox("Starting " . $attempt['name'], "The charge should begin shortly. Feel free to use the back button to navigate away from this message.");
+          charge($m['id'], $attempt['id']);
+          exit;
+        }
+      }
+    }
   }
 }
 
@@ -22,14 +44,6 @@ foreach($charger['portList'] as $port) {
 }
 $name = $charger['name'];
 ?>
-<!doctype html>
-<html>
-<head>
-  <title><?= $name ?></title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="stylesheet" href="/style.css" />
-</head>
-<body>
   <div class='box prompt'>
     <h1><?= $name ?></h1>
     <div class='content'>
@@ -45,7 +59,7 @@ $name = $charger['name'];
 
        if(count($list) > 0) {
          foreach($chargerSet[$type] as $port) {
-           echo "<a href=/charger.php?port=${port['name']} class=geo><img src=/charger-{$port['type']}.png>${port['name']}</a>";
+           echo "<a href=/charge.php?port=${port['name']} class=geo><img src=/charger-{$port['type']}.png>${port['name']}</a>";
          }
        } else {
          echo "<span><em>None</em></span>";

@@ -321,6 +321,10 @@ function reserve($car) {
   ]));
 }
 
+function charge($id, $port) {
+  return tis(put("/chargers/start/$id/$port"));
+}
+
 function cancel($booking) {
   return tis(del("/bookings/$booking"));
 }

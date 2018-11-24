@@ -7,7 +7,7 @@ function instructions($what) {
     'showaccount' => false]
   );
   infobox("Add a link to $what a WaiveCar", [
-    '<b>Android:</b><ol><li>Tap the 3 dots in the upper left to get to the menu. <li>Scroll down and tap on "Add to Home screen"</ol>',
+    '<b>Android:</b><ol><li>Tap the 3 dots in the upper right to get to the menu. <li>Scroll down and tap on "Add to Home screen"</ol>',
     '<b>iPhone:</b><ol><li>Tap on the share button which looks like a square with an upward arrow on it. <li>Scroll and tap "Add to Home Screen" which is a grey box with a plus sign.</ol>',
     "After you're done, press the back button and add any other functions you'd like."
   ], 'prompt');

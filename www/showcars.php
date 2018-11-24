@@ -3,20 +3,9 @@ include('api/common.php');
 $me = getstate();
 db_incrstats('car');
 
-$region = getTag('region', 'id');
 $showdibs = false;
-
-// If a user doesn't have a region defined we can safely assume
-// that they are in los angeles and then filter based on that.
-if(!$region) {
-  $region = 6;
-}
 $carList = get('/cars');
-/*
-$carList = array_filter($carList, function($m) use ($region) { 
-  return aget($m, 'tagList.0.groupRoleId', false) === $region;
-});
- */
+
 $arrow = ['near' => '', 'range'=> '', 'name' => '', 'show' => ''];
 
 $mapOpts = [];
@@ -24,7 +13,7 @@ if(!empty($_GET['zip'])) {
   $_GET['sort'] = 'near';
 }
 if(empty($_GET['sort'])) {
-  $_GET['sort'] = aget($_SESSION, 'sort', 'none');
+  $_GET['sort'] = aget($_SESSION, 'sort', 'range');
 } else {
   $_SESSION['sort'] = $_GET['sort'];
 }

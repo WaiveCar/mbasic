@@ -1,4 +1,4 @@
-h1,h2,h3,body,ul,li { margin: 0; padding: 0 }
+h2,h2,h3,body,ul,li { margin: 0; padding: 0 }
 body {
   font-family: Verdana, Geneva, sans-serif;
   background: #ECECEF;
@@ -410,7 +410,7 @@ a.danger:active {
 .port-list {
   margin-top:1rem;
   display:inline-block;
-  width: 45%;
+  min-width: 50%;
   vertical-align: text-top;
 }
 .port-list em {

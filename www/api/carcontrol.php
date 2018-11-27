@@ -59,16 +59,14 @@ if($me['booking_id']) {
     extend($booking, $_GET['howmuch']);
   }
   if($action === 'extend') {
-    $remain = aget($_GET, 'remain');
-    if($remin == '0') {
-      $remain = 'a few seconds!';
-    } else {
-      $remain = "$remain minutes";
+    $goad = '';
+    if($me['credit'] > 500) {
+      $goad = sprintf("<p>(You have $%.2f in credit!)</p>", $me['credit'] / 100);
     }
     
-    confirm("Extend Your Reservation", "<b>Take as long as you want!</b> $1.00 for the first 10 minutes and $0.30/min after that until you start your ride.", [
+    confirm("Extend Your Reservation", "<b>Just $1.00</b> for ten minutes and $0.30 each additional minute until you start your ride.$goad", [
       [ "Save the WaiveCar for me!", "/api/carcontrol.php?action=extend4realz&howmuch=-1", 'wid-1 primary'],
-      [ "Nah! I'll make it in $remain", "control/nop", 'wid-1 ignore' ]
+      [ "Nah! I'll make it.", "control/nop", 'wid-1 ignore' ]
     ]);
   }
 

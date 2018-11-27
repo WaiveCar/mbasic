@@ -31,15 +31,15 @@ doheader('Get to Your WaiveCar', [
     <? } else { ?>
       <h4><b><?= $minutes ?>min</b> left to get to <?= $car['license']; ?></h4>
     <? } ?> 
-    <p align=center>
+    <p>
     <? if ($isExtended) {?> 
       Your extension <?= $minutes > 0 ? "begins in ${minutes}min" : "began ${absMinutes}min ago" ?>.
     <? } else { ?>
-      Need longer? <a href="control/extend">Extend your reservation</a>.
+      Need longer?<br/><a class=encourage href=control/extend?remain=<?=max(0, $minutes -1)?>>Tap here for more time</a>
     <? } ?> 
     </p>
 
-    <div class='content'>
+    <div class=message>
     <? actionList('control', [
       ['cancel', 'Cancel Booking', '2 danger'],
       ['start', 'Start Ride', '2 geo']

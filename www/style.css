@@ -58,6 +58,11 @@ a:active, .btn:active, a.btn:active {
 .gettocar h4 {
   text-align: center;
 }
+.gettocar p {
+  text-align: center;
+  margin: 1.5rem 0;
+}
+
 .box.login {
   padding: 20px;
   box-sizing: border-box;
@@ -261,8 +266,12 @@ input[type="file"] {
   font-family: sans-serif;
   color: #444;
 }
+a.encourage {
+  font-size: 110%;
+  text-decoration:underline;
+}
 a.prefer:visited,
-.prefer {
+.btn.prefer {
   color: rgb(0,48,0);
   background: rgba(0,160,0,0.1);
   font-size: 105%;

@@ -33,10 +33,12 @@ doheader('Current Booking', ['extraHtml' => '<meta http-equiv="refresh" content=
       <a class=isolated href=control/end>Park and End Ride</a>
     </div>
 
+    <div class='content'>
     <? actionList('control', [
       ['unlock', 'Unlock', 2],
       ['lock', 'Lock', 2]
     ]); ?>
+    </div>
   </div>
 
 </body>

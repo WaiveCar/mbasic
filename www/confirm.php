@@ -9,8 +9,8 @@
   <div class='box prompt'>
     <h1><?= $_GET['t'] ?></h1>
     <div class='content'>
-      <div class='copy'><?= $_GET['p'] ?></div>
-      <div class='action'>
+      <div class=copy><?= $_GET['p'] ?></div>
+      <div class=action>
         <? 
           foreach($_GET['o'] as $row) { 
             $klass = '';

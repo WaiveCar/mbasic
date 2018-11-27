@@ -153,11 +153,14 @@ input[type="file"] {
   font-size: 18px;
   min-width: 25%;
 }
-.action > a {
-  margin: 1.5rem 0;
-}
 .content > :first-child {
   margin-top: 0;
+}
+.action, .action-list {
+  font-size: 0;
+}
+.action > a {
+  margin: 1.5rem 0;
 }
 .action > :first-child {
   margin-top: 1rem;
@@ -168,26 +171,18 @@ input[type="file"] {
 .action-list {
   padding-bottom: 0.5rem;
 }
-.action-list li {
-  display: inline;
-  font-size: 0;
-  background: lime;
-} 
 .action-list a {
   display: inline-block;
-  margin-left: 1%;
-  margin-right: 1%;
-  padding-left:1%;
-  padding-right: 1%;
   text-align: center;
 }
 .box {
   display: block;
   text-align: left;
   background: white;
-  padding: 1% 2%;
+  padding: 0;
   margin: 0 auto 6px auto;
-  width: 94%;
+  width: auto;
+  font-weight: 400;
 }
 .center {
   text-align: center;
@@ -243,7 +238,17 @@ input[type="file"] {
   padding-right: 0;
 }
 .wid-2 {
-  width: 46%;
+  width: 48.5%;
+  margin-left:1.5%;
+  margin-right:1.5%;
+  padding-left: 0;
+  padding-right: 0;
+}
+.wid-2:first-child {
+  margin-left: 0;
+}
+.wid-2:last-child {
+  margin-right: 0;
 }
 .image-upload input {
   vertical-align: middle;
@@ -256,11 +261,15 @@ input[type="file"] {
   font-family: sans-serif;
   color: #444;
 }
+a.prefer:visited,
 .prefer {
   color: rgb(0,48,0);
   background: rgba(0,160,0,0.1);
   font-size: 105%;
   box-shadow: 0 0 0 2px green;
+}
+.btn.prefer:active{
+  box-shadow: 0 0 0 5px green;
 }
 .primary {
   border-width: 2px;
@@ -296,7 +305,7 @@ a.danger:active {
   padding: 0;
   width: 96%;
 }
-.prompt .content, .prompt h1 {
+.content, .prompt h1 {
   padding: 1rem;
 }
 .prompt .copy {
@@ -316,11 +325,6 @@ a.danger:active {
   font-weight: 400;
   font-size: 22px;
   margin: 0;
-}
-.box {
-  font-weight: 400;
-  padding: 0;
-  width: auto;
 }
 .box .title, .prompt h1, .prompt .title {
   color: #002;
@@ -345,6 +349,9 @@ a.danger:active {
 }
 .box .message {
   padding: 0.25em 0.5em;
+}
+.message p:first-child {
+  margin-top: 0;
 }
 .error .btn {
   padding: 0.25em 0;

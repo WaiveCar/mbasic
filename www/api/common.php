@@ -231,6 +231,21 @@ function me($opts = []) {
 }
 
 
+function prompt($title, $prompt, $var, $doPage = false) {
+  if($doPage) {
+    load('prompt.php?' . http_build_query([
+      'b' => $doPage,
+      'v' => $var,
+      't' => $title, 'p' => $prompt, 'o' => $options]));
+  } else {
+    $_GET['t'] = $title;
+    $_GET['p'] = $prompt;
+    $_GET['v'] = $var;
+    include('prompt.php');
+  }
+  exit;
+}
+
 function confirm($title, $prompt, $options) {
   load('confirm.php?' . http_build_query(['t' => $title, 'p' => $prompt, 'o' => $options]));
   exit;
@@ -569,6 +584,9 @@ function getMapUrl($carList, $opts = []) {
 // from https://www.geodatasource.com/developers/php
 function distance($lat1, $lon1, $lat2 = false, $lon2 = false) {
   if(!$lat2) {
+    if(!array_key_exists($lon1, 'longitude') || !array_key_exists($lat1, 'longitude')) {
+      return false;
+    }
     $lon2 = $lon1['longitude'];
     $lat2 = $lon1['latitude'];
     $lon1 = $lat1['longitude'];
@@ -611,17 +629,34 @@ function doheader($title, $opts = []) {
   showerror();
 }
 
+function instructions($what) {
+  $icon = '/img/' . $what . '.png';
+  doheader(ucfirst($what), [
+    'icon' => $icon,
+    'extraHtml' => "<link rel='shortcut icon' href=$icon><link rel=apple-touch-icon sizes=76x76 href=$icon><link rel=apple-touch-icon sizes=72x72 href=$icon><link rel=apple-touch-icon sizes=60x60 href=$icon>",
+    'showaccount' => false]
+  );
+  infobox("Add a link to $what a WaiveCar", [
+    '<b>Android:</b><ol><li>Tap the 3 dots in the upper right to get to the menu. <li>Scroll down and tap on "Add to Home screen"</ol>',
+    '<b>iPhone:</b><ol><li>Tap on the share button which looks like a square with an upward arrow on it. <li>Scroll and tap "Add to Home Screen" which is a grey box with a plus sign.</ol>',
+    "After you're done, press the back button and add any other functions you'd like."
+  ], 'prompt');
+}
+
 function actionList($base, $list) {
+  if($base[-1] != '=') {
+    $base .= '/';
+  }
 ?>
-  <ul class=action-list><? 
+  <div class=action-list><? 
     foreach($list as $row) { 
       $klass = '';
       if(count($row) == 3) {
         $klass = " wid-${row[2]}";
       }
-      ?><li><a class="btn<?= $klass ?>" href="<?= $base ?>/<?= $row[0] ?>"><?= $row[1] ?></a>
+      ?><a class="btn<?= $klass ?>" href="<?= $base ?><?= $row[0] ?>"><?= $row[1] ?></a>
   <? } ?>
-  </ul>
+  </div>
 <?
 }
 

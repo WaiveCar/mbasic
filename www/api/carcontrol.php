@@ -1,18 +1,4 @@
 <?
-function instructions($what) {
-  $icon = '/img/' . $what . '.png';
-  doheader(ucfirst($what), [
-    'icon' => $icon,
-    'extraHtml' => "<link rel='shortcut icon' href=$icon><link rel=apple-touch-icon sizes=76x76 href=$icon><link rel=apple-touch-icon sizes=72x72 href=$icon><link rel=apple-touch-icon sizes=60x60 href=$icon>",
-    'showaccount' => false]
-  );
-  infobox("Add a link to $what a WaiveCar", [
-    '<b>Android:</b><ol><li>Tap the 3 dots in the upper right to get to the menu. <li>Scroll down and tap on "Add to Home screen"</ol>',
-    '<b>iPhone:</b><ol><li>Tap on the share button which looks like a square with an upward arrow on it. <li>Scroll and tap "Add to Home Screen" which is a grey box with a plus sign.</ol>',
-    "After you're done, press the back button and add any other functions you'd like."
-  ], 'prompt');
-}
-
 ob_start();
 include('common.php');
 $action = $_GET['action'];
@@ -91,6 +77,31 @@ if($me['booking_id']) {
   }
 
   if($action === 'start') {
+    $me = me(['withcar' => true]);
+    $distance = distance($_REQUEST, $me['car']);
+
+    if($distance === false || $distance > 100) {
+      $car = $me['car'];
+      $plate = aget($me, 'car.plateNumber');
+      $success = false;
+      $append = '';
+      if($plate && !empty($_REQUEST['plate'])) {
+        $guess = $_REQUEST['plate'];
+        $append = "<p>Hrmm, '$guess' is not correct. Did you make typo?</p>";
+        if(strpos(strtolower($plate), strtolower($_REQUEST['plate'])) != false) {
+          $success = true;
+        }
+      }
+      if($plate && !$success) {
+        prompt(
+          "Looking for ${car['license']}", 
+          "${append}We can't determine your device's location. Please enter in the last 3 digits of ${car['license']}'s license plate for confirmation.","plate",
+          "/gettocar.php"
+        );
+      }
+    } 
+    // We permit starting under two conditions, the first is if the person is within 100M from the car and
+    // the second is if they know the last 3 digits of the license plate
     $fileList = uploadFiles();
     if(count($fileList) > 0)  {
       createReport($fileList);

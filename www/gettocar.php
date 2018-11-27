@@ -24,7 +24,7 @@ doheader('Get to Your WaiveCar', [
   'extraHtml' =>  '<meta http-equiv=refresh content=30>'
 ]);
 ?>
-  <div class='box gettocar'>
+  <div class='box gettocar prompt'>
     <?= showLocation($car, ['nozone' => true]) ?> 
     <? if ($isExtended) {?> 
       <h4><?= $car['license'] ?> is yours!</h4>
@@ -39,11 +39,13 @@ doheader('Get to Your WaiveCar', [
     <? } ?> 
     </p>
 
+    <div class='content'>
     <? actionList('control', [
       ['cancel', 'Cancel Booking', '2 danger'],
-      ['start', 'Start Ride', 2]
-    ]); ?>
+      ['start', 'Start Ride', '2 geo']
+     ]); ?>
+    </div>
   </div>
-
+  <script src=script.js></script>
 </body>
 </html>

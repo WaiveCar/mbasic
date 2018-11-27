@@ -584,7 +584,7 @@ function getMapUrl($carList, $opts = []) {
 // from https://www.geodatasource.com/developers/php
 function distance($lat1, $lon1, $lat2 = false, $lon2 = false) {
   if(!$lat2) {
-    if(!array_key_exists($lon1, 'longitude') || !array_key_exists($lat1, 'longitude')) {
+    if(empty($lon1['longitude']) && empty($lat1['longitude'])) {
       return false;
     }
     $lon2 = $lon1['longitude'];

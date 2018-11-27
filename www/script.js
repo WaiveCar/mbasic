@@ -5,7 +5,7 @@ window.onload = function() {
     allEl[ix].onclick = function() {
       var mthis = this;
       loc(function(pos) { 
-        window.location = mthis.href_ + ( mthis.href_.indexOf('?') === false ? '?' : '&' ) + 'lat=' + pos.coords.latitude + '&lng=' + pos.coords.longitude;
+        window.location = mthis.href_ + ( mthis.href_.indexOf('?') === false ? '?' : '&' ) + 'latitude=' + pos.coords.latitude + '&longitude=' + pos.coords.longitude;
       }, function() {
         window.location = mthis.href_; 
       });

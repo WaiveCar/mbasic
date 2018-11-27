@@ -84,6 +84,9 @@ if($me['booking_id']) {
   if($action === 'start') {
     $me = me(['withcar' => true]);
     $distance = distance($_REQUEST, $me['car']);
+    if(is_numeric($distance)) {
+      $distance *= 1609;
+    }
 
     if($distance === false || $distance > 100) {
       $car = $me['car'];

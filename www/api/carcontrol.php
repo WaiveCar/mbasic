@@ -66,7 +66,7 @@ if($me['booking_id']) {
       $remain = "$remain minutes";
     }
     
-    confirm("Extend Your Reservation", "<b>Take as long as you want!</b> $1.00 for the first 10 minutes and $0.30/min after that until you get to your WaiveCar and start the ride.", [
+    confirm("Extend Your Reservation", "<b>Take as long as you want!</b> $1.00 for the first 10 minutes and $0.30/min after that until you start your ride.", [
       [ "Save the WaiveCar for me!", "/api/carcontrol.php?action=extend4realz&howmuch=-1", 'wid-1 primary'],
       [ "Nah! I'll make it in $remain", "control/nop", 'wid-1 ignore' ]
     ]);

@@ -35,7 +35,7 @@ doheader('Get to Your WaiveCar', [
     <? if ($isExtended) {?> 
       Your extension <?= $minutes > 0 ? "begins in ${minutes}min" : "began ${absMinutes}min ago" ?>.
     <? } else { ?>
-      Need longer?<br/><a class=encourage href=control/extend?remain=<?=max(0, $minutes -1)?>>Tap here for more time</a>
+      Need longer?<br/><a class=encourage href=control/extend?remain=<?=max(0, $minutes -1)?>>Extend your reservation</a>
     <? } ?> 
     </p>
 

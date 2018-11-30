@@ -578,7 +578,7 @@ function getMapUrl($carList, $opts = []) {
     $zoom = "zoom=${opts['zoom']}&";
   }
 
-  return "//maps.googleapis.com/maps/api/staticmap?${center}size=400x300&${zoom}maptype=roadmap&$params&key=$googleKey";
+  return "//maps.googleapis.com/maps/api/staticmap?${center}size=400x300&${zoom}maptype=roadmap&format=JPEG&$params&key=$googleKey";
 }
 
 // from https://www.geodatasource.com/developers/php

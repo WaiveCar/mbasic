@@ -509,6 +509,17 @@ function getMap($carList, $opts = []) {
   </div> <?
 }
 
+/*
+function hasFlag($what) {
+  $me = me();
+  if(is_string($me['booking']['flags'])) {
+    $me['booking']['flags'] = json_decode($me['booking']['flags'], true);
+  }
+  return in_array( $me['booking']['flags'], $what);
+}
+ */
+
+
 function getMapUrl($carList, $opts = []) {
   //$key = 'AIzaSyBibUDNVBjFAKpwyPcZirJW4qHq2W2OO8M';//'AIzaSyD3Bf8BTFI_z00lrxWdReV4MpaqnQ8urzc';
 

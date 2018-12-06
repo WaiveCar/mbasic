@@ -25,7 +25,7 @@ ob_start("sanitize_output");
         <? foreach($query as $key => $value) { ?>
           <input name="<?=$key?>" type=hidden value="<?= $value ?>">
         <? } ?>
-        <input class=input type=text name="<?= $_GET['v'] ?>" autofocus required>
+        <input class=input type=text name="<?= $_GET['v'] ?>" autofocus required autocomplete="false">
         <div class=action-list>
           <a class='btn wid-2 ignore' href="<?= $back ?>">Cancel</a>
           <button class='btn wid-2'>Done</button>

@@ -236,7 +236,7 @@ function prompt($title, $prompt, $var, $doPage = false) {
     load('prompt.php?' . http_build_query([
       'b' => $doPage,
       'v' => $var,
-      't' => $title, 'p' => $prompt, 'o' => $options]));
+      't' => $title, 'p' => $prompt, 'o' => $options, 'r'=>rand(1000,9999)]));
   } else {
     $_GET['t'] = $title;
     $_GET['p'] = $prompt;

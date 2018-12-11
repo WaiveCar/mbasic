@@ -59,7 +59,7 @@ function curldo($url, $params = false, $verb = false, $opts = []) {
   $url = '/' . ltrim($url, '/');
 
   $header = [];
-  if(isset($_SESSION['token'])) {
+  if(isset($_SESSION['token']) && strlen($_SESSION['token']) > 2) {
     $header[] = "Authorization: ${_SESSION['token']}";
   }
     

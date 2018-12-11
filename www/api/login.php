@@ -15,6 +15,8 @@ if($resJSON === 'Not Found') {
       'message' => $resJSON['message']
     ];
   }
+} else if(array_key_exists('code', $resJSON)) {
+  session_destroy();
 } else {
   $_SESSION['token'] = $resJSON['token'];
   load('/showcars.php');

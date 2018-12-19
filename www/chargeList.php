@@ -54,7 +54,6 @@ doheader('Charge Car');
     </div>
   </div>
 <?
-infobox("Under Development (alpha)","Vehicle charging on WaiveBasic currently <u>May</u> Not Work (Nov 24, 2018).  This is a sneak preview. Feel free to try it out and send us a text if things don't work out. <i>Note: This message will be removed when it is reliable.</i>", 'info');
   echo "<ul class='car-row charge-list'>";
 if(count($chargerList) === 0) { 
   echo '<li><h1>No chargers are currently in range.</h1></li>';

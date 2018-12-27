@@ -369,7 +369,7 @@ function car_info($car) {
 }
 
 function lock($car) {
-  return put("/cars/$car/lock");
+  return tis(put("/cars/$car/lock"));
 }
 
 function unlock($car) {
@@ -623,6 +623,9 @@ function doheader($title, $opts = []) {
   $icon = aget($opts, 'icon', '/img/circle-logo_96.png');
 
   $me = me();
+  $datetime = new DateTime; // current time = server time
+  $otherTZ  = new DateTimeZone('America/Los_Angeles');
+  $datetime->setTimezone($otherTZ); // calculates with new TZ now
 ?>
 <!doctype html>
 <html>

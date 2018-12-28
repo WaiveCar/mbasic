@@ -52,7 +52,14 @@ body {
 </style>
 <?
 foreach($carList as $car) {
-  if(aget($car, 'tagList.0.groupRoleId') === 7) {
+  if(aget($car, 'tagList.0.groupRoleId') !== 6) {
+    continue;
+  }
+  list($lat,$lng) = [
+    aget($car, 'bookings.0.details.0.latitude'),
+    aget($car, 'bookings.0.details.0.longitude')
+  ];
+  if(abs($lat - 34.0199623) + abs($lng - -118.4682465) < 0.001) {
     continue;
   }
   $level = 0;
@@ -66,7 +73,7 @@ foreach($carList as $car) {
     if($endTime > 12) {
       $level ++;
     }
-    if($endTime > $claim) {
+    if($claim && $endTime > $claim) {
       $level += 5;
     }
   }

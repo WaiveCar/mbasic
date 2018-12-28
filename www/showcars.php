@@ -21,15 +21,15 @@ if(empty($_GET['sort'])) {
 if(isLevel()) {
   $mapOpts['level'] = true;
 }
-
 if($_GET['sort'] === 'range') {
   uasort($carList, function($a, $b) {
     return $b['range'] > $a['range'] ? 1 : -1;
   });
   $arrow['range'] = '&#9660;';
 } else if($_GET['sort'] === 'name') {
-  foreach($carList as &$car) {
-    $car['number'] = intval(preg_replace('/[a-z]*/i','', $car['license']));
+  foreach($carList as $key => $car) {
+    preg_match('/\d*$/', $car['license'],$match);
+    $carList[$key]['number'] = intval($match[0]);
   }
   uasort($carList, function($a, $b) {
     return $a['number'] >  $b['number'] ? 1 : -1;
@@ -72,7 +72,6 @@ if(!empty($_GET['show'])) {
   unset($arrow['range']);
   $arrow['show'] = '&#9660;';
 }
-
 $ix = 0;
 
 global $labelGuide;

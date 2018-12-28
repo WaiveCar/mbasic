@@ -76,7 +76,7 @@ if($me['booking_id']) {
 
   if($action === 'cancel') {
     confirm("Cancel Your Booking", "Are you sure you want to cancel your booking?<p><em>Reminder:</em> If you cancel, you need to wait 30 minutes to rebook the same WaiveCar.</p>", [
-      [ "Yes, cancel my booking.", "control/cancel4realz", 'wid-1 danger'],
+      [ "Yes, cancel my booking", "control/cancel4realz", 'wid-1 danger'],
       [ "No, do not cancel my booking", "control/nop", 'wid-1 primary' ]
     ]);
   }
@@ -90,7 +90,7 @@ if($me['booking_id']) {
 
     if($distance === false || $distance > 100) {
       $car = $me['car'];
-      $plate = aget($me, 'car.plateNumber');
+      $plate = aget($me, 'car.plateNumberWork');
       $success = false;
       $append = '';
       if($plate && !empty($_REQUEST['plate'])) {

@@ -65,7 +65,7 @@ foreach($carList as $car) {
       $guess = $resMap[$car['id']];
       $parts = explode('T', aget($guess, 'results.0.created_at') );
       $guess['date'] = $parts[0];
-      $guess['place'] = '<em>~' . round(aget($guess, 'results.0.dist') * 100, 3) . ' miles away</em>';
+      $guess['place'] = '<em>~' . round(aget($guess, 'results.0.dist') * 100, 3) . ' miles away</em><br/>';
       $guess['place'] .= addrClean(aget($guess, 'results.0.address'));
       $img = $path;
     }

@@ -95,8 +95,9 @@ form input[type="submit"] {
   border-width: 1px;
   width: 100%;
 }
-input[type="file"] {
+form input[type="file"] {
   text-indent: 0;
+  padding-left: 0.25rem;
 }
 .waive-green {
   color: #25c155;
@@ -107,6 +108,12 @@ input[type="file"] {
   text-align: center;
   width: 100%;
   position: relative;
+}
+.map h4 {
+  margin: 0;
+  padding: 2rem 0 0;
+  font-size: 48px;
+  color: #447;
 }
 .map .container {
   display: inline-block;

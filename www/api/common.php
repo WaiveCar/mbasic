@@ -3,8 +3,20 @@ session_start();
 include('db.php');
 
 $labelGuide = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
-//$googleKey = 'AIzaSyDuTxwQN4WKCktkzkLTHZSD7EzHvCn3WHs';
-$googleKey = 'AIzaSyBibUDNVBjFAKpwyPcZirJW4qHq2W2OO8M';//'AIzaSyD3Bf8BTFI_z00lrxWdReV4MpaqnQ8urzc';
+$gList = [
+  'AIzaSyBQysUfVLDsR8aYHZBQ9epqpGAQ-LZ1bTw',
+  'AIzaSyBibUDNVBjFAKpwyPcZirJW4qHq2W2OO8M',
+  'AIzaSyDZkuoCmKxhxy5AH0jMAUcW0JvggQX3WXI',
+  'AIzaSyA718cwy2i_uf-GCKrq7cB-1WDvKL5gsh8',
+  'AIzaSyC_bFO-1OoYAVg-dTS0MOCbWer6tgEwRhk',
+
+  'AIzaSyAxgyybUw8aYMY84C5vys2qR9Ll_pCYUGg',
+  'AIzaSyDuTxwQN4WKCktkzkLTHZSD7EzHvCn3WHs',
+  'AIzaSyD3Bf8BTFI_z00lrxWdReV4MpaqnQ8urzc',
+  'AIzaSyCjNzEEetDOi63O7qrD6APLffH0daZIDeQ',
+  'AIzaSyA77YUSEIo77Ms26dlAKllaBFYl-XAaELs'
+];
+$googleKey = $gList[0];
 
 $HOST = false;
 function getHost() {
@@ -690,8 +702,13 @@ function showLocation($car, $opts = []) {
   $location = location($car);
   echo "<div class=map>";
   $opts['zoom'] = 13;
-  getMap([$car], $opts); 
-  echo "<br/><a target=_blank href=\"//maps.google.com/maps/?q=${car['latitude']},${car['longitude']}+(${car['license']})\">$location</a>";
+  if(!aget($opts, 'nomap')) {
+    getMap([$car], $opts); 
+    echo "<br/>";
+  } else {
+    echo "<h4>&#x1F5FA;</h4>";
+  }
+  echo "<a target=_blank href=\"//maps.google.com/maps/?q=${car['latitude']},${car['longitude']}+(${car['license']})\">$location</a>";
   echo "</div>";
 }
 

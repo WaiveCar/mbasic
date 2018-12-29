@@ -35,78 +35,6 @@ foreach($resList as $res) {
 ?>
 <!doctype html><html><head><title>Parking</title><meta name=viewport content="width=device-width,initial-scale=1.0">
 <style>
-span {
-  display: inline-block;
-}
-.car-name {
-  font-size: 23px;
-}
-.car-sheet {
-  width: 380px;
-  padding: 5px;
-  margin: 3px;
-  height: 240px;
-  overflow: hidden;
-  vertical-align: top;
-}
-.info {
-  font-size: 15px;
-  width: 50%;
-}
-.img {
-  width: 48%;
-  overflow: hidden;
-  height: 100%;
-  vertical-align: top;
-}
-a {
-  text-decoration: none;
-  color: blue;
-  cursor: pointer;
-}
-.info {
-  padding-left: 2%;
-}
-img {
-  width: 100%;
-  background: rgba(216,216,216,0.3);
-  vertical-align: top;
-}
-body {
- margin:0;
-  font-size: 0;
-  max-width: auto
-}
-.park-claim {
-  font-size: 17px;
-}
-.addr {
-  margin-top: .25rem;
-}
-.guess {
-  margin-top: 1rem;
-  background: powderblue;
-}
-.guess em {
-  opacity: 0.9;
-  margin-bottom:0.25rem;
-  display: block;
-}
-.guess div {
-  padding: 0.25rem 0.5rem;
-}
-.pinned {
-  box-shadow: inset 0 0 10px green;
-}
-.guess h4 {
-  text-indent: 0.5rem;
-  margin: -.25rem 0 .15rem;
-  background: #3EAFBE;
-  color: white;
-  padding: 0.25rem 0;
-  font-family: sans-serif;
-  font-weight: 400;
-}
 <? for($ix = 1; $ix < 9; $ix++) { ?>
 .lvl-<?=$ix?> {
   background: rgba(255,150,160,0.<?=$ix?>);
@@ -114,9 +42,11 @@ body {
 }
 <? } ?>
 </style>
+<link rel=stylesheet href=/parking.css?2>
 <?
 foreach($carList as $car) {
-  if(aget($car, 'tagList.0.groupRoleId') !== 6 || isHome($car)) {
+  $currentDistance = distance($car, aget($car, 'bookings.0.details.0'));
+  if(aget($car, 'tagList.0.groupRoleId') !== 6 || isHome($car) || $currentDistance > 0.5) {
     continue;
   }
   $level = 0;

@@ -297,6 +297,7 @@ function location($obj) {
     // if we failed, then we ask the goog
 
     $res = file_get_contents("https://maps.googleapis.com/maps/api/geocode/json?latlng=$qs&key=$googleKey");
+    var_dump($res);
 
     if ($res) {
       $resJSON = json_decode($res, true);

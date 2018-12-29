@@ -1,6 +1,9 @@
 <?
 include('api/common.php');
 
+function addrClean($str) {
+  return preg_replace('/, (USA|CA)/','',$str);
+}
 function isHome($car) {
   list($lat,$lng) = [
     aget($car, 'bookings.0.details.0.latitude'),
@@ -30,23 +33,24 @@ foreach($resList as $res) {
 }
 
 ?>
+<!doctype html><html><head><title>Parking</title><meta name=viewport content="width=device-width,initial-scale=1.0">
 <style>
 span {
   display: inline-block;
 }
 .car-name {
-  font-size: 18px;
+  font-size: 23px;
 }
 .car-sheet {
   width: 380px;
-  padding: 10px;
-  margin: 5px;
-  box-shadow: 0 0 2px grey;
+  padding: 5px;
+  margin: 3px;
   height: 240px;
+  overflow: hidden;
   vertical-align: top;
 }
 .info {
-  font-size: 12px;
+  font-size: 15px;
   width: 50%;
 }
 .img {
@@ -55,29 +59,44 @@ span {
   height: 100%;
   vertical-align: top;
 }
+a {
+  text-decoration: none;
+  color: blue;
+  cursor: pointer;
+}
 .info {
   padding-left: 2%;
 }
 img {
   width: 100%;
+  background: rgba(216,216,216,0.3);
   vertical-align: top;
 }
 body {
+ margin:0;
   font-size: 0;
   max-width: auto
 }
 .park-claim {
-  font-size: 15px;
+  font-size: 17px;
 }
 .addr {
   margin-top: .25rem;
 }
 .guess {
-  margin-top: 2rem;
+  margin-top: 1rem;
   background: powderblue;
+}
+.guess em {
+  opacity: 0.9;
+  margin-bottom:0.25rem;
+  display: block;
 }
 .guess div {
   padding: 0.25rem 0.5rem;
+}
+.pinned {
+  box-shadow: inset 0 0 10px green;
 }
 .guess h4 {
   text-indent: 0.5rem;
@@ -101,16 +120,23 @@ foreach($carList as $car) {
     continue;
   }
   $level = 0;
+  $uid =  aget($car, 'bookings.0.id');
   $claim = aget($car, 'bookings.0.parkingDetails.streetHours');
   $img = aget($car, 'bookings.0.parkingDetails.path');
   $imgClass = false;
   $guess = false;
+  list($lat,$lng) = [
+    aget($car, 'bookings.0.details.0.latitude'),
+    aget($car, 'bookings.0.details.0.longitude')
+  ];
   if(!$img) {
     $path = aget($resMap, $car['id'] . ".results.0.path");
     if($path) {
       $guess = $resMap[$car['id']];
       $parts = explode('T', aget($guess, 'results.0.created_at') );
       $guess['date'] = $parts[0];
+      $guess['place'] = '<em>~' . round(aget($guess, 'results.0.dist') * 100, 3) . ' miles away</em>';
+      $guess['place'] .= addrClean(aget($guess, 'results.0.address'));
       $img = $path;
     }
   }
@@ -118,8 +144,11 @@ foreach($carList as $car) {
   $endTime = round( ( time() - strtotime(aget($car, 'bookings.0.details.0.updated_at')) ) / 60);
   $endTimeStr = ($endTime % 60) . 'm';
   $endTime /= 60;
-  if($endTime > 3) {
+  if($endTime > 4) {
     $level ++;
+    if($endTime > 7) {
+      $level ++;
+    }
     if($endTime > 12) {
       $level ++;
     }
@@ -132,32 +161,35 @@ foreach($carList as $car) {
     $endTimeStr = floor($endTime) . 'h ' . $endTimeStr;
   }
 ?>
-<span class="car-sheet lvl-<?=$level?>">
+  <span class="car-sheet lvl-<?=$level?>" id="booking-<?=$uid?>">
 <span class="img">
 <? if ($img) { ?>
-    <img src=https://s3.amazonaws.com/waivecar-prod/<?=$img ?>>
-<? } ?>
+    <a target=_blank href=https://s3.amazonaws.com/waivecar-prod/<?=$img ?>><img src=https://s3.amazonaws.com/waivecar-prod/<?=$img ?>></a>
+<? } else { ?>
+    <img/> 
+<? }  ?>
+  
   </span>
-  <span class=info>
-  <div class=car-name><?=$car['license']?> (<?=$car['charge']?>%)</div>
-    <div class='park-claim'> Parked for: <?=$endTimeStr ?></div>
+  <span class="info">
+  <div class=car-name><a target=_blank href=https://lb.waivecar.com/cars/<?=$car['id']?>><?=$car['license']?> <?=$car['charge']?>%</a></div>
+  <div class='park-claim'>Parked: <?=$endTimeStr ?> <a style=float:right onclick='toggle("<?=$uid ?>");'>&#x1F4CC;</a></div>
     <? if ($claim) { ?>
       <div> Good for: <?=$claim ?>hr</div>
     <? } else { ?>
       <div> NO CLAIM </div>
     <? } ?>
-    <div class='addr'> <?=aget($car, 'bookings.0.details.0.address') ?></div>
+    <div class='addr'><a target=_blank href="https://maps.google.com/?q=<?=$lat?>,<?=$lng?>+(<?=$car['license']?>)"><?=addrClean(aget($car, 'bookings.0.details.0.address')) ?></a></div>
     <? if ($guess) { ?>
     <div class=guess>
-      <h4>Archival Photo</h4>
+    <h4>Archival <?= $guess['date'] ?></h4>
       <div>
-      <?= $guess['date'] ?>
+      <?= $guess['place'] ?>
       </div>
     </div> 
     <? } ?>
   </span>
 </span>
 <? } ?>
-  <script src=script.js></script>
 </body>
+<script src=parking.js?1></script>
 </html>

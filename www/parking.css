@@ -1,0 +1,57 @@
+span {
+  display: inline-block;
+}
+.car-name {
+  font-size: 18px;
+}
+.car-sheet {
+  width: 380px;
+  padding: 10px;
+  margin: 5px;
+  box-shadow: 0 0 2px grey;
+  height: 240px;
+  vertical-align: top;
+}
+.info {
+  font-size: 12px;
+  width: 50%;
+}
+.img {
+  width: 48%;
+  overflow: hidden;
+  height: 100%;
+  vertical-align: top;
+}
+.info {
+  padding-left: 2%;
+}
+img {
+  width: 100%;
+  vertical-align: top;
+}
+body {
+  font-size: 0;
+  max-width: auto
+}
+.park-claim {
+  font-size: 15px;
+}
+.addr {
+  margin-top: .25rem;
+}
+.guess {
+  margin-top: 2rem;
+  background: powderblue;
+}
+.guess div {
+  padding: 0.25rem 0.5rem;
+}
+.guess h4 {
+  text-indent: 0.5rem;
+  margin: -.25rem 0 .15rem;
+  background: #3EAFBE;
+  color: white;
+  padding: 0.25rem 0;
+  font-family: sans-serif;
+  font-weight: 400;
+}

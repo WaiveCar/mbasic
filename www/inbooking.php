@@ -25,14 +25,14 @@ if(hasFlag('rush')) {
 }
 $name = $car['license'];
 ob_start("sanitize_output");
-doheader('Current Booking', ['extraHtml' => '<meta http-equiv="refresh" content="120">']);
+doheader('Current Booking', ['extraHtml' => '<meta http-equiv="refresh" content="600">']);
 ?>
   <div class=box>
     <div class=tab-container>
       <span> &#128663; <?= $car['license'] ?></span>
       <a class=inactive href=chargeList.php> &#128268; Chargers </a>
     </div>
-    <? showLocation($car, ['nomap' => true]); ?>
+    <? showLocation($car); ?>
     <div align=center>
       <h4><b><?= $timeStr ?></b> in <?= $car['license']; ?></h4>
       <a class=isolated href=control/end>Park and End Ride</a>

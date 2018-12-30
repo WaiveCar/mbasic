@@ -15,7 +15,7 @@ function isHome($car) {
 $carList = get('cars?type=parking');
 $noPhoto = [];
 
-foreach($carList as $car) {
+foreach($carList as &$car) {
   if(!aget($car, 'bookings.0.parkingDetails.path') && !isHome($car)) {
     $bk = aget($car, 'bookings.0.details.0');
     $noPhoto[] = [
@@ -24,6 +24,7 @@ foreach($carList as $car) {
       'longitude' => $bk['longitude']
     ];
   }
+  $car['parked'] = round( (time() - strtotime(aget($car, 'bookings.0.details.0.updated_at'))) / 60);
 }
 
 $resList = post('/parkingQuery', ['qstr' => $noPhoto]);
@@ -32,6 +33,9 @@ foreach($resList as $res) {
   $resMap[$res['car']] = $res;
 }
 
+usort($carList, function($a, $b) {
+  return $a['parked'] - $b['parked'];
+});
 ?>
 <!doctype html><html><head><title>Parking</title><meta name=viewport content="width=device-width,initial-scale=1.0">
 <style>
@@ -71,7 +75,7 @@ foreach($carList as $car) {
     }
   }
 
-  $endTime = round( ( time() - strtotime(aget($car, 'bookings.0.details.0.updated_at')) ) / 60);
+  $endTime = $car['parked'];
   $endTimeStr = ($endTime % 60) . 'm';
   $endTime /= 60;
   if($endTime > 4) {

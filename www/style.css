@@ -353,12 +353,18 @@ a.danger:active {
   color: #f4f4ff;
   background: rgb(127,127,216);
 }
+.box.inline .btn {
+  padding: 0.25em 0;
+}
 .error .options {
   text-align: right;
 }
 .error .title {
   color: #fff4f4;
   background: rgb(216,127,127);
+}
+.error .btn {
+  background: rgba(255,255,255,0.4);
 }
 .box.error {
   background: rgb(255,216,216, 0.4);
@@ -368,10 +374,6 @@ a.danger:active {
 }
 .message p:first-child {
   margin-top: 0;
-}
-.error .btn {
-  padding: 0.25em 0;
-  background: rgba(255,255,255,0.4);
 }
 .car-label p {
   width: 100%;

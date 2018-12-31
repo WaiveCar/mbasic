@@ -1,3 +1,8 @@
+<?
+include_once('api/common.php');
+ob_start("sanitize_output");
+$klass = aget($_GET, 'o.klass');
+?>
 <!doctype html>
 <html>
 <head>
@@ -6,13 +11,13 @@
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <div class='box prompt'>
-    <h1><?= $_GET['t'] ?></h1>
+  <div class='box prompt <?=$klass?>'>
+    <h1 class='title'><?= $_GET['t'] ?></h1>
     <div class='content'>
       <div class=copy><?= $_GET['p'] ?></div>
       <div class=action>
         <? 
-          foreach($_GET['o'] as $row) { 
+          foreach($_GET['b'] as $row) { 
             $klass = '';
             if(count($row) > 2) {
               $klass = $row[2];

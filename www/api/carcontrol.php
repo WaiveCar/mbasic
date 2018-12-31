@@ -15,7 +15,9 @@ doheader(ucfirst($action), ['showaccount' => false]);
 
 $me = me();
 if(($action === 'lock' || $action === 'unlock') && !$me['booking_id']) {
-  infobox("No Active Booking", "Cannot $action because there's no active booking. <div class=btn-group><a href='/showcars.php' class='btn cta'>Find WaiveCars</a></div>", 'error');
+  confirm("No Active Booking", "Cannot $action because there's no active booking.",[
+    [ "Find Availale WaiveCars", "/showcars.php", "wid-1" ]
+  ], ['inline' => true, 'klass' => "error"]);
   exit;
 }
 

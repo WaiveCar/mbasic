@@ -171,13 +171,46 @@ function infobox($title, $content, $klass = '') {
 <?
 }
 
+function prompt($title, $prompt, $var, $doPage = false) {
+  if($doPage) {
+    load('prompt.php?' . http_build_query([
+      'b' => $doPage,
+      'v' => $var,
+      't' => $title, 'p' => $prompt, 'o' => $options]));
+  } else {
+    $_GET['t'] = $title;
+    $_GET['p'] = $prompt;
+    $_GET['v'] = $var;
+    include('../prompt.php');
+  }
+  exit;
+}
+
+function confirm($title, $prompt, $buttons = [], $options = []) {
+  if(!aget($options, 'inline')) {
+    load('confirm.php?' . http_build_query([
+      't' => $title, 
+      'p' => $prompt, 
+      'b' => $buttons,
+      'o' => $options,
+    ]));
+  } else {
+    $_GET['t'] = $title;
+    $_GET['p'] = $prompt;
+    $_GET['b'] = $buttons;
+    $_GET['o'] = $options;
+    include('../confirm.php');
+  }
+  exit;
+}
+
 function showerror() {
   if(isset($_SESSION['lasterror'])) {
    $err = $_SESSION['lasterror'];
    $verb = isset($err['options']) ? 'info' : 'error';
    ?>
 
-   <div class='<?=$verb ?> box'>
+   <div class='<?=$verb ?> box inline'>
      <div class=title><?= $err['title'] ?></div>
 
      <div class=content>
@@ -243,25 +276,6 @@ function me($opts = []) {
 }
 
 
-function prompt($title, $prompt, $var, $doPage = false) {
-  if($doPage) {
-    load('prompt.php?' . http_build_query([
-      'b' => $doPage,
-      'v' => $var,
-      't' => $title, 'p' => $prompt, 'o' => $options]));
-  } else {
-    $_GET['t'] = $title;
-    $_GET['p'] = $prompt;
-    $_GET['v'] = $var;
-    include('prompt.php');
-  }
-  exit;
-}
-
-function confirm($title, $prompt, $options) {
-  load('confirm.php?' . http_build_query(['t' => $title, 'p' => $prompt, 'o' => $options]));
-  exit;
-}
 
 function zip2geo($zip) {
   // we try to check our local cache for this lat/lng (rounded to 3 precision points)

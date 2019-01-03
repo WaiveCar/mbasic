@@ -21,7 +21,7 @@ if(!hasFlag('rush')) {
   $timeStr .= 'min';
 }
 ob_start("sanitize_output");
-doheader('Current Booking', ['extraHtml' => '<meta http-equiv="refresh" content="600">']);
+doheader('Current Booking', ['extraHtml' => '<meta http-equiv=refresh content=600>']);
 ?>
   <div class=box>
     <div class=tab-container>

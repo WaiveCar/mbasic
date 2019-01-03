@@ -1,20 +1,17 @@
 <?
 include('api/common.php');
-getstate();
-$me = me();
+$me = getstate();
 db_incrstats('dash');
 
 if($me['booking_id']){
   $car = car_info($me['booking']['carId']);
 }
-$started = $me['booking']['details'][0]['createdAt'];
-if(hasFlag('rush')) {
-  $timeStr = 'WaiveRushed';
-} else {
-  $inBooking = strtotime('now') - strtotime($started);
+$timeStr = 'WaiveRushed';
+
+if(!hasFlag('rush')) {
+  $inBooking = strtotime('now') - aget($me, 'booking.details.0.createdAt');
   $minutes = ceil($inBooking / 60);
   $hours = floor($minutes / 60);
-  $seconds = $inBooking % 60;
   $timeStr = $minutes % 60;
 
   if($hours > 0) {
@@ -23,7 +20,6 @@ if(hasFlag('rush')) {
 
   $timeStr .= 'min';
 }
-$name = $car['license'];
 ob_start("sanitize_output");
 doheader('Current Booking', ['extraHtml' => '<meta http-equiv="refresh" content="600">']);
 ?>
@@ -38,7 +34,7 @@ doheader('Current Booking', ['extraHtml' => '<meta http-equiv="refresh" content=
       <a class=isolated href=control/end>Park and End Ride</a>
     </div>
 
-    <div class='content'>
+    <div class=content>
     <? actionList('control', [
       ['unlock', 'Unlock', 2],
       ['lock', 'Lock', 2]

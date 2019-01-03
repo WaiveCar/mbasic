@@ -2,17 +2,11 @@
 include_once('api/common.php');
 ob_start("sanitize_output");
 $klass = aget($_GET, 'o.klass');
+$title = $_GET['t'];
+doheader($title, ['showaccount' => false]);
 ?>
-<!doctype html>
-<html>
-<head>
-  <title><?= $_GET['t'] ?></title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="stylesheet" href="style.css" />
-</head>
-<body>
-  <div class='box prompt <?=$klass?>'>
-    <h1 class='title'><?= $_GET['t'] ?></h1>
+  <div class='box prompt <?= $klass ?>'>
+    <h1 class='title'><?= $title ?></h1>
     <div class='content'>
       <div class=copy><?= $_GET['p'] ?></div>
       <div class=action>

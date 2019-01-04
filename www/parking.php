@@ -16,7 +16,7 @@ $carList = get('cars?type=parking');
 $noPhoto = [];
 
 foreach($carList as &$car) {
-  if(!aget($car, 'bookings.0.parkingDetails.path') && !isHome($car)) {
+  if(!isHome($car) && aget($car, 'tagList.0.groupRoleId') == 6) {
     $bk = aget($car, 'bookings.0.details.0');
     $noPhoto[] = [
       'car' => $car['id'], 
@@ -31,6 +31,7 @@ $resList = post('/parkingQuery', ['qstr' => $noPhoto]);
 $resMap = [];
 foreach($resList as $res) {
   $resMap[$res['car']] = $res;
+  unset($res['car']);
 }
 
 usort($carList, function($a, $b) {
@@ -125,5 +126,8 @@ foreach($carList as $car) {
 </span>
 <? } ?>
 </body>
+<script>
+  var payload = <?=json_encode($resMap) ?>;
+</script>
 <script src=parking.js?1></script>
 </html>

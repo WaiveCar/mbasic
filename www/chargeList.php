@@ -46,10 +46,10 @@ doheader('Charge Car');
 ?>
 
   <div class=box>
-    <div class='tab-container'>
+    <div class=tab-container>
       <a class='inactive' href='inbooking.php'> &#128663; <?= $car['license'] ?></a><span> &#128268; Chargers </span>
     </div>
-    <div class='map'>
+    <div class=map>
       <? getMap($chargerList, $mapOpts); ?>
     </div>
   </div>

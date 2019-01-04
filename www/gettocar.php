@@ -1,7 +1,6 @@
 <?
 include('api/common.php');
-getstate();
-$me = me();
+$me = getstate();
 db_incrstats('book');
 
 if($me['booking_id']){

@@ -10,16 +10,10 @@ body {
   margin-top: 20px;
   text-align: center;
 }
-a {
+a,a:visited {
   color: blue;
   cursor: pointer;
   text-decoration: none;
-}
-a:visited {
-  color: blue;
-}
-b {
-  font-weight: 500;
 }
 h1,h2,h3 {
   font-weight: 300;
@@ -86,6 +80,13 @@ form input {
   border: 0;
   box-shadow: 0 0 0 1px #bbb;
 }
+form input[type="radio"] {
+  display: inline-block;
+  margin: .25rem;
+  width: auto;
+  vertical-align: middle;
+  box-shadow: 0 0;
+}
 form input[type="submit"] {
   display: inline-block;
   font-size: 18px;
@@ -98,6 +99,16 @@ form input[type="submit"] {
 form input[type="file"] {
   text-indent: 0;
   padding-left: 0.25rem;
+}
+form label {
+  padding: 0 .5rem;
+  user-select: none; 
+  vertical-align: baseline;
+}
+form select {
+  margin-right: 1rem;
+  padding: 0.25rem 0;
+  text-indent: 0;
 }
 .waive-green {
   color: #25c155;
@@ -387,7 +398,7 @@ a.danger:active {
   background: #7d7;
 }
 .input-inline {
-  width: 3rem;
+  width: 4.5rem;
   display: inline-block;
   margin: 0.25rem 0.25rem 0 0;
 }

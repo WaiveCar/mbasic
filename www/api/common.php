@@ -643,6 +643,13 @@ function location_link($obj) {
   return "<a target=_blank href='//maps.google.com/maps/?q=${obj['latitude']},${obj['longitude']}+($name)'>$location</a>";
 }
 
+function dateTz($fmt) {
+  $dt = new DateTime();
+  $dt->setTimezone(new DateTimeZone('America/New_York'));
+  $dt->setTimestamp(time());
+  return $dt->format($fmt);
+}
+
 function doheader($title, $opts = []) {
   $showaccount = aget($opts, 'showaccount', true);
   $extraHtml = aget($opts, 'extraHtml', '');
@@ -652,6 +659,7 @@ function doheader($title, $opts = []) {
   $datetime = new DateTime; // current time = server time
   $otherTZ  = new DateTimeZone('America/Los_Angeles');
   $datetime->setTimezone($otherTZ); // calculates with new TZ now
+  date_default_timezone_set($otherTZ);
 ?>
 <!doctype html>
 <html>
@@ -659,7 +667,7 @@ function doheader($title, $opts = []) {
     <title><?= $title ?></title>
     <meta name=viewport content="width=device-width,initial-scale=1.0">
     <link rel=icon href=<?= $icon ?>>
-    <link rel=stylesheet href=/style.css?2>
+    <link rel=stylesheet href=/style.css>
     <?= $extraHtml; ?>
   </head>
 <body>

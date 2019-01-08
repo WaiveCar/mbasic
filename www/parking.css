@@ -1,7 +1,18 @@
+a {
+  text-decoration: none;
+}
+body {
+  font-family: sans-serif;
+}
 span {
   display: inline-block;
 }
 .car-name {
+  display: inline-block;
+  padding: 0.25rem 0.5rem;
+  margin-bottom: 0.25rem;
+  text-decoration: none;
+  border-radius: 5px;
   font-size: 18px;
 }
 .car-sheet {
@@ -16,7 +27,7 @@ span {
   font-size: 12px;
   width: 50%;
 }
-.img {
+.img-wrap {
   width: 48%;
   overflow: hidden;
   height: 100%;
@@ -34,27 +45,29 @@ body {
   max-width: auto
 }
 .park-claim {
-  font-size: 15px;
+  font-size: 1em;
+  margin: .25rem 0;
 }
-.addr {
+.addrtop {
   margin-top: .25rem;
 }
 .prev {
   float: left;
 }
-.next {
-  float: right;
-}
 .nav {
+  text-align: right;
   color: blue;
+  margin-bottom: 0.25rem;
   cursor: pointer;
 }
 .nav .disabled {
   color: grey;
   cursor: default;
 }
-.guess {
+.guess-wrap {
   margin-top: 2rem;
+}
+.guess {
   background: powderblue;
 }
 .guess div {

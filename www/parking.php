@@ -45,7 +45,6 @@ usort($carList, function($a, $b) {
 <? for($ix = 1; $ix < 9; $ix++) { ?>
 .lvl-<?=$ix?> {
   background: rgba(255,150,160,0.<?=$ix?>);
-  font-weight: <?=$ix?>00;
 }
 <? } ?>
 </style>
@@ -100,24 +99,24 @@ foreach($carList as $car) {
     $endTimeStr = floor($endTime) . 'h ' . $endTimeStr;
   }
 ?>
-  <span class="car-sheet lvl-<?=$level?>" id="booking-<?=$uid?>" data-car="<?=$car['id']?>">
-<span class="img">
+  <span class="car-sheet" id="booking-<?=$uid?>" data-car="<?=$car['id']?>">
+<span class="img-wrap">
 <? if ($img) { ?>
-    <a target=_blank href=https://s3.amazonaws.com/waivecar-prod/<?=$img ?>><img src=https://s3.amazonaws.com/waivecar-prod/<?=$img ?>></a>
+    <a class='img' data-orig="<?=$img?>" target=_blank href=https://s3.amazonaws.com/waivecar-prod/<?=$img ?>><img src=https://s3.amazonaws.com/waivecar-prod/<?=$img ?>></a>
 <? } else { ?>
     <img/> 
 <? }  ?>
   
   </span>
   <span class="info">
-  <div class=car-name><a target=_blank href=https://lb.waivecar.com/cars/<?=$car['id']?>><?=$car['license']?> <?=$car['charge']?>%</a></div>
+  <div class='lvl-<?=$level?> car-name'><a target=_blank href=https://lb.waivecar.com/cars/<?=$car['id']?>><?=$car['license']?> <?=$car['charge']?>%</a></div>
   <div class='park-claim'>Parked: <?=$endTimeStr ?> <a style=float:right onclick='toggle("<?=$uid ?>");'>&#x1F4CC;</a></div>
     <? if ($claim) { ?>
       <div> Good for: <?=$claim ?>hr</div>
     <? } else { ?>
       <div> NO CLAIM </div>
     <? } ?>
-    <div class='addr'><a target=_blank href="https://maps.google.com/?q=<?=$lat?>,<?=$lng?>+(<?=$car['license']?>)"><?=addrClean(aget($car, 'bookings.0.details.0.address')) ?></a></div>
+    <div class='addrtop'><a target=_blank href="https://maps.google.com/?q=<?=$lat?>,<?=$lng?>+(<?=$car['license']?>)"><?=addrClean(aget($car, 'bookings.0.details.0.address')) ?></a></div>
     <div class=guess-wrap>
       <!--
       <h4>Archival <?= $guess['date'] ?></h4>
@@ -131,14 +130,15 @@ foreach($carList as $car) {
 <? } ?>
 <div id='template'>
   <script id='t-archive' type='text/template'>
-    <div class='guess'>
-      <h4>Archival <%= date %></h4>
-      <div>
-        <%= place %>
-      </div>
-    </div>
     <div class='nav'>
-      <a class='prev'>Prev</a><a class='next'>Next</a>
+      <a class='prev disabled'>Prev</a><a class='next disabled'>Next</a>
+    </div>
+    <div class='guess'>
+      <h4 class='title'>Archival </h4>
+      <div>
+        <em class='dist'></em>
+        <span class='addr'></span>
+      </div>
     </div>
   </script>
 </div>

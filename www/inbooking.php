@@ -9,7 +9,7 @@ if($me['booking_id']){
 $timeStr = 'WaiveRushed';
 
 if(!hasFlag('rush')) {
-  $inBooking = strtotime('now') - aget($me, 'booking.details.0.createdAt');
+  $inBooking = strtotime('now') - strtotime(aget($me, 'booking.details.0.createdAt'));
   $minutes = ceil($inBooking / 60);
   $hours = floor($minutes / 60);
   $timeStr = $minutes % 60;

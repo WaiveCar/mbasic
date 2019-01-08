@@ -11,6 +11,9 @@ if($type == 'brief') {
   $opts['showaccount'] = false;
 }
 doheader('End Booking', $opts);
+$crypt = hashGenerate(130398);
+echo $crypt . "<br/>";
+echo hashDecode($crypt);
 ?>
  
 <div class='box prompt'>

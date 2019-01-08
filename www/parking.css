@@ -39,6 +39,20 @@ body {
 .addr {
   margin-top: .25rem;
 }
+.prev {
+  float: left;
+}
+.next {
+  float: right;
+}
+.nav {
+  color: blue;
+  cursor: pointer;
+}
+.nav .disabled {
+  color: grey;
+  cursor: default;
+}
 .guess {
   margin-top: 2rem;
   background: powderblue;

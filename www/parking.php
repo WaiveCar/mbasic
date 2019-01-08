@@ -15,7 +15,8 @@ function isHome($car) {
 $carList = get('cars?type=parking');
 $noPhoto = [];
 
-foreach($carList as &$car) {
+for($ix = 0; $ix < count($carList); $ix++) {
+  $car = $carList[$ix];
   if(!isHome($car) && aget($car, 'tagList.0.groupRoleId') == 6) {
     $bk = aget($car, 'bookings.0.details.0');
     $noPhoto[] = [
@@ -24,19 +25,20 @@ foreach($carList as &$car) {
       'longitude' => $bk['longitude']
     ];
   }
-  $car['parked'] = round( (time() - strtotime(aget($car, 'bookings.0.details.0.updated_at'))) / 60);
+  $carList[$ix]['parked'] = round( (time() - strtotime(aget($car, 'bookings.0.details.0.updated_at'))) / 60);
 }
 
 $resList = post('/parkingQuery', ['qstr' => $noPhoto]);
 $resMap = [];
 foreach($resList as $res) {
   $resMap[$res['car']] = $res;
-  unset($res['car']);
+  unset($resMap[$res['car']]['car']);
 }
 
 usort($carList, function($a, $b) {
   return $a['parked'] - $b['parked'];
 });
+ 
 ?>
 <!doctype html><html><head><title>Parking</title><meta name=viewport content="width=device-width,initial-scale=1.0">
 <style>
@@ -49,7 +51,9 @@ usort($carList, function($a, $b) {
 </style>
 <link rel=stylesheet href=/parking.css?2>
 <?
+
 foreach($carList as $car) {
+
   $currentDistance = distance($car, aget($car, 'bookings.0.details.0'));
   if(aget($car, 'tagList.0.groupRoleId') !== 6 || isHome($car) || $currentDistance > 0.5) {
     continue;
@@ -96,7 +100,7 @@ foreach($carList as $car) {
     $endTimeStr = floor($endTime) . 'h ' . $endTimeStr;
   }
 ?>
-  <span class="car-sheet lvl-<?=$level?>" id="booking-<?=$uid?>">
+  <span class="car-sheet lvl-<?=$level?>" id="booking-<?=$uid?>" data-car="<?=$car['id']?>">
 <span class="img">
 <? if ($img) { ?>
     <a target=_blank href=https://s3.amazonaws.com/waivecar-prod/<?=$img ?>><img src=https://s3.amazonaws.com/waivecar-prod/<?=$img ?>></a>
@@ -114,20 +118,35 @@ foreach($carList as $car) {
       <div> NO CLAIM </div>
     <? } ?>
     <div class='addr'><a target=_blank href="https://maps.google.com/?q=<?=$lat?>,<?=$lng?>+(<?=$car['license']?>)"><?=addrClean(aget($car, 'bookings.0.details.0.address')) ?></a></div>
-    <? if ($guess) { ?>
-    <div class=guess>
-    <h4>Archival <?= $guess['date'] ?></h4>
+    <div class=guess-wrap>
+      <!--
+      <h4>Archival <?= $guess['date'] ?></h4>
       <div>
       <?= $guess['place'] ?>
       </div>
+      -->
     </div> 
-    <? } ?>
   </span>
 </span>
 <? } ?>
-</body>
+<div id='template'>
+  <script id='t-archive' type='text/template'>
+    <div class='guess'>
+      <h4>Archival <%= date %></h4>
+      <div>
+        <%= place %>
+      </div>
+    </div>
+    <div class='nav'>
+      <a class='prev'>Prev</a><a class='next'>Next</a>
+    </div>
+  </script>
+</div>
 <script>
   var payload = <?=json_encode($resMap) ?>;
 </script>
-<script src=parking.js?1></script>
+<script src=js/evda.js></script>
+<script src=js/underscore-min.js></script>
+<script src=js/parking.js?1></script>
+</body>
 </html>

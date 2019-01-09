@@ -104,13 +104,13 @@ foreach($carList as $car) {
 <? if ($img) { ?>
     <a class='img' data-orig="<?=$img?>" target=_blank href=https://s3.amazonaws.com/waivecar-prod/<?=$img ?>><img src=https://s3.amazonaws.com/waivecar-prod/<?=$img ?>></a>
 <? } else { ?>
-    <img/> 
+    <img class='img'/> 
 <? }  ?>
   
   </span>
   <span class="info">
-  <div class='lvl-<?=$level?> car-name'><a target=_blank href=https://lb.waivecar.com/cars/<?=$car['id']?>><?=$car['license']?> <?=$car['charge']?>%</a></div>
-  <div class='park-claim'>Parked: <?=$endTimeStr ?> <a style=float:right onclick='toggle("<?=$uid ?>");'>&#x1F4CC;</a></div>
+  <div class='car-name'><a target=_blank href=https://lb.waivecar.com/cars/<?=$car['id']?>><?=$car['license']?> <?=$car['charge']?>%</a></div>
+  <div class='park-claim lvl-<?=$level?>'>Parked: <?=$endTimeStr ?> <a style=float:right onclick='toggle("<?=$uid ?>");'>&#x1F4CC;</a></div>
     <? if ($claim) { ?>
       <div> Good for: <?=$claim ?>hr</div>
     <? } else { ?>
@@ -125,6 +125,10 @@ foreach($carList as $car) {
       </div>
       -->
     </div> 
+    <div class='action'>
+      <a> Illegible Sign</a>
+      <a class='danger'>Cite User</a>
+    </div>
   </span>
 </span>
 <? } ?>

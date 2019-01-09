@@ -100,20 +100,20 @@ function generateCars() {
   document.querySelectorAll(".car-sheet").forEach(function(item){
     var car = item.dataset.car;
     var node = item.querySelector('.guess-wrap');
-    if(payload[car].results.length) {
-      payload[car]._ = {ix: 0};
-      node.innerHTML = Template.archive();
+    payload[car]._ = {ix: 0};
+    node.innerHTML = Template.archive();
 
-      ['title','dist','addr','prev','next','guess'].forEach(function(row) {
-        payload[car]._[row] = node.querySelector('.' + row);
-      });
-      payload[car]._.img = item.querySelector('.img');
-      payload[car]._.next.onclick = function() {
-        showTag(car, 1);
-      }
-      payload[car]._.prev.onclick = function() {
-        showTag(car, -1);
-      }
+    ['title','dist','addr','prev','next','guess'].forEach(function(row) {
+      payload[car]._[row] = node.querySelector('.' + row);
+    });
+    payload[car]._.next.onclick = function() {
+      showTag(car, 1);
+    }
+    payload[car]._.prev.onclick = function() {
+      showTag(car, -1);
+    }
+    payload[car]._.img = item.querySelector('.img');
+    if(payload[car]._.img.dataset.orig ) {
       payload[car].results.unshift({
         hide: true,
         path: payload[car]._.img.dataset.orig

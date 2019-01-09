@@ -49,9 +49,11 @@ $order = array_keys($map);
   </thead>
   <tbody>
   <? foreach($list as $row) {
+  /*
      if($row['tx count'] < 30) {
        continue;
      }
+   */
      echo "<tr>";
      foreach($order as $key) {
        echo "<td>${row[$key]}</td>";

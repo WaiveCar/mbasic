@@ -116,17 +116,12 @@ foreach($carList as $car) {
     <? } else { ?>
       <div> NO CLAIM </div>
     <? } ?>
+    <div class='req'>Min: <?= aget($car, 'zone.parkingTime') ?>hr</div>
     <div class='addrtop'><a target=_blank href="https://maps.google.com/?q=<?=$lat?>,<?=$lng?>+(<?=$car['license']?>)"><?=addrClean(aget($car, 'bookings.0.details.0.address')) ?></a></div>
-    <div class=guess-wrap>
-      <!--
-      <h4>Archival <?= $guess['date'] ?></h4>
-      <div>
-      <?= $guess['place'] ?>
-      </div>
-      -->
-    </div> 
+    <div class=guess-wrap></div> 
     <div class='action'>
-      <a> Illegible Sign</a>
+      <a>Incorrect</a>
+      <a>Illegible</a>
       <a class='danger'>Cite User</a>
     </div>
   </span>

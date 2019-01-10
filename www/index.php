@@ -19,7 +19,7 @@ ob_start("sanitize_output");
     <form action=api/login.php method=post>
       <input name=identifier placeholder=Email />
       <input name=password type=password placeholder=Password />
-      <button class='btn wid-1'>Login</button>
+      <input type="submit" value="Login" class='btn wid-1'>
     </form>
   </div>
 

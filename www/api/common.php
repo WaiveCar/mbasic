@@ -615,7 +615,7 @@ function getMapUrl($carList, $opts = []) {
     $zoom = "zoom=${opts['zoom']}&";
   }
 
-  return "//maps.googleapis.com/maps/api/staticmap?${center}size=400x300&${zoom}maptype=roadmap&format=JPEG&$params&key=$googleKey";
+  return "//maps.googleapis.com/maps/api/staticmap?${center}size=400x300&${zoom}maptype=roadmap&format=jpg&$params&key=$googleKey";
 }
 
 // from https://www.geodatasource.com/developers/php
@@ -648,6 +648,23 @@ function dateTz($fmt) {
   $dt->setTimezone(new DateTimeZone('America/New_York'));
   $dt->setTimestamp(time());
   return $dt->format($fmt);
+}
+
+$hashsecret = '5c5911c4-eb6d-4a9e-865d-80e52db192b';
+function hashGenerate($num) {
+  global $hashsecret;
+  $hash = base64_encode(hex2bin(hash('ripemd160', $hashsecret.$num)));
+  $clear = base_convert($num, 10, 36);
+  return substr($hash, 0, 8) . $clear;
+}
+
+function hashDecode($str) {
+  global $hashsecret;
+  $num = base_convert(substr($str, 8), 36, 10);
+  $hash = base64_encode(hex2bin(hash('ripemd160', $hashsecret.$num)));
+  if(substr($hash, 0, 8) === substr($str, 0, 8)) {
+    return $num;
+  } 
 }
 
 function doheader($title, $opts = []) {

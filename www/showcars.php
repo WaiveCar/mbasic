@@ -1,6 +1,7 @@
 <?
 include('api/common.php');
 $me = getstate();
+//var_dump($me);
 db_incrstats('car');
 
 $showdibs = false;
@@ -113,6 +114,6 @@ foreach($carList as $key => $car) {
 }
 ?>
   </ul>
-  <script src=script.js></script>
+  <script language=javascript type=text/javascript src=script.js></script>
 </body>
 </html>

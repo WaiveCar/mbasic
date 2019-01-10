@@ -2,7 +2,7 @@
 session_start();
 include('db.php');
 
-$labelGuide = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
+$labelGuide = '123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 $gList = [
   'AIzaSyBQysUfVLDsR8aYHZBQ9epqpGAQ-LZ1bTw',
   'AIzaSyBibUDNVBjFAKpwyPcZirJW4qHq2W2OO8M',
@@ -615,7 +615,7 @@ function getMapUrl($carList, $opts = []) {
     $zoom = "zoom=${opts['zoom']}&";
   }
 
-  return "//maps.googleapis.com/maps/api/staticmap?${center}size=400x300&${zoom}maptype=roadmap&format=jpg&$params&key=$googleKey";
+  return "//maps.googleapis.com/maps/api/staticmap?${center}size=400x300&${zoom}maptype=roadmap&$params&key=$googleKey";
 }
 
 // from https://www.geodatasource.com/developers/php

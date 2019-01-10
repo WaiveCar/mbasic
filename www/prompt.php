@@ -28,7 +28,7 @@ ob_start("sanitize_output");
         <input class=input type=text name="<?= $_GET['v'] ?>" autofocus required autocomplete="off">
         <div class=action-list>
           <a class='btn wid-2 ignore' href="<?= $back ?>">Cancel</a>
-          <button class='btn wid-2'>Done</button>
+          <input type='submit' value='Done' class='btn wid-2'>
         </div>
       </form>
     </div>

@@ -39,17 +39,8 @@ usort($carList, function($a, $b) {
   return $a['parked'] - $b['parked'];
 });
  
-?>
-<!doctype html><html><head><title>Parking</title><meta name=viewport content="width=device-width,initial-scale=1.0">
-<style>
-<? for($ix = 1; $ix < 9; $ix++) { ?>
-.lvl-<?=$ix?> {
-  background: rgba(255,150,160,0.<?=$ix?>);
-}
-<? } ?>
-</style>
-<link rel=stylesheet href=/parking.css?2>
-<?
+doheader("Parking", ['usecss' => false]);
+echo '<link rel=stylesheet href=/parking.css?2>';
 
 foreach($carList as $car) {
 
@@ -57,7 +48,6 @@ foreach($carList as $car) {
   if(aget($car, 'tagList.0.groupRoleId') !== 6 || isHome($car) || $currentDistance > 0.5) {
     continue;
   }
-  $level = 0;
   $uid =  aget($car, 'bookings.0.id');
   $claim = aget($car, 'bookings.0.parkingDetails.streetHours');
   $img = aget($car, 'bookings.0.parkingDetails.path');
@@ -67,33 +57,10 @@ foreach($carList as $car) {
     aget($car, 'bookings.0.details.0.latitude'),
     aget($car, 'bookings.0.details.0.longitude')
   ];
-  if(!$img) {
-    $path = aget($resMap, $car['id'] . ".results.0.path");
-    if($path) {
-      $guess = $resMap[$car['id']];
-      $parts = explode('T', aget($guess, 'results.0.created_at') );
-      $guess['date'] = $parts[0];
-      $guess['place'] = '<em>~' . round(aget($guess, 'results.0.dist') * 100, 3) . ' miles away</em><br/>';
-      $guess['place'] .= addrClean(aget($guess, 'results.0.address'));
-      $img = $path;
-    }
-  }
 
   $endTime = $car['parked'];
   $endTimeStr = ($endTime % 60) . 'm';
   $endTime /= 60;
-  if($endTime > 4) {
-    $level ++;
-    if($endTime > 7) {
-      $level ++;
-    }
-    if($endTime > 12) {
-      $level ++;
-    }
-    if($claim && $endTime > $claim) {
-      $level += 5;
-    }
-  }
   
   if(floor($endTime) > 0) {
     $endTimeStr = floor($endTime) . 'h ' . $endTimeStr;
@@ -110,7 +77,7 @@ foreach($carList as $car) {
   </span>
   <span class="info">
   <div class='car-name'><a target=_blank href=https://lb.waivecar.com/cars/<?=$car['id']?>><?=$car['license']?> <?=$car['charge']?>%</a></div>
-  <div class='park-claim lvl-<?=$level?>'>Parked: <?=$endTimeStr ?> <a style=float:right onclick='toggle("<?=$uid ?>");'>&#x1F4CC;</a></div>
+  <div class='park-claim'>Parked: <?=$endTimeStr ?> <a style=float:right onclick='toggle("<?=$uid ?>");'>&#x1F4CC;</a></div>
     <? if ($claim) { ?>
       <div> Good for: <?=$claim ?>hr</div>
     <? } else { ?>
@@ -129,7 +96,7 @@ foreach($carList as $car) {
             <option value="illegible">Illegible</option>
           </optgroup>
 
-          <optgroup label="Parking">
+          <optgroup label="Parking" class="parking-options">
             <option value="bounty">Bounty</option>
             <option value="cite-user">Cite User</option>
           </optgroup>
@@ -142,7 +109,7 @@ foreach($carList as $car) {
             <option value="illegible">Illegible</option>
           </optgroup>
 
-          <optgroup label="Parking">
+          <optgroup label="Parking" class="parking-options">
             <option value="bounty">Bounty</option>
             <option value="cite-user">Cite User</option>
           </optgroup>
@@ -160,7 +127,7 @@ foreach($carList as $car) {
     </div>
     <div class='guess'>
       <div>
-        <b class='title'>Archival </b>
+        <b class='title'></b>
         <em class='dist'></em>
         <span class='addr'></span>
       </div>
@@ -170,6 +137,10 @@ foreach($carList as $car) {
 <script>
   var payload = <?=json_encode($resMap) ?>;
 </script>
+<script
+  src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+  integrity="sha256-3edrmyuQ0w65f8gfBsqowzjJe2iM6n0nKciPUp8y+7E="
+  crossorigin="anonymous"></script>
 <script src=js/evda.js></script>
 <script src=js/underscore-min.js></script>
 <script src=js/parking.js?1></script>

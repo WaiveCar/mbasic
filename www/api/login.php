@@ -2,6 +2,9 @@
 
 include ('common.php');
 
+$referer = aget($_POST, 'referer');
+unset($_POST['referer']);
+
 $resJSON = post('/auth/login', $_POST);
 if($resJSON === 'Not Found') {
   $_SESSION['lasterror'] = [
@@ -19,7 +22,11 @@ if($resJSON === 'Not Found') {
   session_destroy();
 } else {
   $_SESSION['token'] = $resJSON['token'];
-  load('/showcars.php');
+  if($referer) {
+    load($referer);
+  } else {
+    load('/showcars.php');
+  }
   exit;
 }
 header("Location: /index.php");

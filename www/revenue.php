@@ -12,13 +12,16 @@ $map = [
   'name' => function($row) { return "<a href=//lb.waivecar.com/users/${row['id']}>{$row['first_name']} {$row['last_name']}</a>"; },
   'status' => function($row) { return $row['status']; },
   'revenue' => function($row) { return sprintf("%.2f", $row['ttl']/100); },
-  'tx count' => function($row) { return $row['charges']; },
+  'tx' => function($row) { return $row['charges']; },
   '$/ride' => function($row) { return sprintf("%.2f", $row['ttl'] * .01/$row['charges']); },
   'credit' => function($row) { return sprintf("%.2f", $row['credit']/100); },
   'monthly' => function($row) { global $end,$start;return sprintf("%.2f", $row['ttl']/(100 * ($start - $end))); },
   'percent' => function($row) { global $ttl;return sprintf("%.2f",  100 *$row['ttl']/$ttl); }
-
 ];
+if(!isAdmin()) {
+  unset($map['name']);
+  unset($map['status']);
+}
 
 $list = [];
 foreach($revenueList as $raw) {
@@ -39,8 +42,14 @@ if(isset($_GET['sort'])) {
 
 $order = array_keys($map);
 
+doheader("Revenue");
 ?>
+<? if ($end) { ?>
   <?= $start ?> - <?= $end ?>mo (total: <?= count($revenueList) ?>)
+<? } else { ?>
+  Last <?= $start ?> month<?= $start > 1 ? "s" : "" ?>
+<? } ?>
+<center>
 <table>
   <thead>
     <? foreach($order as $column) { 
@@ -63,4 +72,4 @@ $order = array_keys($map);
   ?>
   </tbody>
 </table> 
-
+</center>

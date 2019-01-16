@@ -2,7 +2,21 @@ var Template = {},
     IMGBASE = 'https://s3.amazonaws.com/waivecar-prod/',
     ev = EvDa();
 
+function penalize(el, booking){
+  var ddList = el.parentNode.getElementsByTagName('select');
+  var areSame = ddList[0].value === ddList[1].value;
+  if(!areSame) {
+    return alert("Make sure that you have confirmed your selection");
+  }
+  var selected = ddList[0].value;
+  if(selected === "null") {
+    return alert("Make a selection before continuing");
+  }
+
+}
+
 function distance(lat1, lon1, lat2, lon2) {
+  console.log(arguments);
  if ((lat1 == lat2) && (lon1 == lon2)) {
   return 0;
  }
@@ -90,7 +104,7 @@ function showTag(car, dir) {
 
       data.title.innerHTML = el.created_at.split('T')[0];
       data.addr.innerHTML = el.address;
-      data.dist.innerHTML = (el.dist * 100).toFixed(4) + "mi."
+      data.dist.innerHTML = distance(row.latitude, row.longitude, el.latitude, el.longitude).toFixed(4) + "mi."
     }
     data.img.href = data.img.firstChild.src = IMGBASE + el.path;
   }

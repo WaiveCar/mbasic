@@ -87,6 +87,7 @@ form input[type="radio"] {
   vertical-align: middle;
   box-shadow: 0 0;
 }
+/*
 form input[type="submit"] {
   display: inline-block;
   font-size: 18px;
@@ -96,6 +97,7 @@ form input[type="submit"] {
   border-width: 1px;
   width: 100%;
 }
+*/
 form input[type="file"] {
   text-indent: 0;
   padding-left: 0.25rem;
@@ -192,9 +194,9 @@ form select {
   margin-bottom: 0.5rem;
 }
 .action-list {
-  padding-bottom: 0.5rem;
+  padding-bottom: 0.25rem;
 }
-.action-list a {
+.action-list a, action-list input[type='submit'] {
   display: inline-block;
   text-align: center;
 }

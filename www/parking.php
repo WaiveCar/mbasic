@@ -120,9 +120,35 @@ foreach($carList as $car) {
     <div class='addrtop'><a target=_blank href="https://maps.google.com/?q=<?=$lat?>,<?=$lng?>+(<?=$car['license']?>)"><?=addrClean(aget($car, 'bookings.0.details.0.address')) ?></a></div>
     <div class=guess-wrap></div> 
     <div class='action'>
-      <a>Incorrect</a>
-      <a>Illegible</a>
-      <a class='danger'>Cite User</a>
+      <div>
+        <select name="cite-user">
+          <option value="null">Choose one</option>
+          <optgroup label="Photo">
+            <option value="not-a-sign">Not a sign</option>
+            <option value="incorrect">Incorrect</option>
+            <option value="illegible">Illegible</option>
+          </optgroup>
+
+          <optgroup label="Parking">
+            <option value="bounty">Bounty</option>
+            <option value="cite-user">Cite User</option>
+          </optgroup>
+        </select>
+        <select name="cite-user-confirm">
+          <option value="null">Confirm</option>
+          <optgroup label="Photo">
+            <option value="not-a-sign">Not a sign</option>
+            <option value="incorrect">Incorrect</option>
+            <option value="illegible">Illegible</option>
+          </optgroup>
+
+          <optgroup label="Parking">
+            <option value="bounty">Bounty</option>
+            <option value="cite-user">Cite User</option>
+          </optgroup>
+        </select>
+      </div>
+      <button onclick="penalize(this,<?=$uid?>)">Submit</button>
     </div>
   </span>
 </span>
@@ -133,8 +159,8 @@ foreach($carList as $car) {
       <a class='prev disabled'>Prev</a><a class='next disabled'>Next</a>
     </div>
     <div class='guess'>
-      <h4 class='title'>Archival </h4>
       <div>
+        <b class='title'>Archival </b>
         <em class='dist'></em>
         <span class='addr'></span>
       </div>

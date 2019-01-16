@@ -1,7 +1,6 @@
 <?
 include('api/common.php');
 $me = getstate();
-//var_dump($me);
 db_incrstats('car');
 
 $showdibs = false;
@@ -103,7 +102,7 @@ foreach($carList as $key => $car) {
     <? } ?>
     <div class=car-label>
       (<?= $labelGuide[$ix] ?>) <?= round($car['range']); ?>mi left
-      <p><b style=width:<?=round($car['range'] * 100 / 140, 2)?>%></b></p>
+      <p><b style=width:<?=min(100,round($car['charge'], 2))?>%></b></p>
     </div> 
     <? if (!empty($car['dist'])) { ?>
       <div class=car-distance><? printf("%.2f", $car['dist']) ?>mi away</div>

@@ -10,7 +10,7 @@ span {
 }
 .car-name {
   display: inline-block;
-  margin: 0.25rem 0;
+  margin: 0 0 0.25rem;
   text-decoration: none;
   border-radius: 5px;
   font-size: 18px;
@@ -26,7 +26,8 @@ span {
 }
 .action {
   position: absolute;
-  bottom: 0.75rem;
+  bottom: 0.5rem;
+  text-align: right;
   right: 0.5rem;
 }
 .action a.danger {
@@ -64,7 +65,6 @@ body {
 }
 .park-claim {
   font-size: 1em;
-  margin: .25rem 0;
 }
 .addrtop {
   margin-top: .25rem;
@@ -75,7 +75,6 @@ body {
 .nav {
   text-align: right;
   color: blue;
-  margin-bottom: 0.25rem;
   cursor: pointer;
 }
 .nav .disabled {

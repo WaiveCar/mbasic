@@ -3,10 +3,15 @@ a {
 }
 body {
   margin: 0;
+  max-width: auto;
   font-family: sans-serif;
 }
 span {
   display: inline-block;
+}
+img {
+  width: 100%;
+  vertical-align: top;
 }
 .car-name {
   display: inline-block;
@@ -23,6 +28,7 @@ span {
   height: 240px;
   vertical-align: top;
   position: relative;
+  font-size:0;
 }
 .action {
   position: absolute;
@@ -55,14 +61,6 @@ span {
 .info {
   padding-left: 2%;
 }
-img {
-  width: 100%;
-  vertical-align: top;
-}
-body {
-  font-size: 0;
-  max-width: auto
-}
 .park-claim {
   font-size: 1em;
 }
@@ -85,7 +83,7 @@ body {
   margin-top: 0.5rem;
 }
 .guess {
-  background: powderblue;
+  background: #ddd;
   display: none;
 }
 .guess div {

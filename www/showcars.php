@@ -18,6 +18,11 @@ if(empty($_GET['sort'])) {
   $_SESSION['sort'] = $_GET['sort'];
 }
 
+if(isAdmin()) {
+  $carList = array_filter($carList, function($row) {
+    return aget($row, 'tagList.0.groupRoleId') !== 7;
+  });
+}
 if(isLevel()) {
   $mapOpts['level'] = true;
 }

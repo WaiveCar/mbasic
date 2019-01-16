@@ -242,7 +242,6 @@ function showerror() {
   }
 }
 
-$whoami = false;
 function me($opts = []) {
   global $whoami;
   $from = aget($opts, 'from', '');
@@ -250,12 +249,13 @@ function me($opts = []) {
     $whoami = $_SESSION['me'];
   }
 
-  if(!$whoami || aget($opts, 'nocache')) {
+  if(!isset($whoami) || aget($opts, 'nocache')) {
     $whoami = get('/users/me?' . $from);
     if(!empty($whoami['code']) && (
       $whoami['code'] === 'AUTH_INVALID_TOKEN' ||
       $whoami['code'] === 'INVALID_TOKEN'
     )) {
+      $whoami = $_SESSION['me'] = false;
       return false;
     }
     $whoami['booking_id'] = false;
@@ -669,6 +669,7 @@ function hashDecode($str) {
 
 function doheader($title, $opts = []) {
   $showaccount = aget($opts, 'showaccount', true);
+  $usecss = aget($opts, 'usecss', true);
   $extraHtml = aget($opts, 'extraHtml', '');
   $icon = aget($opts, 'icon', '/img/circle-logo_96.png');
 
@@ -684,12 +685,18 @@ function doheader($title, $opts = []) {
     <title><?= $title ?></title>
     <meta name=viewport content="width=device-width,initial-scale=1.0">
     <link rel=icon href=<?= $icon ?>>
-    <link rel=stylesheet href=/style.css>
+    <? if ($usecss) { ?> 
+      <link rel=stylesheet href=/style.css>
+    <? } ?>
     <?= $extraHtml; ?>
   </head>
 <body>
   <? if ($showaccount) { 
-    echo "<div id=acnt><a href=me.php>Your Account</a></div>";
+    if($me) {
+      echo "<div id=acnt><a href=me.php>Your Account</a></div>";
+    } else {
+      echo "<div id=acnt><a href=/>Login</a></div>";
+    }
   } 
   showerror();
 }
@@ -723,6 +730,19 @@ function actionList($base, $list) {
   <? } ?>
   </div>
 <?
+}
+
+function isTagged($what) {
+  $me = me();
+  foreach($me['tagList'] as $tag) {
+    if($tag['groupRole']['name'] === $what) {
+      return true;
+    }
+  }
+}
+
+function isAdmin() {
+  return isTagged('Administrator');
 }
 
 function getTag($what, $field = false) {

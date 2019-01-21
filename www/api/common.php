@@ -677,7 +677,7 @@ function doheader($title, $opts = []) {
   $datetime = new DateTime; // current time = server time
   $otherTZ  = new DateTimeZone('America/Los_Angeles');
   $datetime->setTimezone($otherTZ); // calculates with new TZ now
-  date_default_timezone_set($otherTZ);
+  date_default_timezone_set('America/Los_Angeles');
 ?>
 <!doctype html>
 <html>

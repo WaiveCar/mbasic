@@ -4,36 +4,31 @@ var Template = {},
 
 function penalize(el, booking){
   var ddList = el.parentNode.getElementsByTagName('select');
-  var areSame = ddList[0].value === ddList[1].value;
-  if(!areSame) {
-    return alert("Make sure that you have confirmed your selection");
-  }
   var selected = ddList[0].value;
-  if(selected === "null") {
-    return alert("Make a selection before continuing");
-  }
+  $.post('/cite-user.php', {booking: booking, type: selected}, function(res) {
+    alert("hi");
+  });
 
 }
 
 function distance(lat1, lon1, lat2, lon2) {
-  console.log(arguments);
- if ((lat1 == lat2) && (lon1 == lon2)) {
-  return 0;
- }
- else {
-  var radlat1 = Math.PI * lat1/180;
-  var radlat2 = Math.PI * lat2/180;
-  var theta = lon1-lon2;
-  var radtheta = Math.PI * theta/180;
-  var dist = Math.sin(radlat1) * Math.sin(radlat2) + Math.cos(radlat1) * Math.cos(radlat2) * Math.cos(radtheta);
-  if (dist > 1) {
-   dist = 1;
+  if ((lat1 == lat2) && (lon1 == lon2)) {
+    return 0;
   }
-  dist = Math.acos(dist);
-  dist = dist * 180/Math.PI;
-  dist = dist * 60 * 1.1515 * 1.609344;
-  return dist;
- }
+  else {
+    var radlat1 = Math.PI * lat1/180;
+    var radlat2 = Math.PI * lat2/180;
+    var theta = lon1-lon2;
+    var radtheta = Math.PI * theta/180;
+    var dist = Math.sin(radlat1) * Math.sin(radlat2) + Math.cos(radlat1) * Math.cos(radlat2) * Math.cos(radtheta);
+    if (dist > 1) {
+      dist = 1;
+    }
+    dist = Math.acos(dist);
+    dist = dist * 180/Math.PI;
+    dist = dist * 60 * 1.1515 * 1.609344;
+    return dist;
+  }
 }
 
 function getPinList(){
@@ -43,6 +38,7 @@ function getPinList(){
   }
   return [];
 }
+
 function setPinList(list) {
   localStorage['pin'] = JSON.stringify(list);
 }
@@ -103,8 +99,8 @@ function showTag(car, dir) {
       data.guess.style.display = 'block';
 
       data.title.innerHTML = el.created_at.split('T')[0];
-      data.addr.innerHTML = el.address;
-      data.dist.innerHTML = distance(row.latitude, row.longitude, el.latitude, el.longitude).toFixed(4) + "mi."
+      data.addr.innerHTML = el.addr;
+      data.dist.innerHTML = distance(row.latitude, row.longitude, el.lat, el.lng).toFixed(4) + "mi."
     }
     data.img.href = data.img.firstChild.src = IMGBASE + el.path;
   }

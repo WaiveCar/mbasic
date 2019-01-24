@@ -86,37 +86,24 @@ foreach($carList as $car) {
     <div class='req'>Min: <?= aget($car, 'zone.parkingTime') ?>hr</div>
     <div class='addrtop'><a target=_blank href="https://maps.google.com/?q=<?=$lat?>,<?=$lng?>+(<?=$car['license']?>)"><?=addrClean(aget($car, 'bookings.0.details.0.address')) ?></a></div>
     <div class=guess-wrap></div> 
-    <div class='action'>
-      <div>
-        <select name="cite-user">
-          <option value="null">Choose one</option>
-          <optgroup label="Photo">
-            <option value="not-a-sign">Not a sign</option>
-            <option value="incorrect">Incorrect</option>
-            <option value="illegible">Illegible</option>
-          </optgroup>
+    <? if (isAdmin()) { ?>
+    <div class='action'> 
+      <select name="cite-user">
+        <option value="null">Choose one</option>
+        <optgroup label="Photo">
+          <option value="not-a-sign">Not a sign</option>
+          <option value="incorrect">Incorrect</option>
+          <option value="illegible">Illegible</option>
+        </optgroup>
 
-          <optgroup label="Parking" class="parking-options">
-            <option value="bounty">Bounty</option>
-            <option value="cite-user">Cite User</option>
-          </optgroup>
-        </select>
-        <select name="cite-user-confirm">
-          <option value="null">Confirm</option>
-          <optgroup label="Photo">
-            <option value="not-a-sign">Not a sign</option>
-            <option value="incorrect">Incorrect</option>
-            <option value="illegible">Illegible</option>
-          </optgroup>
-
-          <optgroup label="Parking" class="parking-options">
-            <option value="bounty">Bounty</option>
-            <option value="cite-user">Cite User</option>
-          </optgroup>
-        </select>
-      </div>
+        <optgroup label="Parking" class="parking-options">
+          <option value="lawless">Violation</option>
+          <option value="bounty">Bounty</option>
+        </optgroup>
+      </select>
       <button onclick="penalize(this,<?=$uid?>)">Submit</button>
     </div>
+    <? } ?>
   </span>
 </span>
 <? } ?>
@@ -138,8 +125,8 @@ foreach($carList as $car) {
   var payload = <?=json_encode($resMap) ?>;
 </script>
 <script
-  src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-  integrity="sha256-3edrmyuQ0w65f8gfBsqowzjJe2iM6n0nKciPUp8y+7E="
+  src="https://code.jquery.com/jquery-3.3.1.min.js"
+  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
   crossorigin="anonymous"></script>
 <script src=js/evda.js></script>
 <script src=js/underscore-min.js></script>

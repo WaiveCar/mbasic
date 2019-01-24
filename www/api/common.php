@@ -115,6 +115,9 @@ function curldo($url, $params = false, $verb = false, $opts = []) {
   file_put_contents('/tmp/log.txt', $tolog, FILE_APPEND);
    */
 
+  if(isset($opts['raw'])) {
+    return $res;
+  }
   $resJSON = @json_decode($res, true);
   if($resJSON) {
     return $resJSON;
@@ -136,8 +139,8 @@ function get($url, $params = false) {
   return curldo($url, $params, 'GET');
 }
 
-function post($url, $params = false) {
-  return curldo($url, $params, 'POST');
+function post($url, $params = false, $opts = false) {
+  return curldo($url, $params, 'POST', $opts);
 }
 function postFile($url, $params = false) {
   return curldo($url, $params, 'POST', ['isFile' => true]);

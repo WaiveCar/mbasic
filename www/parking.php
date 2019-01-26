@@ -49,7 +49,9 @@ foreach($carList as $car) {
     continue;
   }
   $uid =  aget($car, 'bookings.0.id');
-  $claim = aget($car, 'bookings.0.parkingDetails.streetHours');
+  $claim = aget($car, 'bookings.0.parkingDetails.streetHours',
+    aget($car, 'bookings.0.parkingDetails.userInput')
+  );
   $img = aget($car, 'bookings.0.parkingDetails.path');
   $imgClass = false;
   $guess = false;

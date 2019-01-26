@@ -158,13 +158,32 @@ if($me['booking_id']) {
   }
   
   if($action === 'complete') {
+    $offset = 0;
+    $append = $_POST['append'];
+
+    if($append == 'pm') {
+      $offset += 12;
+    } else if ($append == 'hours') {
+      $offset = dateTz('G');
+    }
+
+    $parts = explode(':', $_POST['hours']);
+    $hour = intval($parts[0]);
+    $day = intval($_POST['day']);
+
+    if($hour + $offset > 24) {
+      $day = ($day + 1) % 7;
+    }
+    $hour = ($hour + $offset) % 24;
+    $user_input = $POST['day'];
+
     $parking = uploadFiles(['parking']);
     $payload = [
       'data' => [
-        'type' => 'street',
-        'streetHours' => $_POST['hours'],
-        'streetMinutes' => null,
-        'streetOvernightRest' => false,
+        'nosign' => $_POST['nosign'],
+        'nophoto' => $_POST['nophoto'],
+        'expireHour' => $hour,
+        'expireDay' => $day,
         'streetSignImage' => $parking[0]
       ]
     ];

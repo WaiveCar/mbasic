@@ -29,6 +29,7 @@ for($ix = 0; $ix < count($carList); $ix++) {
 }
 
 $resList = post('/parkingQuery', ['qstr' => $noPhoto]);
+
 $resMap = [];
 foreach($resList as $res) {
   $resMap[$res['car']] = $res;

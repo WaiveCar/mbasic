@@ -1,6 +1,8 @@
 RewriteEngine On
 RewriteBase /
 
+Header set Access-Control-Allow-Origin "*"
+
 RewriteRule ^start/(.*)$ /charge.php?charger=$1 [L]
 RewriteRule ^book/(.*)$ /api/carcontrol.php?action=reserve&car=$1 [R=301,L]
 RewriteRule ^Control/(.*)$ /api/carcontrol.php?%{QUERY_STRING}&action=$1 [L]

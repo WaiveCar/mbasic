@@ -32,7 +32,7 @@ h1 small {
 li,p {
   line-height: 1.4rem;
 }
-small {
+label,small {
   color: #444;
   font-size: 0.8rem;
 }
@@ -84,7 +84,7 @@ form input {
   border: 0;
   box-shadow: 0 0 0 1px #bbb;
 }
-form input[type="radio"] {
+form input[type="radio"], form input[type="checkbox"] {
   display: inline-block;
   margin: .25rem;
   width: auto;
@@ -106,8 +106,10 @@ form input[type="file"] {
   text-indent: 0;
   padding-left: 0.25rem;
 }
-form label {
+.ingroup label {
   padding: 0 .5rem;
+}
+form label {
   user-select: none; 
   vertical-align: baseline;
 }

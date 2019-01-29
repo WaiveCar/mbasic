@@ -175,8 +175,6 @@ if($me['booking_id']) {
       goback();
       exit;
     } else {
-      var_dump("BlAH");
-      exit;
 
       $offset = 0;
       $append = $_POST['append'];
@@ -191,10 +189,11 @@ if($me['booking_id']) {
       $hour = intval($parts[0]);
       $day = intval($_POST['day']);
 
-      if($hour + $offset > 24) {
+      if($hour + $offset >= 24) {
         $day = ($day + 1) % 7;
       }
       $hour = ($hour + $offset) % 24;
+      //var_dump([$offset, $hour, $_POST]);
       $user_input = $POST['day'];
 
       $parking = uploadFiles(['parking']);

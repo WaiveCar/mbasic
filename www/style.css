@@ -394,6 +394,12 @@ a.danger:active {
 .message p:first-child {
   margin-top: 0;
 }
+.message ul {
+  margin: 0.25rem;
+}
+.message li {
+  margin-left: 1.5rem;
+}
 .car-label p {
   width: 100%;
   height: 3px;

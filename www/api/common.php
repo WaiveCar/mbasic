@@ -615,7 +615,7 @@ function getMapUrl($carList, $opts = []) {
             function($a) { return "${a[1]},${a[0]}"; },
             $location['shape']
           ));
-          $qmap[] = 'path=fillcolor:0x66996F50|weight:0|' . $loc;
+          $qmap[] = 'path=fillcolor:0x73B06D50|weight:0|' . $loc;
         }
       }
     }
@@ -657,7 +657,7 @@ function location_link($obj) {
 
 function dateTz($fmt) {
   $dt = new DateTime();
-  $dt->setTimezone(new DateTimeZone('America/New_York'));
+  $dt->setTimezone(new DateTimeZone('America/Los_Angeles'));
   $dt->setTimestamp(time());
   return $dt->format($fmt);
 }

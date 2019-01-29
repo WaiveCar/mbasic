@@ -210,14 +210,14 @@ function confirm($title, $prompt, $buttons = [], $options = []) {
 function showerror() {
   if(isset($_SESSION['lasterror'])) {
    $err = $_SESSION['lasterror'];
-   $verb = isset($err['options']) ? 'info' : 'error';
+   $verb = empty($err['options']) ? 'error' : 'info';
    ?>
 
    <div class='<?=$verb ?> box inline'>
      <div class=title><?= $err['title'] ?></div>
 
      <div class=content>
-      <div class='message'><p><?= $err['message'] ?></p>
+      <div class=message><div class=copy><?= $err['message'] ?></div>
       <?
 
       if(isset($err['options'])) { 
@@ -333,6 +333,14 @@ function location($obj) {
 }
 
 
+function makeError($title, $text, $opts = false) {
+  $_SESSION['lasterror'] = [ 
+    'title' => $title,
+    'message' => $text,
+    'options' => $opts,
+  ];
+}
+
 function tis($what) {
   if(is_bool($what) && $what == true) {
     return true;
@@ -344,13 +352,11 @@ function tis($what) {
     if(!empty($what['message'])) {
       $parts = preg_split('/\t/', $what['message']);
 
-      $_SESSION['lasterror'] = [ 
-        'message' => $parts[0],
-        'options' => aget($what, 'options'),
-        'title' => aget($what, 'title', 'Notice') 
-      ];
-
-      return false;
+      return makeError(
+        aget($what, 'title', 'Notice'),
+        $parts[0],
+        aget($what, 'options')
+      );
     }
   }
   return $what;
@@ -502,8 +508,11 @@ function getstate($nocache = false) {
 
 }
 
-function goback() {
-  load($_SERVER['HTTP_REFERER']);
+function goback($url = false) {
+  if(!$url) {
+    $url = $_SERVER['HTTP_REFERER'];
+  }
+  load($url);
   exit;
 }
 
@@ -606,7 +615,7 @@ function getMapUrl($carList, $opts = []) {
             function($a) { return "${a[1]},${a[0]}"; },
             $location['shape']
           ));
-          $qmap[] = 'path=fillcolor:0x00AA0050|weight:0|' . $loc;
+          $qmap[] = 'path=fillcolor:0x66996F50|weight:0|' . $loc;
         }
       }
     }

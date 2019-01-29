@@ -158,49 +158,70 @@ if($me['booking_id']) {
   }
   
   if($action === 'complete') {
-    $offset = 0;
-    $append = $_POST['append'];
+    $nosign = !empty($_POST['nosign']);
+    $nophoto = !empty($_POST['nophoto']);
 
-    if($append == 'pm') {
-      $offset += 12;
-    } else if ($append == 'hours') {
-      $offset = dateTz('G');
+    if(!aget($_FILES, 'parking.size') && !$nophoto) {
+      $err[] = 'Upload an image or if you cannot get a photo, choose that option.';
     }
-
-    $parts = explode(':', $_POST['hours']);
-    $hour = intval($parts[0]);
-    $day = intval($_POST['day']);
-
-    if($hour + $offset > 24) {
-      $day = ($day + 1) % 7;
+    if (empty($_POST['hours']) && !$nosign) {
+      $err[] = 'Specify the time the WaiveCar need to move, or if there is no sign, choose that option.';
     }
-    $hour = ($hour + $offset) % 24;
-    $user_input = $POST['day'];
+    // The user didn't specify hours or say there was no sign.
+    if(count($err) > 0) {
+      $err = 'Please correct the following:<ul><li>' . implode('</li><li>', $err) . '</li></ul>';
 
-    $parking = uploadFiles(['parking']);
-    $payload = [
-      'data' => [
-        'nosign' => $_POST['nosign'],
-        'nophoto' => $_POST['nophoto'],
-        'expireHour' => $hour,
-        'expireDay' => $day,
-        'streetSignImage' => $parking[0]
-      ]
-    ];
+      makeError("Please complete this page", $err);
+      goback();
+      exit;
+    } else {
+      var_dump("BlAH");
+      exit;
 
-    $fileList = uploadFiles();
+      $offset = 0;
+      $append = $_POST['append'];
 
-    if(count($fileList) > 0) {
-      createReport($fileList);
-    }
+      if($append == 'pm') {
+        $offset += 12;
+      } else if ($append == 'hours') {
+        $offset = dateTz('G');
+      }
 
-    $data = put("/bookings/$booking/end", $payload); 
-    if($data) {
-      // This is a special use-case
-      // for getting to the receipt
-      if(put("/bookings/$booking/complete")) {
-        load('/receipt.php');
-        exit;
+      $parts = explode(':', $_POST['hours']);
+      $hour = intval($parts[0]);
+      $day = intval($_POST['day']);
+
+      if($hour + $offset > 24) {
+        $day = ($day + 1) % 7;
+      }
+      $hour = ($hour + $offset) % 24;
+      $user_input = $POST['day'];
+
+      $parking = uploadFiles(['parking']);
+      $payload = [
+        'data' => [
+          'nosign' => $nosign,
+          'nophoto' => $nophoto,
+          'expireHour' => $hour,
+          'expireDay' => $day,
+          'streetSignImage' => $parking[0]
+        ]
+      ];
+
+      $fileList = uploadFiles();
+
+      if(count($fileList) > 0) {
+        createReport($fileList);
+      }
+
+      $data = put("/bookings/$booking/end", $payload); 
+      if($data) {
+        // This is a special use-case
+        // for getting to the receipt
+        if(put("/bookings/$booking/complete")) {
+          load('/receipt.php');
+          exit;
+        }
       }
     }
   }

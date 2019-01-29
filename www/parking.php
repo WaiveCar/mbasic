@@ -28,6 +28,7 @@ for($ix = 0; $ix < count($carList); $ix++) {
   $carList[$ix]['parked'] = round( (time() - strtotime(aget($car, 'bookings.0.details.0.updated_at'))) / 60);
 }
 
+/*
 $resList = post('/parkingQuery', ['qstr' => $noPhoto]);
 
 $resMap = [];
@@ -35,6 +36,9 @@ foreach($resList as $res) {
   $resMap[$res['car']] = $res;
   unset($resMap[$res['car']]['car']);
 }
+ */
+$resList = [];
+$resMap = [];
 
 usort($carList, function($a, $b) {
   return $a['parked'] - $b['parked'];

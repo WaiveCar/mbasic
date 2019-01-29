@@ -179,7 +179,13 @@ if($me['booking_id']) {
       $offset = 0;
       $append = $_POST['append'];
 
-      if($append == 'pm') {
+      // This double level is right, think about it.
+      // Don't "optimize" this.
+      if($hour == 12) {
+        if($append == 'am') {
+          $hour = 0;
+        }
+      } else if($append == 'pm') {
         $offset += 12;
       } else if ($append == 'hours') {
         $offset = dateTz('G');

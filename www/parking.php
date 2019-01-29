@@ -50,9 +50,21 @@ foreach($carList as $car) {
     continue;
   }
   $uid =  aget($car, 'bookings.0.id');
-  $claim = aget($car, 'bookings.0.parkingDetails.streetHours',
-    aget($car, 'bookings.0.parkingDetails.userInput')
-  );
+  $pd = aget($car, 'bookings.0.parkingDetails');
+
+  $claim = aget($pd, 'streetHours');
+  if($claim) {
+    $claim .= 'hr';
+  } else {
+    $claim = aget($pd, 'userInput');
+  } 
+
+  if(!$claim && !empty($pd['expireDay'])) {
+    $claim = implode(' ', [
+      ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'][$pd['expireDay']],
+      sprintf("%02d:00", $pd['expireHour'])
+    ]);
+  }
   $img = aget($car, 'bookings.0.parkingDetails.path');
   $imgClass = false;
   $guess = false;
@@ -82,7 +94,7 @@ foreach($carList as $car) {
   <div class='car-name'><a target=_blank href=https://lb.waivecar.com/cars/<?=$car['id']?>><?=$car['license']?> <?=$car['charge']?>%</a></div>
   <div class='park-claim'>Parked: <?=$endTimeStr ?> <a style=float:right onclick='toggle("<?=$uid ?>");'>&#x1F4CC;</a></div>
     <? if ($claim) { ?>
-      <div> Good for: <?=$claim ?>hr</div>
+      <div>Move: <?=$claim ?></div>
     <? } else { ?>
       <div> NO CLAIM </div>
     <? } ?>

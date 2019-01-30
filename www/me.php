@@ -34,7 +34,7 @@ doheader('Your Account');
     <p>
     <b>WaiveBasic</b>
     This is WaiveBasic. 
-    Add a shortcut on your smartphone home screen for quickly locking and unlocking WaiveCars. <a href=/shortcuts.php>Find out more!</a>
+    Add a shortcut on your smartphone home screen for quickly locking and unlocking WaiveCars. <a href=/fast>Find out more!</a>
     </p>
 
     <p>

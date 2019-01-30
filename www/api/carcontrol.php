@@ -15,9 +15,15 @@ doheader(ucfirst($action), ['showaccount' => false]);
 
 $me = me();
 if(($action === 'lock' || $action === 'unlock') && !$me['booking_id']) {
-  confirm("No Active Booking", "Cannot $action because there's no active booking.",[
-    [ "Find Availale WaiveCars", "/showcars.php", "wid-1" ]
-  ], ['inline' => true, 'klass' => "error"]);
+  if(!$me['id']) {
+    confirm("Not logged in", "Cannot $action because you're not logged in.",[
+      [ "Login", "/", "wid-1" ]
+    ], ['inline' => true, 'klass' => "error"]);
+  } else {
+    confirm("No Active Booking", "Cannot $action because there's no active booking.",[
+      [ "Find Availale WaiveCars", "/showcars.php", "wid-1" ]
+    ], ['inline' => true, 'klass' => "error"]);
+  }
   exit;
 }
 

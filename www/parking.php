@@ -4,6 +4,7 @@ include('api/common.php');
 function addrClean($str) {
   return preg_replace('/, (USA|CA)/','',$str);
 }
+
 function isHome($car) {
   list($lat,$lng) = [
     aget($car, 'bookings.0.details.0.latitude'),
@@ -48,13 +49,19 @@ usort($carList, function($a, $b) {
 doheader("Parking", ['usecss' => false]);
 echo '<link rel=stylesheet href=/parking.css?2>';
 
+
 foreach($carList as $car) {
+
+  $booking_flags = aget($car, 'bookings.0.flags');
+  if($booking_flags) {
+    $booking_flags = json_decode($booking_flags, true);
+  }
 
   $currentDistance = distance($car, aget($car, 'bookings.0.details.0'));
   if(aget($car, 'tagList.0.groupRoleId') !== 6 || isHome($car) || $currentDistance > 0.5) {
     continue;
   }
-  $uid =  aget($car, 'bookings.0.id');
+  $uid = aget($car, 'bookings.0.id');
   $pd = aget($car, 'bookings.0.parkingDetails');
 
   $claim = aget($pd, 'streetHours');
@@ -73,6 +80,7 @@ foreach($carList as $car) {
   $img = aget($car, 'bookings.0.parkingDetails.path');
   $imgClass = false;
   $guess = false;
+
   list($lat,$lng) = [
     aget($car, 'bookings.0.details.0.latitude'),
     aget($car, 'bookings.0.details.0.longitude')
@@ -86,7 +94,7 @@ foreach($carList as $car) {
   } else {
     $endTimeStr = '<1h';
   }
-?>
+  ?>
   <span class="car-sheet" id="booking-<?=$uid?>" data-car="<?=$car['id']?>">
 <span class="img-wrap">
 <? if ($img) { ?>
@@ -112,13 +120,13 @@ foreach($carList as $car) {
       <select name="cite-user">
         <option value="null">Choose one</option>
         <optgroup label="Photo">
-          <option value="not-a-sign">Not a sign</option>
-          <option value="incorrect">Incorrect</option>
-          <option value="illegible">Illegible</option>
+          <option value="notsign" <?= in_array('notsign', $booking_flags) ? 'disabled=1' : '' ?>>Not sign</option>
+          <option value="wrong" <?= in_array('wrong', $booking_flags) ? 'disabled=1' : '' ?>>Wrong</option>
+          <option value="blurry" <?= in_array("blurry", $booking_flags) ? 'disabeld=1' : '' ?> >Blurry</option>
         </optgroup>
 
         <optgroup label="Parking" class="parking-options">
-          <option value="lawless">Violation</option>
+          <option value="lawless" <?= in_array('lawless', $booking_flags) ? 'disabled=1': '' ?>>Broke Rules</option>
           <option value="bounty">Bounty</option>
         </optgroup>
       </select>

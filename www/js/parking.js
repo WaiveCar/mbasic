@@ -5,9 +5,13 @@ var Template = {},
 function penalize(el, booking){
   var ddList = el.parentNode.getElementsByTagName('select');
   var selected = ddList[0].value;
-  $.post('/cite-user.php', {booking: booking, type: selected}, function(res) {
-    alert("hi");
-  });
+  
+  if(selected != 'null') {
+    $.post('/cite-user.php', {booking: booking, type: selected}, function(res) {
+    });
+  } else {
+    alert("Nothing selected");
+  }
 
 }
 

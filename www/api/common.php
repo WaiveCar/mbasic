@@ -655,10 +655,13 @@ function location_link($obj) {
   return "<a target=_blank href='//maps.google.com/maps/?q=${obj['latitude']},${obj['longitude']}+($name)'>$location</a>";
 }
 
-function dateTz($fmt) {
+function dateTz($fmt, $ts = false) {
+  if(!$ts) {
+    $ts = time();
+  }
   $dt = new DateTime();
   $dt->setTimezone(new DateTimeZone('America/Los_Angeles'));
-  $dt->setTimestamp(time());
+  $dt->setTimestamp($ts);
   return $dt->format($fmt);
 }
 

@@ -25,7 +25,8 @@ for($ix = 0; $ix < count($carList); $ix++) {
       'longitude' => $bk['longitude']
     ];
   }
-  $carList[$ix]['parked'] = round( (time() - strtotime(aget($car, 'bookings.0.details.0.updated_at'))) / 60);
+  $carList[$ix]['parkTime'] = strtotime(aget($car, 'bookings.0.details.0.updated_at'));
+  $carList[$ix]['parked'] = round( (time() - $carList[$ix]['parkTime']) / 60);
 }
 
 /*
@@ -78,11 +79,12 @@ foreach($carList as $car) {
   ];
 
   $endTime = $car['parked'];
-  $endTimeStr = ($endTime % 60) . 'm';
   $endTime /= 60;
   
   if(floor($endTime) > 0) {
-    $endTimeStr = floor($endTime) . 'h ' . $endTimeStr;
+    $endTimeStr = floor($endTime) . 'h'; 
+  } else {
+    $endTimeStr = '<1h';
   }
 ?>
   <span class="car-sheet" id="booking-<?=$uid?>" data-car="<?=$car['id']?>">
@@ -96,13 +98,13 @@ foreach($carList as $car) {
   </span>
   <span class="info">
   <div class='car-name'><a target=_blank href=https://lb.waivecar.com/cars/<?=$car['id']?>><?=$car['license']?> <?=$car['charge']?>%</a></div>
-  <div class='park-claim'>Parked: <?=$endTimeStr ?> <a style=float:right onclick='toggle("<?=$uid ?>");'>&#x1F4CC;</a></div>
+  <div class='park-claim'>Left:  <?= dateTz('H:00 l', $car['parkTime']); ?> (<?=$endTimeStr ?>) <a style=float:right onclick='toggle("<?=$uid ?>");'>&#x1F4CC;</a></div>
     <? if ($claim) { ?>
       <div>Move: <?=$claim ?></div>
     <? } else { ?>
       <div> NO CLAIM </div>
     <? } ?>
-    <div class='req'>Min: <?= aget($car, 'zone.parkingTime') ?>hr</div>
+    <!--<div class='req'>Min: <?= aget($car, 'zone.parkingTime') ?>hr</div>-->
     <div class='addrtop'><a target=_blank href="https://maps.google.com/?q=<?=$lat?>,<?=$lng?>+(<?=$car['license']?>)"><?=addrClean(aget($car, 'bookings.0.details.0.address')) ?></a></div>
     <div class=guess-wrap></div> 
     <? if (isAdmin()) { ?>

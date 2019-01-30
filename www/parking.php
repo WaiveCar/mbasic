@@ -98,7 +98,7 @@ foreach($carList as $car) {
   </span>
   <span class="info">
   <div class='car-name'><a target=_blank href=https://lb.waivecar.com/cars/<?=$car['id']?>><?=$car['license']?> <?=$car['charge']?>%</a></div>
-  <div class='park-claim'>Left:  <?= dateTz('H:00 l', $car['parkTime']); ?> (<?=$endTimeStr ?>) <a style=float:right onclick='toggle("<?=$uid ?>");'>&#x1F4CC;</a></div>
+  <div class='park-claim'>Left:  <?= dateTz('H:i l', $car['parkTime']); ?> (<?=$endTimeStr ?>) <a style=float:right onclick='toggle("<?=$uid ?>");'>&#x1F4CC;</a></div>
     <? if ($claim) { ?>
       <div>Move: <?=$claim ?></div>
     <? } else { ?>

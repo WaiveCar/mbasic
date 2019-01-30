@@ -8,6 +8,7 @@ function penalize(el, booking){
   
   if(selected != 'null') {
     $.post('/cite-user.php', {booking: booking, type: selected}, function(res) {
+      alert("Cited user for " + ddList[0].innerHTML);
     });
   } else {
     alert("Nothing selected");

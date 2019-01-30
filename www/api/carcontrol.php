@@ -6,7 +6,7 @@ if($action === 'nop') {
   getstate("nocache");
   exit;
 }
-if(strpos($_SERVER['HTTP_REFERER'], 'shortcut') !== false) {
+if(strpos($_SERVER['HTTP_REFERER'], 'fast') !== false) {
   instructions($action);
   exit;
 }

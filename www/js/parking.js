@@ -94,7 +94,6 @@ function showTag(car, dir) {
     }
     if(el.hide) {
       data.guess.style.display = 'none';
-      console.log(row.results);
     } else {
       data.guess.style.display = 'block';
 
@@ -107,9 +106,15 @@ function showTag(car, dir) {
 }
 
 function generateCars() {
+  if(!payload) {
+    payload = {};
+  }
   document.querySelectorAll(".car-sheet").forEach(function(item){
     var car = item.dataset.car;
     var node = item.querySelector('.guess-wrap');
+    if(!(car in payload)) {
+      payload[car] = {results: []};
+    }
     payload[car]._ = {ix: 0};
     node.innerHTML = Template.archive();
 

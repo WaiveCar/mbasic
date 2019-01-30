@@ -144,7 +144,7 @@ function generateCars() {
 }
           
 ev('load', function(){
-  loadTemplates();
+  //loadTemplates();
   generateCars();
   var list = getPinList();
   var filtered = [];

@@ -5,10 +5,12 @@ var Template = {},
 function penalize(el, booking){
   var ddList = el.parentNode.getElementsByTagName('select');
   var selected = ddList[0].value;
+  var dom = ddList[0].item(ddList[0].selectedIndex)
   
   if(selected != 'null') {
     $.post('/cite-user.php', {booking: booking, type: selected}, function(res) {
-      alert("Cited user for " + ddList[0].value);
+      alert("Cited user for " + dom.innerHTML);
+      dom.setAttribute('disabled', 1);
     });
   } else {
     alert("Nothing selected");
@@ -121,6 +123,7 @@ function generateCars() {
       payload[car] = {results: []};
     }
     payload[car]._ = {ix: 0};
+    /*
     node.innerHTML = Template.archive();
 
     ['title','dist','addr','prev','next','guess'].forEach(function(row) {
@@ -141,6 +144,7 @@ function generateCars() {
       
       showTag(car);
     }
+    */
   });
 }
           
@@ -156,8 +160,9 @@ ev('load', function(){
         filtered.push(row);
         console.log("adding a classname to " + row);
         container.classList.add("pinned");
-      }
+      } else {
         console.log("failed adding a classname to " + row);
+      }
     });
     setPinList(filtered);
   }

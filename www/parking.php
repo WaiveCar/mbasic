@@ -94,6 +94,7 @@ foreach($carList as $car) {
   } else {
     $endTimeStr = '<1h';
   }
+  $bkid = aget($car, 'bookings.0.id');
   ?>
   <span class="car-sheet" id="booking-<?=$uid?>" data-car="<?=$car['id']?>">
 <span class="img-wrap">
@@ -116,6 +117,7 @@ foreach($carList as $car) {
     <div class='addrtop'><a target=_blank href="https://maps.google.com/?q=<?=$lat?>,<?=$lng?>+(<?=$car['license']?>)"><?=addrClean(aget($car, 'bookings.0.details.0.address')) ?></a></div>
     <div class=guess-wrap></div> 
     <? if (isAdmin()) { ?>
+    <a href="https://lb.waivecar.com/bookings/<?= $bkid; ?>">#<?=$bkid?></a>
     <div class='action'> 
       <select name="cite-user">
         <option value="null">Choose one</option>

@@ -219,6 +219,10 @@ if($me['booking_id']) {
         ]
       ];
 
+      if($nosign) {
+        $payload['data']['userInput'] = 'no sign';
+      }
+
       $fileList = uploadFiles();
 
       if(count($fileList) > 0) {

@@ -341,6 +341,11 @@ function makeError($title, $text, $opts = false) {
   ];
 }
 
+function throwError($title, $text, $opts = false) {
+  makeError($title, $textr, $opts);
+  goback();
+}
+
 function tis($what) {
   if(is_bool($what) && $what == true) {
     return true;

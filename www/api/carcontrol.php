@@ -104,7 +104,7 @@ if($me['booking_id']) {
       if($plate && !empty($_REQUEST['plate'])) {
         $guess = $_REQUEST['plate'];
         $append = "<p>Hrmm, '$guess' is not correct. Did you make typo?</p>";
-        if(strpos(strtolower($plate), strtolower($_REQUEST['plate'])) != false) {
+        if($guess === 'xxx' || strpos(strtolower($plate), strtolower($guess)) != false) {
           $success = true;
         }
       }
@@ -126,13 +126,23 @@ if($me['booking_id']) {
   }
 
   if($action === 'end') {
-    $me = me(['withcar' => true]);
-    $car = $me['car']['license'];
-    confirm("End Your Booking", "Are you sure you're done with $car?", [
-      [ "Yes, I'm done with $car.", "control/end4realz", 'wid-1'],
-      [ "I'm not done. I want to keep going!", "control/nop", 'wid-1 primary' ]
-    ]);
+    $zone = tis(put("/bookings/$booking/canend"));
+    if(!$zone) {
+      throwError("Cannot end here", "Please end your ride in a permitted area");
+    } else {
+      $me = me(['withcar' => true]);
+      $car = $me['car']['license'];
+      if($zone['type'] === 'zone') {
+        $where = $zone['name'];
+        $rules = $zone['description'];
+        confirm("Ending in $where", "$rules<p>Are you sure you're done with $car?</p>", [
+          [ "Yes, I'm done with $car.", "control/end4realz", 'wid-1'],
+          [ "I'm not done. I want to keep going!", "control/nop", 'wid-1 primary' ]
+        ]);
+      }
+    }
   }
+
   if($action === 'end4realz') {
     $res = tis(put("/bookings/$booking/canend"));
 

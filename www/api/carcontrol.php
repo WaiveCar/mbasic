@@ -139,6 +139,11 @@ if($me['booking_id']) {
           [ "Yes, I'm done with $car.", "control/end4realz", 'wid-1'],
           [ "I'm not done. I want to keep going!", "control/nop", 'wid-1 primary' ]
         ]);
+      } else {
+        confirm("End your booking", "Are you sure you're done with $car?", [
+          [ "Yes, I'm done with $car.", "control/end4realz", 'wid-1'],
+          [ "I'm not done. I want to keep going!", "control/nop", 'wid-1 primary' ]
+        ]);
       }
     }
   }

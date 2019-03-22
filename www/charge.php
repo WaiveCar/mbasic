@@ -59,7 +59,7 @@ $name = $charger['name'];
 
        if(count($list) > 0) {
          foreach($chargerSet[$type] as $port) {
-           echo "<a href=/charge.php?port=${port['name']} class=geo><img src=/charger-{$port['type']}.png>${port['name']}</a>";
+           echo "<a href=/charge.php?port=${port['name']} class=geo><img src=img/charger-{$port['type']}.png>${port['name']}</a>";
          }
        } else {
          echo "<span><em>None</em></span>";

@@ -1,5 +1,5 @@
 <?
-include('api/common.php');
+include ($_SERVER['DOCUMENT_ROOT'] . '/api/common.php');
 
 function addrClean($str) {
   return preg_replace('/, (USA|CA)/','',$str);
@@ -47,7 +47,7 @@ usort($carList, function($a, $b) {
 });
  
 doheader("Parking", ['usecss' => false]);
-echo '<link rel=stylesheet href=/parking.css?2>';
+echo '<link rel=stylesheet href=/admin/parking.css?2>';
 
 
 foreach($carList as $car) {
@@ -159,8 +159,8 @@ foreach($carList as $car) {
   src="https://code.jquery.com/jquery-3.3.1.min.js"
   integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
   crossorigin="anonymous"></script>
-<script src=js/evda.js></script>
-<script src=js/underscore-min.js></script>
-<script src=js/parking.js?1></script>
+<script src=/js/evda.js></script>
+<script src=/js/underscore-min.js></script>
+<script src=/js/parking.js?1></script>
 </body>
 </html>

@@ -1,5 +1,6 @@
 <?
-include('api/common.php');
+include ($_SERVER['DOCUMENT_ROOT'] . '/api/common.php');
+
 $start = intval(aget($_GET, 'start', 1));
 $end = intval(aget($_GET, 'end', 0));
 $revenueList = curldo('/revenue/' . $start . '/' . $end);

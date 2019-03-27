@@ -106,6 +106,16 @@ form input[type="file"] {
   text-indent: 0;
   padding-left: 0.25rem;
 }
+.input-container {
+  display: inline-block;
+  margin-top:0.5rem;
+}
+.input-container input {
+  margin-top: 0rem;
+}
+.input-container label {
+  line-height: 2rem;
+}
 .ingroup label {
   padding: 0 .5rem;
 }

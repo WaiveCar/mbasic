@@ -10,15 +10,16 @@ $gList = [
   'AIzaSyA718cwy2i_uf-GCKrq7cB-1WDvKL5gsh8',
   'AIzaSyC_bFO-1OoYAVg-dTS0MOCbWer6tgEwRhk',
 
-  'AIzaSyAxgyybUw8aYMY84C5vys2qR9Ll_pCYUGg',
-  'AIzaSyDuTxwQN4WKCktkzkLTHZSD7EzHvCn3WHs',
-  'AIzaSyD3Bf8BTFI_z00lrxWdReV4MpaqnQ8urzc',
   'AIzaSyCjNzEEetDOi63O7qrD6APLffH0daZIDeQ',
   'AIzaSyA77YUSEIo77Ms26dlAKllaBFYl-XAaELs'
 ];
 $googleKey = $gList[0];
 
 $HOST = false;
+function resolve($path) {
+  return rtrim($_SERVER['DOCUMENT_ROOT'], '/') . '/' . ltrim($path, '/');
+}
+
 function getHost() {
   global $HOST;
   if(!$HOST) {
@@ -184,7 +185,7 @@ function prompt($title, $prompt, $var, $doPage = false) {
     $_GET['t'] = $title;
     $_GET['p'] = $prompt;
     $_GET['v'] = $var;
-    include('../prompt.php');
+    include(resolve('prompt.php'));
   }
   exit;
 }
@@ -202,7 +203,7 @@ function confirm($title, $prompt, $buttons = [], $options = []) {
     $_GET['p'] = $prompt;
     $_GET['b'] = $buttons;
     $_GET['o'] = $options;
-    include('../confirm.php');
+    include(resolve('confirm.php'));
   }
   exit;
 }

@@ -175,6 +175,16 @@ function infobox($title, $content, $klass = '') {
 <?
 }
 
+function widget($widget, $options) {
+  if(!aget($options, 'inline')) {
+    load(resolve("$widget.php?" . http_build_query($options)));
+  } else {
+    $_GET = $options;
+    include(resolve("$widget.php"));
+  }
+  exit;
+}
+
 function prompt($title, $prompt, $var, $doPage = false) {
   if($doPage) {
     load('prompt.php?' . http_build_query([
@@ -191,21 +201,13 @@ function prompt($title, $prompt, $var, $doPage = false) {
 }
 
 function confirm($title, $prompt, $buttons = [], $options = []) {
-  if(!aget($options, 'inline')) {
-    load('confirm.php?' . http_build_query([
-      't' => $title, 
-      'p' => $prompt, 
-      'b' => $buttons,
-      'o' => $options,
-    ]));
-  } else {
-    $_GET['t'] = $title;
-    $_GET['p'] = $prompt;
-    $_GET['b'] = $buttons;
-    $_GET['o'] = $options;
-    include(resolve('confirm.php'));
-  }
-  exit;
+  widget('confirm', [
+    't' => $title, 
+    'p' => $prompt, 
+    'b' => $buttons,
+    'o' => $options,
+    'inline' => aget($options, 'inline')
+  ]);
 }
 
 function showerror() {
@@ -462,7 +464,21 @@ function hasFlag($what) {
 // dot notation array get 
 function aget($source, $keyList, $default = null) {
   if(!is_array($keyList)) {
-    $keyList = explode('.', $keyList);
+    $keyStr = $keyList;
+    $keyList = explode('.', $keyStr);
+
+    $orList = explode('|', $keyStr);
+    if(count($orList) > 1) {
+
+      $res = null;
+      foreach($orList as $key) {
+        // this resolves to the FIRST valid value
+        if($res === null) {
+          $res = aget($source, $key);
+        }
+      }
+      return ($res === null) ? $default : $res;
+    }   
   }
   $key = array_shift($keyList);
 

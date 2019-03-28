@@ -8,11 +8,12 @@ if ($what === 'zip') {
   prompt('Zip Code Lookup', 'Please enter your zip code', 'zip');
 }
 if ($what === 'address') {
-  if($verb === 'post') {
-    $source = $_POST['name'];
-    unset($_POST['name']);
-    $res = put('licenses/unspecificUpdate', $_POST);
-    var_dump($res);
+  if($verb !== 'GET') {
+    $me = me();
+    var_dump($me);
+    $source = $_POST['source'];
+    unset($_POST['source']);
+    $res = put('licenses', $_POST);
   } else {
 
     widget('form', [

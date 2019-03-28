@@ -177,7 +177,7 @@ function infobox($title, $content, $klass = '') {
 
 function widget($widget, $options) {
   if(!aget($options, 'inline')) {
-    load(resolve("$widget.php?" . http_build_query($options)));
+    load("/$widget.php?" . http_build_query($options));
   } else {
     $_GET = $options;
     include(resolve("$widget.php"));

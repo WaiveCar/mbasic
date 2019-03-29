@@ -231,11 +231,12 @@ function showerror() {
             $option['action']['params'] = json_decode($option['action']['params'], true);
           }
           $klass = aget($option, 'priority');
-          $qstr = http_build_query([
+
+          $href = '/api/carcontrol.php?' . http_build_query([
             'action' => 'generic',
             'params' => $option['action']
           ]);
-          echo "<a class='btn wid-1 $klass' href='/api/carcontrol.php?$qstr'>${option['title']}</a>";
+          echo "<a class='btn wid-1 $klass' href='$href'>${option['title']}</a>";
         }
         echo '</div>'; // options
       }
@@ -715,6 +716,11 @@ function doheader($title, $opts = []) {
   $otherTZ  = new DateTimeZone('America/Los_Angeles');
   $datetime->setTimezone($otherTZ); // calculates with new TZ now
   date_default_timezone_set('America/Los_Angeles');
+  if(($url = aget($_SESSION, 'lasterror.options.go')) !== null) {
+     unset($_SESSION['lasterror']);
+     load($url);
+     exit;
+   }
 ?>
 <!doctype html>
 <html>

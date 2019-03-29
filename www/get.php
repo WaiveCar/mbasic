@@ -10,10 +10,10 @@ if ($what === 'zip') {
 if ($what === 'address') {
   if($verb !== 'GET') {
     $me = me();
-    var_dump($me);
     $source = $_POST['source'];
     unset($_POST['source']);
     $res = put('licenses', $_POST);
+    load($source);
   } else {
 
     widget('form', [
@@ -22,9 +22,9 @@ if ($what === 'address') {
       'title' => 'Enter Home Address',
       'help' => 'In an effort to improve service, please tell us your home address before continuing.',
       'options' => [
-        ['type' => 'hidden', 'name' => 'source', 'value' => aget($_SERVER, 'HTTP_REFERER')],
-        ['name' => 'address1', 'label' => 'Address'],
-        ['name' => 'address2', 'label' => ''],
+        ['type' => 'hidden', 'name' => 'source', 'value' => "/"],
+        ['name' => 'street1', 'label' => 'Address'],
+        ['name' => 'street2', 'label' => ''],
         ['name' => 'city', 'size' => 50],
         ['name' => 'state', 'size' => 20],
         ['name' => 'zip', 'size' => '20']

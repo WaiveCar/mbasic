@@ -35,6 +35,7 @@ ob_start("sanitize_output");
           $label = aget($row, 'label', ucfirst($name));
           $size = aget($row, 'size', 100);
           $style = "style=width:$size%";
+          $required = aget($row, 'required') ? 'required' : '';
           if($size >= 100) {
             $ix = 0;
           } else {
@@ -52,7 +53,7 @@ ob_start("sanitize_output");
             <? if (strlen($label) > 0) { ?>
               <label for=<?= $name ?>><?= $label ?></label>
             <? } ?>
-            <input name=<?= $name ?> required>
+            <input name=<?= $name ?> <?= $required ?>>
           </div>
         <? } ?>
         <div class=action-list>

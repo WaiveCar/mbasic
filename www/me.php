@@ -32,14 +32,19 @@ doheader('Your Account');
     <? } ?>
 
     <p>
+  <? if (!isWaiveWork()) { ?>
     <b>WaiveBasic</b>
     This is WaiveBasic. 
+  <? } ?>
     Add a shortcut on your smartphone home screen for quickly locking and unlocking WaiveCars. <a href=/fast>Find out more!</a>
     </p>
 
     <p>
+  <? if (!isWaiveWork()) { ?>
     <b>Waivetext</b>
+  <? } ?>
 Many things are available over text message. This requires no mobile data whatsoever. <a href="https://medium.com/@Waive/how-to-control-a-waivecar-over-text-7a1cc6176b45">Read our documentation to find out more.</a>
+  <? if (!isWaiveWork()) { ?>
     <p>
     <b>Smartphones</b>
     We have a full-featured app:
@@ -49,6 +54,7 @@ Many things are available over text message. This requires no mobile data whatso
     <li><a href="https://itunes.apple.com/us/app/waivecar/id1051144802?mt=8">Download for iPhone</a>
     </ul>
     </p>
+  <? } ?>
 
     <p>
     You can call or text us at <a href="tel:+18559248355">1 (855) WAIVE-55</a>

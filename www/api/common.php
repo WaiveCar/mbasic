@@ -20,6 +20,10 @@ function resolve($path) {
   return rtrim($_SERVER['DOCUMENT_ROOT'], '/') . '/' . ltrim($path, '/');
 }
 
+function isWaiveWork() {
+  return $_SERVER['HTTP_HOST'] === 'waivework.com';
+}
+
 function getHost() {
   global $HOST;
   if(!$HOST) {

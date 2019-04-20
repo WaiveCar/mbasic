@@ -6,19 +6,23 @@ db_incrstats('dash');
 if($me['booking_id']){
   $car = car_info($me['booking']['carId']);
 }
-$timeStr = 'WaiveRushed';
+if(isWaiveWork()) {
+  $timeStr = 'WaiveWorking';
+} else {
+  $timeStr = 'WaiveRushed';
 
-if(!hasFlag('rush')) {
-  $inBooking = strtotime('now') - strtotime(aget($me, 'booking.details.0.createdAt'));
-  $minutes = ceil($inBooking / 60);
-  $hours = floor($minutes / 60);
-  $timeStr = $minutes % 60;
+  if(!hasFlag('rush')) {
+    $inBooking = strtotime('now') - strtotime(aget($me, 'booking.details.0.createdAt'));
+    $minutes = ceil($inBooking / 60);
+    $hours = floor($minutes / 60);
+    $timeStr = $minutes % 60;
 
-  if($hours > 0) {
-    $timeStr = "${hours}hr. ${timeStr}";
+    if($hours > 0) {
+      $timeStr = "${hours}hr. ${timeStr}";
+    }
+
+    $timeStr .= 'min';
   }
-
-  $timeStr .= 'min';
 }
 ob_start("sanitize_output");
 doheader('Current Booking', ['extraHtml' => '<meta http-equiv=refresh content=600>']);
@@ -31,7 +35,9 @@ doheader('Current Booking', ['extraHtml' => '<meta http-equiv=refresh content=60
     <? showLocation($car); ?>
     <div align=center>
       <h4><b><?= $timeStr ?></b> in <?= $car['license']; ?></h4>
+      <? if(!isWaiveWork()) { ?>
       <a class=isolated href=control/end>Park and End Ride</a>
+      <? } ?>
     </div>
 
     <div class=content>

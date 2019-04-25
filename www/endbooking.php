@@ -35,8 +35,7 @@ doheader('End Booking', $opts);
               $weekdayList[count($weekdayList) - 1] .= " (next)";
               $appendList = [
                 'pm' => 'PM', 
-                'am' => 'AM', 
-                'hours' => 'Hours from now'
+                'am' => 'AM'
               ];
               array_unshift($weekdayList, 'Today', 'Tomorrow');
               echo "<select name=day>";

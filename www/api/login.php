@@ -13,6 +13,11 @@ if($resJSON === 'Not Found') {
   ];
 } else if(!array_key_exists('token', $resJSON)) {
   if(!empty($resJSON['message'])) {
+    if(strpos($resJSON['message'], 'authentication token provided')) !== false) {
+      session_destroy();
+      $resJSON['message'] = 'Please try again';
+    }
+
     $_SESSION['lasterror'] = [
       'title' => 'Unable to Log in',
       'message' => $resJSON['message']

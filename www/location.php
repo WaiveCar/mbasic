@@ -1,6 +1,6 @@
 <?
 include('api/common.php');
-if(isset($_GET['latitutde'])) {
+if(isset($_GET['latitude'])) {
   echo location($_GET);
   // this format is multi=[[lat,lng],[lat,lng]...]
 } else if(isset($_GET['multi'])) {

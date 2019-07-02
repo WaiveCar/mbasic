@@ -625,6 +625,10 @@ function getMapUrl($carList, $opts = []) {
     }
   }
 
+  /*
+   * All programs that have to do with this stuff is now suspended.
+   * This will make things marginally faster.
+   *
   if(!isset($opts['nozone'])) {
     $locationList = get('/locations');
     foreach($locationList as $location) {
@@ -647,6 +651,7 @@ function getMapUrl($carList, $opts = []) {
       }
     }
   }
+   */
 
   $params = implode("&", $qmap);
   $zoom = '';

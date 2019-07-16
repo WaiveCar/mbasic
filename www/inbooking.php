@@ -30,7 +30,7 @@ doheader('Current Booking', ['extraHtml' => '<meta http-equiv=refresh content=60
   <div class=box>
     <div class=tab-container>
       <span>&#128663; <?= $car['license'] ?></span>
-      <a class=inactive href=chargeList.php>&#128268; Chargers</a>
+      <a class=inactive href=charge>&#128268; Chargers</a>
     </div>
     <? showLocation($car); ?>
     <div align=center>

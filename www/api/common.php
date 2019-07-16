@@ -745,7 +745,7 @@ function doheader($title, $opts = []) {
 <body>
   <? if ($showaccount) { 
     if($me) {
-      echo "<div id=acnt><a href=me.php>Your Account</a></div>";
+      echo "<div id=acnt><a href=me>Your Account</a></div>";
     } else {
       echo "<div id=acnt><a href=/>Login</a></div>";
     }

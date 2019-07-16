@@ -12,6 +12,8 @@ RewriteRule ^Control/(.*)$ /api/carcontrol.php?%{QUERY_STRING}&action=$1 [L]
 RewriteRule ^control/(.*)$ /api/carcontrol.php?%{QUERY_STRING}&action=$1 [L]
 RewriteRule ^(lock|unlock|end)$ /api/carcontrol.php?%{QUERY_STRING}&action=$1 [L]
 RewriteRule ^(show|hide)$ /api/control.php?action=$1 [L]
+RewriteRule ^me$ /me.php [L]
+RewriteRule ^charge$ /chargeList.php [L]
 
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteCond %{REQUEST_FILENAME}\.php -f

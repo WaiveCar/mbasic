@@ -768,8 +768,12 @@ function instructions($what) {
 }
 
 function actionList($base, $list) {
-  if($base[-1] != '=') {
-    $base .= '/';
+  if($base) {
+    if($base[-1] != '=') {
+      $base .= '/';
+    }
+  } else {
+    $base = '';
   }
 ?>
   <div class=action-list><? 

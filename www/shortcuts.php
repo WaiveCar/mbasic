@@ -17,8 +17,8 @@ doheader('Your Account');
     </center>
     
     <p>Tap on each button below and follow the instructions to add it to your homescreen!</p>
-    <p><a class='btn cta' href="Control/unlock">Unlock</a> shortcut</p>
-    <p><a class='btn cta' href="Control/lock">Lock</a> shortcut</p>
+    <p><a class='btn cta' href="unlock">Unlock</a> shortcut</p>
+    <p><a class='btn cta' href="lock">Lock</a> shortcut</p>
   </div>
 </body>
 </html>

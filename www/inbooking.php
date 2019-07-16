@@ -36,12 +36,12 @@ doheader('Current Booking', ['extraHtml' => '<meta http-equiv=refresh content=60
     <div align=center>
       <h4><b><?= $timeStr ?></b> in <?= $car['license']; ?></h4>
       <? if(!isWaiveWork()) { ?>
-      <a class=isolated href=control/end>Park and End Ride</a>
+      <a class=isolated href=end>Park and End Ride</a>
       <? } ?>
     </div>
 
     <div class=content>
-    <? actionList('control', [
+    <? actionList(false, [
       ['unlock', 'Unlock', 2],
       ['lock', 'Lock', 2]
     ]); ?>

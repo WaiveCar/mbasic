@@ -565,7 +565,7 @@ function getMap($carList, $opts = []) {
     <? if (!$hide) { ?><img class=img width=400 src="<?=getMapUrl($carList, $opts)?>"><? } ?>
     <img class=nop src=img/blank.png>
     <div class=map-controls>
-      <a class=btn href=api/control.php?action=<?= $verb ?>><?= ucfirst($verb) ?></a>
+      <a class=btn href=<?= $verb ?>><?= ucfirst($verb) ?></a>
       <? /*
        if (!$hide) { ?>
         <a class='zoom' href="">&#xFF0B;</a><a class='zoom' href="">&#x2014;</a> 
@@ -778,7 +778,7 @@ function actionList($base, $list) {
       if(count($row) == 3) {
         $klass = " wid-${row[2]}";
       }
-      ?><a class="btn<?= $klass ?>" href="<?= $base ?><?= $row[0] ?>"><?= $row[1] ?></a>
+      ?><a class="btn<?= $klass ?>" href=<?= $base ?><?= $row[0] ?>><?= $row[1] ?></a>
   <? } ?>
   </div>
 <?
@@ -819,7 +819,7 @@ function showLocation($car, $opts = []) {
   } else {
     echo "<h4>&#x1F5FA;</h4>";
   }
-  echo "<a target=_blank href=\"//maps.google.com/maps/?q=${car['latitude']},${car['longitude']}+(${car['license']})\">$location</a>";
+  echo "<a target=_blank href=//maps.google.com/maps/?q=${car['latitude']},${car['longitude']}+(${car['license']})>$location</a>";
   echo "</div>";
 }
 

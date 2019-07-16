@@ -4,6 +4,8 @@ RewriteBase /
 Header set Access-Control-Allow-Origin "*"
 
 RewriteRule ^(parking|revenue)(.*)$ /admin/$1.php [L]
+RewriteRule ^me$ /me.php [L]
+RewriteRule ^charge$ /chargeList.php [L]
 RewriteRule ^fast$ /shortcuts.php [L]
 RewriteRule ^do/(.*)$ /get.php?what=$1 [L]
 RewriteRule ^start/(.*)$ /charge.php?charger=$1 [L]
@@ -12,8 +14,6 @@ RewriteRule ^Control/(.*)$ /api/carcontrol.php?%{QUERY_STRING}&action=$1 [L]
 RewriteRule ^control/(.*)$ /api/carcontrol.php?%{QUERY_STRING}&action=$1 [L]
 RewriteRule ^(lock|unlock|end)$ /api/carcontrol.php?%{QUERY_STRING}&action=$1 [L]
 RewriteRule ^(show|hide)$ /api/control.php?action=$1 [L]
-RewriteRule ^me$ /me.php [L]
-RewriteRule ^charge$ /chargeList.php [L]
 
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteCond %{REQUEST_FILENAME}\.php -f

@@ -45,14 +45,14 @@ ob_start("sanitize_output");
 doheader('Charge Car');
 ?>
 
-  <div class=box>
-    <div class=tab-container>
-      <a class='inactive' href='inbooking.php'> &#128663; <?= $car['license'] ?></a><span> &#128268; Chargers </span>
-    </div>
-    <div class=map>
-      <? getMap($chargerList, $mapOpts); ?>
-    </div>
+<div class=box>
+  <div class=tab-container>
+    <a class=inactive href=inbooking.php> &#128663; <?= $car['license'] ?></a><span> &#128268; Chargers </span>
   </div>
+  <div class=map>
+    <? getMap($chargerList, $mapOpts); ?>
+  </div>
+</div>
 <?
   echo "<ul class='car-row charge-list'>";
 if(count($chargerList) === 0) { 
@@ -63,7 +63,7 @@ if(count($chargerList) === 0) {
   <li>
     <h3><?= $charger['name'] ?></h3> 
     <a class=btn href=start/<?= $charger['id'] ?>>Charge</a> 
-      <div>(<?= $labelGuide[$ix] ?>) <?= location_link($charger) ?><span class='charger-distance'><? printf("%.2f", $charger['dist']) ?>mi away</span></div>
+      <div>(<?= $labelGuide[$ix] ?>) <?= location_link($charger) ?><span class=charger-distance><? printf("%.2f", $charger['dist']) ?>mi away</span></div>
     <?
     foreach(['fast', 'slow'] as $type) {
       $len = $charger[$type];
@@ -76,7 +76,7 @@ if(count($chargerList) === 0) {
 }
 ?>
   </ul>
-  </div>
-  <script src="script.js"></script>
+</div>
+<script src=script.js></script>
 </body>
 </html>

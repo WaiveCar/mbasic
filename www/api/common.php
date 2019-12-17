@@ -733,15 +733,15 @@ function doheader($title, $opts = []) {
 ?>
 <!doctype html>
 <html>
-  <head>
-    <title><?= $title ?></title>
-    <meta name=viewport content="width=device-width,initial-scale=1.0">
-    <link rel=icon href=<?= $icon ?>>
-    <? if ($usecss) { ?> 
-      <link rel=stylesheet href=/style.css?3>
-    <? } ?>
-    <?= $extraHtml; ?>
-  </head>
+<head>
+  <title><?= $title ?></title>
+  <meta name=viewport content="width=device-width,initial-scale=1.0">
+  <link rel=icon href=<?= $icon ?>>
+  <? if ($usecss) { ?> 
+  <link rel=stylesheet href=/style.css>
+  <? } ?>
+  <?= $extraHtml; ?>
+</head>
 <body>
   <? if ($showaccount) { 
     if($me) {

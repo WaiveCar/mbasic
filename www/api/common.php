@@ -683,8 +683,13 @@ function distance($lat1, $lon1, $lat2 = false, $lon2 = false) {
 
 function location_link($obj) {
   $location = location($obj);
-  $name = aget($obj,'license','charger');
-  return "<a target=_blank href='//maps.google.com/maps/?q=${obj['latitude']},${obj['longitude']}+($name)'>$location</a>";
+  $name = aget($obj,'license');
+  if($name) {
+    $name = "+($name)";
+  } else {
+    $name = '';
+  }
+  return "<a target=_blank href='//maps.google.com/maps/?q=${obj['latitude']},${obj['longitude']}$name'>$location</a>";
 }
 
 function dateTz($fmt, $ts = false) {

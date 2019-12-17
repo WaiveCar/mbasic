@@ -36,7 +36,7 @@ usort($chargerList, function($a, $b){
   return $a['dist'] - ($a['fast'] * 2) > $b['dist'] - ($b['fast'] * 2) ? 1 : -1;
 });
 
-$mapOpts = ['me' => $car, 'zoom' => 11];
+$mapOpts = ['me' => $car, 'zoom' => 12];
 
 $ix = 0;
 

@@ -62,7 +62,7 @@ if(count($chargerList) === 0) {
 ?>
   <li>
     <h3><?= $charger['name'] ?></h3> 
-    <a class=btn href=start/<?= $charger['id'] ?>>Charge</a> 
+    <a class=btn href=s/<?= $charger['id'] ?>>Charge</a> 
       <div>(<?= $labelGuide[$ix] ?>) <?= location_link($charger) ?><span class=charger-distance><? printf("%.2f", $charger['dist']) ?>mi away</span></div>
     <?
     foreach(['fast', 'slow'] as $type) {

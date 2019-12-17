@@ -1,5 +1,8 @@
-h2,h2,h3,body,ul,li { margin: 0; padding: 0 }
-body {
+h2,h2,h3,body,ul,li{ 
+  margin: 0; 
+  padding: 0;
+}
+body{
   font-family: Verdana, Geneva, sans-serif;
   background: #ECECEF;
   width: 100%;
@@ -10,33 +13,33 @@ body {
   margin-top: 20px;
   text-align: center;
 }
-a,a:visited {
+a,a:visited{
   color: blue;
   cursor: pointer;
   text-decoration: none;
 }
-h1,h2,h3 {
+h1,h2,h3{
   font-weight: 300;
 }
-h1 {
+h1{
   padding-top: 0.25em;
 }
-h4 {
+h4{
   font-weight: 300;
   font-size: 22px;
   margin: 18px 0;
 }
-h1 small {
+h1 small{
   font-size: 22px;
 }
-li,p {
+li,p{
   line-height: 1.4rem;
 }
-label,small {
+label,small{
   color: #444;
   font-size: 0.8rem;
 }
-a:active, .btn:active, a.btn:active {
+a:active, .btn:active, a.btn:active{
   background: blue;
   color: white !important;
   outline: 0;
@@ -44,38 +47,38 @@ a:active, .btn:active, a.btn:active {
   z-index: 1000;
   position: relative;
 }
-th,td {
+th,td{
   background: #fff;
   text-align: left;
 }
-.isolated {
+.isolated{
+  display: inline-block;
   padding: 0.25em;
   margin: 0 0 12px;
-  display:inline-block;
 }
-.gettocar h4 {
+.gettocar h4{
   text-align: center;
 }
-.gettocar p {
+.gettocar p{
   text-align: center;
   margin: 1.5rem 0;
 }
 
-.box.login {
+.box.login{
   padding: 20px;
   box-sizing: border-box;
 }
-.login img {
+.login img{
   margin-right: 10px;
   vertical-align: top;
 }
-.login h1 {
+.login h1{
   margin: 0 0 1.25rem;
-  text-align:center;
+  text-align: center;
 }
-form input {
-  font-family: Verdana, Geneva, sans-serif;
+form input{
   display: block;
+  font-family: Verdana, Geneva, sans-serif;
   width: 100%;
   font-size: 18px;
   margin: 1rem  0;
@@ -84,102 +87,91 @@ form input {
   border: 0;
   box-shadow: 0 0 0 1px #bbb;
 }
-form input[type="radio"], form input[type="checkbox"] {
+form input[type="radio"], form input[type="checkbox"]{
   display: inline-block;
   margin: .25rem;
   width: auto;
   vertical-align: middle;
   box-shadow: 0 0;
 }
-/*
-form input[type="submit"] {
-  display: inline-block;
-  font-size: 18px;
-  margin: 6px -1px;
-  padding: 4px 0;
-  text-indent: 10px;
-  border-width: 1px;
-  width: 100%;
-}
-*/
-form input[type="file"] {
+form input[type="file"]{
   text-indent: 0;
   padding-left: 0.25rem;
 }
-.input-container {
+.input-container{
   display: inline-block;
   margin-top:0.5rem;
 }
-.input-container input {
+.input-container input{
   margin-top: 0rem;
 }
-.input-container label {
+.input-container label{
   line-height: 2rem;
 }
-.ingroup label {
+.ingroup label{
   padding: 0 .5rem;
 }
-form label {
+form label{
   user-select: none; 
   vertical-align: baseline;
 }
-form select {
+form select{
   margin-right: 1rem;
   padding: 0.25rem 0;
   text-indent: 0;
 }
-.waive-green {
+.waive-green{
   color: #25c155;
 }
-.map {
+.map{
   display: block;
   background: white;
   text-align: center;
   width: 100%;
   position: relative;
 }
-.map h4 {
+.map h4{
   margin: 0;
   padding: 2rem 0 0;
   font-size: 48px;
   color: #447;
 }
-.map .container {
+.map .container{
   display: inline-block;
   position: relative;
 }
-.map .img {
+.map .img{
   position: absolute;
 }
-.map .nop {
+.map .nop{
   background: url('/img/cl32.gif') no-repeat;
   background-position: center;
 }
-.map img {
+.map img{
   max-width: 100%;
   background-position: center; 
 }
-.map-controls {
+.map-controls{
   position: absolute;
   top: 0;
   left: 0;
 }
-.map-controls a {
+.map-controls a{
   background: rgba(240,240,255,0.9);
   box-shadow: 0 0;
   padding: 3px 8px;
   margin: 0 0.5em 0 0;
 }
-#acnt {
-  display:block;
-  text-align:right;
+#acnt{
+  display: block;
+  text-align: right;
   margin: -20px 4px 0 0;
 }
-.btn-group {
+.btn-group{
   text-align: center;
   padding-bottom: 1rem;
 }
-.btn {
+.btn{
   font-family: Verdana, Geneva, sans-serif;
   text-align: center;
   display: inline-block;
@@ -190,33 +182,33 @@ form select {
   background: rgba(0,0,255,0.03);
   color: blue;
 }
-.btn.cta {
+.btn.cta{
   font-size: 18px;
   min-width: 25%;
 }
-.content > :first-child {
+.content > :first-child{
   margin-top: 0;
 }
-.action, .action-list {
+.action,.action-list{
   font-size: 0;
 }
-.action > a {
+.action > a{
   margin: 1.5rem 0;
 }
-.action > :first-child {
+.action > :first-child{
   margin-top: 1rem;
 }
-.action > :last-child {
+.action > :last-child{
   margin-bottom: 0.5rem;
 }
-.action-list {
+.action-list{
   padding-bottom: 0.25rem;
 }
-.action-list a, action-list input[type='submit'] {
+.action-list a,action-list input[type='submit']{
   display: inline-block;
   text-align: center;
 }
-.box {
+.box{
   display: block;
   text-align: left;
   background: white;
@@ -225,37 +217,36 @@ form select {
   width: auto;
   font-weight: 400;
 }
-.center {
+.center{
   text-align: center;
 }
-.account b {
+.account b{
   margin: 0;
   color: #333;
   font-size: 1rem;
   font-weight: 600;
   display: block;
 }
-.account ul {
+.account ul{
   margin-left: 1.25em;
 }
-.car-label, .car-distance {
+.car-label,.car-distance{
   display: inline-block;
 }
-.charger-distance { 
+.charger-distance{ 
   font-size: 13px;
   line-height: 19px;
   margin-left: 0.25rem;
 }
-.car-label {
+.car-label{
   width: 45%;
 }
-.car-row h3 {
+.car-row h3{
   font-size: 22px;
   margin-top: 2px;
 }
-
-.car-row li {
-  display:block;
+.car-row li{
+  display: block;
   text-align: left;
   background: #fff;
   padding: 8px;
@@ -263,51 +254,50 @@ form select {
   line-height: 26px;
   width: auto;
 }
-.car-row a {
+.car-row a{
   line-height: 15px;
 }
-.car-row .btn {
-  float:right;
+.car-row .btn{
+  float: right;
   line-height: 16px;
 }
-
-.wid-1 {
+.wid-1{
   display: block;
   width: 100%;
   margin: 1rem 0 0;
   padding-left: 0;
   padding-right: 0;
 }
-.wid-2 {
+.wid-2{
   width: 48.5%;
   margin-left:1.5%;
   margin-right:1.5%;
   padding-left: 0;
   padding-right: 0;
 }
-.wid-2:first-child {
+.wid-2:first-child{
   margin-left: 0;
 }
-.wid-2:last-child {
+.wid-2:last-child{
   margin-right: 0;
 }
-.image-upload input {
+.image-upload input{
   vertical-align: middle;
   width: 98%;
   padding: 0.25rem 0;
   margin-left: 0.05rem;
 }
-.ingroup,.ingroup * {
+.ingroup,.ingroup *{
   font-size: 0.8rem;
   font-family: sans-serif;
   color: #444;
 }
-a.encourage {
+a.encourage{
   font-size: 110%;
-  text-decoration:underline;
+  text-decoration: underline;
 }
 a.prefer:visited,
-.btn.prefer {
+.btn.prefer{
   color: rgb(0,48,0);
   background: rgba(0,160,0,0.1);
   font-size: 105%;
@@ -316,174 +306,174 @@ a.prefer:visited,
 .btn.prefer:active{
   box-shadow: 0 0 0 5px green;
 }
-.primary {
+.primary{
   border-width: 2px;
   font-weight: 600;
 }
-a.ignore {
+a.ignore{
   color: #444;
   background: rgba(160,160,172,0.1);
   box-shadow: 0 0 0 1px grey;
 }
-.ignore:active {
+.ignore:active{
   background: lightgrey;
   box-shadow: 0 0 0 5px grey;
 }
-a.danger {
+a.danger{
   color: red;
   box-shadow: 0 0 0 1px red;
   background: rgba(230,0,0,0.05);
 }
-a.danger:active {
+a.danger:active{
   background: rgb(255,0,0);
   box-shadow: 0 0 0 5px red;
 }
-#sorter {
+#sorter{
   text-align: center;
   margin-right: 10px;
   padding-bottom: 3px;
 }
-#sorter a {
+#sorter a{
   margin: 0 5px;
 }
-.box.prompt {
+.box.prompt{
   padding: 0;
   width: 96%;
 }
-.content, .prompt h1 {
+.content,.prompt h1{
   padding: 1rem;
 }
-.prompt .copy {
+.prompt .copy{
   padding: 4px 0;
   line-height: 1.4rem;
 }
-.copy b {
+.copy b{
   font-weight: bold;
 }
-.box .title {
+.box .title{
   padding: 0.5em;
   font-weight: bold;
   color: #fff;
 }
-.prompt h1, .prompt .title {
+.prompt h1,.prompt .title{
   padding: 0.75rem 1rem;
   font-weight: 400;
   font-size: 22px;
   margin: 0;
 }
-.box .title, .prompt h1, .prompt .title {
+.box .title,.prompt h1,.prompt .title{
   color: #002;
   background: rgb(216,216,220);
 }
-.box.info {
+.box.info{
   background: rgb(236,236,250);
 }
-.info .title {
+.info .title{
   color: #f4f4ff;
   background: rgb(127,127,216);
 }
-.box.inline .btn {
+.box.inline .btn{
   padding: 0.25em 0;
 }
-.error .options {
+.error .options{
   text-align: right;
 }
-.error .title {
+.error .title{
   color: #fff4f4;
   background: rgb(216,127,127);
 }
-.error .btn {
+.error .btn{
   background: rgba(255,255,255,0.4);
 }
-.box.error {
-  background: rgb(255,216,216, 0.4);
+.box.error{
+  background: rgb(255,216,216,0.4);
 }
-.box .message {
+.box .message{
   padding: 0.25em 0.5em;
 }
-.message p:first-child {
+.message p:first-child{
   margin-top: 0;
 }
-.message ul {
+.message ul{
   margin: 0.25rem;
 }
-.message li {
+.message li{
   margin-left: 1.5rem;
 }
-.car-label p {
+.car-label p{
   width: 100%;
   height: 3px;
   background: #ddd;
   margin: -1px 0 0 0;
 }
-.car-label p b {
+.car-label p b{
   display: block;
   height: 100%;
   background: #7d7;
 }
-.input-inline {
+.input-inline{
   width: 4.5rem;
   display: inline-block;
   margin: 0.25rem 0.25rem 0 0;
 }
-.submit {
+.submit{
   margin-top: 18px;
 }
-#ajax {
+#ajax{
   background: url('/img/cl32.gif');
   width: 32px;
   height: 32px;
 }
 
-#endchecklist {
+#endchecklist{
   padding-left: 16px;
 }
-#endchecklist li {
+#endchecklist li{
   margin-bottom: 2em;
 }
-.tab-container {
+.tab-container{
   background: #ECECEF;
   padding-left:0.25rem;
   margin-bottom: 0.5rem;
   margin-top:-0.75rem;
 }
 .tab-container span,
-.tab-container a {
+.tab-container a{
+  display: inline-block;
   background: #fff;
   line-height: 1.9rem;
   width: 35%;
   text-align: center;
   list-style: none;
   white-space: nowrap;
-  display: inline-block;
   vertical-align: bottom;
   cursor: pointer;
   border-radius: 7px 7px 0 0;
 }
-.tab-container a.inactive:active {
+.tab-container a.inactive:active{
   background: blue;
 }
-.tab-container a.inactive {
+.tab-container a.inactive{
   background: #DADAE3;
   color: #447;
 }
-.port-list {
+.port-list{
+  display: inline-block;
   margin-top:1rem;
-  display:inline-block;
   min-width: 50%;
   vertical-align: text-top;
 }
-.port-list em {
+.port-list em{
   font-size: 18px;
   font-style: normal;
   color: #bbb;
 }
-.port-list span {
-  display:block;
+.port-list span{
+  display: block;
   font-size: 12px;
   color: #333;
 }
-.port-list a {
+.port-list a{
   display: inline-block;
   border: 1px solid #99F;
   text-align: center;
@@ -498,18 +488,17 @@ a.danger:active {
   display: block;
   margin: 0 auto 0.5rem;
 }
-.charge-list {
+.charge-list{
   color: #555;
 }
-.charge-list .zero {
+.charge-list .zero{
   opacity: 0.4;
 }
 .charge-list .fast,
-.charge-list .slow {
+.charge-list .slow{
   color: #444;
   margin-right: 0.5rem; 
 }
-.charge-list .fast {
+.charge-list .fast{
   font-weight: bold;
 }
-

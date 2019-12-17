@@ -31,6 +31,5 @@ $secondWord = isWaiveWork() ? 'Work' : 'Basic';
   <? } else { ?>
   <p>This site is exclusively for WaiveWork members. If you have trouble logging in, please contact support.</p>
   <? } ?>
-
 </body>
 </html>

@@ -4,8 +4,8 @@ RewriteBase /
 Header set Access-Control-Allow-Origin "*"
 
 RewriteRule ^(parking|revenue)(.*)$ /admin/$1.php [L]
-RewriteRule ^me$ /me.php [L]
-RewriteRule ^charge$ /chargeList.php [L]
+RewriteRule ^i$ /me.php [L]
+RewriteRule ^fuel$ /chargeList.php [L]
 RewriteRule ^fast$ /shortcuts.php [L]
 RewriteRule ^do/(.*)$ /get.php?what=$1 [L]
 RewriteRule ^start/(.*)$ /charge.php?charger=$1 [L]

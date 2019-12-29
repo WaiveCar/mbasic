@@ -503,7 +503,7 @@ function getstate($nocache = false) {
 
   $from = $_SERVER['SCRIPT_NAME'];
   $to = false;
-  if(!$me || aget($me, 'code') === "INVALID_TOKEN") {
+  if(!$me || aget($me, 'code') === "INVALID_TOKEN" || !array_key_exists('firstName', $me)) {
     $to = '/index.php';
   } else if($me['booking']) {
     if($me['booking']['status'] === 'reserved') {

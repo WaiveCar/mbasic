@@ -14,6 +14,8 @@ $gList = [
   'AIzaSyCjNzEEetDOi63O7qrD6APLffH0daZIDeQ',
   'AIzaSyA77YUSEIo77Ms26dlAKllaBFYl-XAaELs'
 ];
+$locationIQKey = '6485dd5d0ebaf6';
+
 $googleKey = $gList[0];
 
 $HOST = false;
@@ -311,6 +313,37 @@ function zip2geo($zip) {
 }
 
 function location($obj) {
+  global $db; 
+  global $locationIQKey;
+  if(isset($obj['address'])) {
+    return $obj['address'];
+  }
+  $lat = round($obj['latitude'] * 2,3)/2;
+  $lng = round($obj['longitude'] * 2,3)/2;
+  $qs = "$lat,$lng";
+
+  // we try to check our local cache for this lat/lng (rounded to 3 precision points)
+  $location = db_get($qs);
+  if(!$location) {
+    // if we failed, then we ask the goog
+
+    $res = file_get_contents("https://us1.locationiq.com/v1/reverse.php?key=$locationIQKey&lat=$lat&lon=$lng&format=json");
+
+    if ($res) {
+      $resJSON = json_decode($res, true);
+      if(!empty($resJSON['display_name'])) {
+        $location = $resJSON['display_name'];
+
+        $location = preg_replace('/, [A-Z]{2} \d{5}, USA$/', '', $location);
+
+        db_set($qs, $location);
+      }
+    }
+  }
+  return $location;
+}
+
+function location_goog($obj) {
   global $db; 
   global $googleKey;
   if(isset($obj['address'])) {

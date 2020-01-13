@@ -19,7 +19,7 @@ $secondWord = isWaiveWork() ? 'Work' : 'Basic';
   <div class='box login'>
     <h1><img src=img/cl32.gif><span class=waive-green>Waive</span><small><?= $secondWord ?></small></h1>
     <form action=api/login.php method=post>
-      <input type=hidden name=referer value="<?=$_SERVER['HTTP_REFERER']?>">
+      <input type=hidden name=referer value="<?=aget($_SERVER,'HTTP_REFERER');?>">
       <input name=identifier placeholder=Email autofocus>
       <input type=password name=password placeholder=Password>
       <input type=submit value=Login class='btn wid-1'>

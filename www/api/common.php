@@ -312,29 +312,43 @@ function zip2geo($zip) {
   }
 }
 
+$LAST_REQUEST = 0;
 function location($obj) {
   global $db; 
   global $locationIQKey;
+  global $LAST_REQUEST;
   if(isset($obj['address'])) {
     return $obj['address'];
   }
-  $lat = round($obj['latitude'] * 2,3)/2;
-  $lng = round($obj['longitude'] * 2,3)/2;
+  $lat = round($obj['latitude'],3);
+  $lng = round($obj['longitude'],3);
   $qs = "$lat,$lng";
 
   // we try to check our local cache for this lat/lng (rounded to 3 precision points)
   $location = db_get($qs);
   if(!$location) {
+    if(microtime(true) - ($LAST_REQUEST + 1) < 0) {
+      $delta = abs(microtime(true) - ($LAST_REQUEST + 1));
+      error_log("Sleeping $delta");
+      sleep($delta);
+    }
     // if we failed, then we ask the goog
 
-    $res = file_get_contents("https://us1.locationiq.com/v1/reverse.php?key=$locationIQKey&lat=$lat&lon=$lng&format=json");
+    $url = "https://us1.locationiq.com/v1/reverse.php?key=$locationIQKey&lat=$lat&lon=$lng&format=json";
+    $res = file_get_contents($url);
+    $LAST_REQUEST = microtime(true);
 
     if ($res) {
       $resJSON = json_decode($res, true);
       if(!empty($resJSON['display_name'])) {
-        $location = $resJSON['display_name'];
+        $location = trim(implode(' ', [
+          aget($resJSON, 'address.house_number', aget($resJSON, 'address.name')),
+          aget($resJSON, 'address.road')
+        ])) . ', ' . aget($resJSON, 'address.city');
 
         $location = preg_replace('/, [A-Z]{2} \d{5}, USA$/', '', $location);
+
+        error_log($location . " " . $res);
 
         db_set($qs, $location);
       }
@@ -357,7 +371,6 @@ function location_goog($obj) {
 
     $res = file_get_contents("https://maps.googleapis.com/maps/api/geocode/json?latlng=$qs&key=$googleKey");
 
-    error_log("$qs .. $res");
     if ($res) {
       $resJSON = json_decode($res, true);
       if(!empty($resJSON['results'])) {

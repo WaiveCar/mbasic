@@ -327,8 +327,8 @@ function location($obj) {
   // we try to check our local cache for this lat/lng (rounded to 3 precision points)
   $location = db_get($qs);
   if(!$location) {
-    if(microtime(true) - ($LAST_REQUEST + 1) < 0) {
-      $delta = abs(microtime(true) - ($LAST_REQUEST + 1));
+    if(microtime(true) - ($LAST_REQUEST + .8) < 0) {
+      $delta = abs(microtime(true) - ($LAST_REQUEST + .8));
       error_log("Sleeping $delta");
       sleep($delta);
     }
@@ -356,7 +356,7 @@ function location($obj) {
   }
   return $location;
 }
-
+/*
 function location_goog($obj) {
   global $db; 
   global $googleKey;
@@ -388,6 +388,7 @@ function location_goog($obj) {
   return $location;
 }
 
+ */
 
 function makeError($title, $text, $opts = false) {
   $_SESSION['lasterror'] = [ 

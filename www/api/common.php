@@ -327,8 +327,8 @@ function location($obj) {
   // we try to check our local cache for this lat/lng (rounded to 3 precision points)
   $location = db_get($qs);
   if(!$location) {
-    if(microtime(true) - ($LAST_REQUEST + .8) < 0) {
-      $delta = abs(microtime(true) - ($LAST_REQUEST + .8));
+    if(microtime(true) - ($LAST_REQUEST + .5) < 0) {
+      $delta = abs(microtime(true) - ($LAST_REQUEST + .5));
       error_log("Sleeping $delta");
       sleep($delta);
     }
@@ -340,18 +340,17 @@ function location($obj) {
 
     if ($res) {
       $resJSON = json_decode($res, true);
-      if(!empty($resJSON['display_name'])) {
-        $location = trim(implode(' ', [
-          aget($resJSON, 'address.house_number', aget($resJSON, 'address.name')),
-          aget($resJSON, 'address.road')
-        ])) . ', ' . aget($resJSON, 'address.city');
-
-        $location = preg_replace('/, [A-Z]{2} \d{5}, USA$/', '', $location);
-
-        error_log($location . " " . $res);
-
-        db_set($qs, $location);
+      $name = aget($resJSON, 'address.house_number');
+      if(!$name) {
+        $name = aget($resJSON, 'address.name');
       }
+      $location = trim(implode(' ', [$name, aget($resJSON, 'address.road') ])) . ', ' . aget($resJSON, 'address.city');
+
+      $location = preg_replace('/, [A-Z]{2} \d{5}, USA$/', '', $location);
+
+      error_log($location . " " . $res);
+
+      db_set($qs, $location);
     }
   }
   return $location;

@@ -2,15 +2,22 @@
 include('api/common.php');
 $me = me();
 
+
 if($me['booking_id']){
   $car = car_info($me['booking']['carId']);
+}
+$reference = false;
+if(isset($_GET['latitude'])) {
+  $reference = $_GET;
+} else {
+  $reference = $car;
 }
 
 $locationList = get('/locations');
 $chargerList = [];
 foreach($locationList as $m) {
   if ($m['type'] === 'chargingStation') {
-    $dist = distance($car, $m);
+    $dist = distance($reference, $m);
     if($dist < 7) {
 
       $m['dist'] = $dist;
@@ -36,7 +43,7 @@ usort($chargerList, function($a, $b){
   return $a['dist'] - ($a['fast'] * 2) > $b['dist'] - ($b['fast'] * 2) ? 1 : -1;
 });
 
-$mapOpts = ['me' => $car, 'zoom' => 12];
+$mapOpts = ['me' => $reference, 'zoom' => 12];
 
 $ix = 0;
 
@@ -78,5 +85,6 @@ if(count($chargerList) === 0) {
   </ul>
 </div>
 <script src=script.js></script>
+<script src=charge.js></script>
 </body>
 </html>

@@ -4,8 +4,8 @@ include('db.php');
 
 $labelGuide = '123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 $gList = [
-  'AIzaSyD3Bf8BTFI_z00lrxWdReV4MpaqnQ8urzc',
   'AIzaSyBQysUfVLDsR8aYHZBQ9epqpGAQ-LZ1bTw',
+  'AIzaSyD3Bf8BTFI_z00lrxWdReV4MpaqnQ8urzc',
   'AIzaSyBibUDNVBjFAKpwyPcZirJW4qHq2W2OO8M',
   'AIzaSyDZkuoCmKxhxy5AH0jMAUcW0JvggQX3WXI',
   'AIzaSyA718cwy2i_uf-GCKrq7cB-1WDvKL5gsh8',

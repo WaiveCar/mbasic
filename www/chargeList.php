@@ -87,6 +87,6 @@ if(count($chargerList) === 0) {
   </ul>
 </div>
 <script src=script.js></script>
-<script src=fuel.js></script>
+<script src=charge.js></script>
 </body>
 </html>

@@ -737,7 +737,7 @@ function location_link($obj) {
   } else {
     $name = '';
   }
-  return "<a target=_blank href='//maps.google.com/maps/?q=${obj['latitude']},${obj['longitude']}$name'>$location</a>";
+  return "<a target=_blank href='//maps.google.com/?q=${obj['latitude']},${obj['longitude']}$name'>$location</a>";
 }
 
 function dateTz($fmt, $ts = false) {

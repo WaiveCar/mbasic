@@ -233,7 +233,7 @@ form select{
 .car-label,.car-distance{
   display: inline-block;
 }
-.charger-distance{ 
+.fuel-dis{ 
   font-size: 13px;
   line-height: 19px;
   margin-left: 0.25rem;
@@ -488,17 +488,17 @@ a.danger:active{
   display: block;
   margin: 0 auto 0.5rem;
 }
-.charge-list{
+.fuel-list{
   color: #555;
 }
-.charge-list .zero{
+.fuel-list .zero{
   opacity: 0.4;
 }
-.charge-list .fast,
-.charge-list .slow{
+.fuel-list .fast,
+.fuel-list .slow{
   color: #444;
   margin-right: 0.5rem; 
 }
-.charge-list .fast{
+.fuel-list .fast{
   font-weight: bold;
 }

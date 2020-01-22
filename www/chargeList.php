@@ -61,7 +61,7 @@ doheader('Charge Car');
   </div>
 </div>
 <?
-  echo "<ul class='car-row charge-list'>";
+  echo "<ul class='car-row fuel-list'>";
 if(count($chargerList) === 0) { 
   echo '<li><h1>No chargers are currently in range.</h1></li>';
 } else {
@@ -70,12 +70,14 @@ if(count($chargerList) === 0) {
   <li>
     <h3><?= $charger['name'] ?></h3> 
     <a class=btn href=s/<?= $charger['id'] ?>>Charge</a> 
-      <div>(<?= $labelGuide[$ix] ?>) <?= location_link($charger) ?><span class=charger-distance><? printf("%.2f", $charger['dist']) ?>mi away</span></div>
+      <div>(<?= $labelGuide[$ix] ?>) <?= location_link($charger) ?><span class=fuel-dist><? printf("%.2f", $charger['dist']) ?>mi away</span></div>
     <?
     foreach(['fast', 'slow'] as $type) {
       $len = $charger[$type];
-      $isZero = $len ? "" : " zero";
-      echo "<span class='$type$isZero'>$len $type</span>";
+      if($len) {
+        $type = "'$type zero'";
+      }
+      echo "<span class=$type>$len $type</span>";
     }
     echo '</li>';
     $ix++;
@@ -85,6 +87,6 @@ if(count($chargerList) === 0) {
   </ul>
 </div>
 <script src=script.js></script>
-<script src=charge.js></script>
+<script src=fuel.js></script>
 </body>
 </html>

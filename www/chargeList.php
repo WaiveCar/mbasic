@@ -75,9 +75,9 @@ if(count($chargerList) === 0) {
     foreach(['fast', 'slow'] as $type) {
       $len = $charger[$type];
       if($len) {
-        $type = "'$type zero'";
+        $klass = "'$type zero'";
       }
-      echo "<span class=$type>$len $type</span>";
+      echo "<span class=$klass>$len $type</span>";
     }
     echo '</li>';
     $ix++;

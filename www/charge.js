@@ -6,7 +6,7 @@ window.onload = function () {
   }
   if(geo) {
     loc(function(pos){
-      window.location = window.location + "?lat=" + pos.coords.latitude + '&lng=' + pos.coords.longitude + "&at=" + (new Date());
+      window.location = window.location + "?lat=" + pos.coords.latitude + '&lng=' + pos.coords.longitude + "&at=" + +new Date();
     }, function () {
       console.log("nope");
     })

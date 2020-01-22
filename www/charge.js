@@ -1,3 +1,9 @@
 window.onload = function (){
-  console.log(window.location.query);
+  if(!window.location.search) {
+    loc(function(pos){
+      window.location = window.location + "?lat=" + pos.coords.latitude + '&lng=' + pos.coords.longitude;
+    }, function () {
+      console.log("nope");
+    })
+  }
 }

@@ -23,10 +23,10 @@ function loc(cb, err) {
   err = err || function(){};
 
   return navigator.geolocation ? navigator.geolocation.getCurrentPosition(cb, err, {
-      enableHighAccuracy: true,
-      timeout: 5000,
-      maximumAge: 0
-    }) : err();
+    enableHighAccuracy: true,
+    timeout: 5000,
+    maximumAge: 0
+  }) : err();
 }
 
 function nearest() {

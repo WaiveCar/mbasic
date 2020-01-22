@@ -233,9 +233,11 @@ form select{
 .car-label,.car-distance{
   display: inline-block;
 }
-.fuel-dist{ 
+.fuel-list b{ 
+  font-weight: normal;
   font-size: 13px;
   line-height: 19px;
+  display: inline-block;
   margin-left: 0.25rem;
 }
 .car-label{
@@ -494,11 +496,7 @@ a.danger:active{
 .fuel-list .zero{
   opacity: 0.4;
 }
-.fuel-list .fast,
-.fuel-list .slow{
+.fuel-list span {
   color: #444;
   margin-right: 0.5rem; 
-}
-.fuel-list .fast{
-  font-weight: bold;
 }

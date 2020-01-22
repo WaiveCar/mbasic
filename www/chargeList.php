@@ -2,7 +2,6 @@
 include('api/common.php');
 $me = me();
 
-
 if($me['booking_id']){
   $car = car_info($me['booking']['carId']);
 }
@@ -20,6 +19,8 @@ foreach($locationList as $m) {
     $dist = distance($reference, $m);
     if($dist < 7) {
 
+      $m['latitude'] = round($m['latitude'], 4);
+      $m['longitude'] = round($m['longitude'], 4);
       $m['dist'] = $dist;
       $m['fast'] = 0;
       $m['slow'] = 0;
@@ -70,15 +71,16 @@ if(count($chargerList) === 0) {
   <li>
     <h3><?= $charger['name'] ?></h3> 
     <a class=btn href=s/<?= $charger['id'] ?>>Charge</a> 
-      <div>(<?= $labelGuide[$ix] ?>) <?= location_link($charger) ?><span class=fuel-dist><? printf("%.2f", $charger['dist']) ?>mi</span></div>
+      <div><?= $labelGuide[$ix] ?>) <?= location_link($charger) ?><b><? printf("%.2f", $charger['dist']) ?>mi</b></div>
     <?
+    echo "<span>";
     foreach(['fast', 'slow'] as $type) {
       $len = $charger[$type];
       if($len) {
-        echo "<span class=$type>$len $type</span>";
+        echo "$len $type ";
       }
     }
-    echo '</li>';
+    echo '</span></li>';
     $ix++;
   } 
 }

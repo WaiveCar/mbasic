@@ -665,10 +665,14 @@ function getMapUrl($carList, $opts = []) {
         } else if($row['range'] < 110) {
           $color = '0x779900';
         } else {
-          $color = '0x00AA00';
+          $color = '0x227A78';
         }
       }
-      $qmap[] = "markers=label:${labelGuide[$ix]}%7C${row['latitude']},${row['longitude']}";
+      if(count($carList) == 1) {
+        $qmap[] = "markers=color:$color%7C${row['latitude']},${row['longitude']}";
+      } else {
+        $qmap[] = "markers=color:$color%7Clabel:${labelGuide[$ix]}%7C${row['latitude']},${row['longitude']}";
+      }
       $ix++;
     }
   }

@@ -31,7 +31,7 @@ $title = '';
 if($action === 'lock' || $action === 'unlock') {
   $title = ucfirst($action) . "ing. ";
 }
-$title .= "Please wait...";
+$title .= "Please Wait...";
 infobox($title, [
   "This can take up to 30 seconds.",
   '<img id=ajax src=/img/ajax-loader.gif>'
@@ -140,7 +140,7 @@ if($me['booking_id']) {
           [ "I'm not done. I want to keep going!", "control/nop", 'wid-1 primary' ]
         ]);
       } else {
-        confirm("End your booking", "Are you sure you're done with $car?", [
+        confirm("End Booking", "Are you sure you're done with $car?", [
           [ "Yes, I'm done with $car.", "control/end4realz", 'wid-1'],
           [ "I'm not done. I want to keep going!", "control/nop", 'wid-1 primary' ]
         ]);
@@ -156,6 +156,8 @@ if($me['booking_id']) {
 
       // if we aren't a level car or if we are ending 
       // in a zone then just load the end booking
+      load('/endbooking.php');
+      exit;
       if(!isLevel() && aget($res,'type') === 'zone') {
         load('/endbooking.php');
       } else {
@@ -182,12 +184,14 @@ if($me['booking_id']) {
     $nosign = !empty($_POST['nosign']);
     $nophoto = !empty($_POST['nophoto']);
 
+    /*
     if(!aget($_FILES, 'parking.size') && !$nophoto) {
       $err[] = 'Upload an image or if you cannot get a photo, choose that option.';
     }
     if (empty($_POST['hours']) && !$nosign) {
-      $err[] = 'Specify the time the WaiveCar need to move, or if there is no sign, choose that option.';
+      $err[] = 'Specify the time the vehicle need to move, or if there is no sign, choose that option.';
     }
+     */
     // The user didn't specify hours or say there was no sign.
     if(count($err) > 0) {
       $err = 'Please correct the following:<ul><li>' . implode('</li><li>', $err) . '</li></ul>';

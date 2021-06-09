@@ -24,6 +24,7 @@ doheader('End Booking', $opts);
 
   <div class=content>
     <form enctype=multipart/form-data method=post action="api/carcontrol.php?action=complete">
+<!--
       <ol id=endchecklist>
         <li>When does the vehicle need to move?<br/>
         <small>Pick the soonest time it can get a ticket.</small>
@@ -71,17 +72,19 @@ doheader('End Booking', $opts);
         <? if($type != 'brief') { 
           $cnt = 3;
         ?>
-          <li>Are there any new issues?<br><small>Add up to <?=$cnt?> photos</small>
+          <li>
+-->
+          Are there any new issues?<br><small>Add up to <?=$cnt?> photos</small>
 
           <div class='image-upload ingroup'>
             <? for($ix = 0; $ix < $cnt; $ix++) { ?>
               <input name=image<?= $ix ?> type=file accept="image/*;capture=camera" capture=camera />
             <? } ?>
           </div>
-        </li>
+        <!-- </li>-->
         <? } ?>
 
-      </ol>
+      <!-- </ol> -->
 
       <? if($type != 'brief') { ?>
         <p>When finished, remove your belongings, close the doors, and tap "End Ride"</p>

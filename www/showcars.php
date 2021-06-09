@@ -84,16 +84,16 @@ ob_start("sanitize_output");
 doheader('Find Cars');
 ?>
 
-  <div class=map>
+  <div class='box map prompt'>
+    <h1>Available Vehicles</h1>
     <? getMap($carList, $mapOpts); ?>
     <div id=sorter>
     <a class=needsjs href=do/zip onclick=nearest()><?= $arrow['near'] ?>Nearest</a> <a href=?sort=range><?= $arrow['range'] ?>Range</a> <a href=?sort=name><?= $arrow['name'] ?>Name</a> <a href=?sort=range&show=6><?= $arrow['show'] ?>Best 5</a>
     </div>
-  </div>
   <ul class=car-row>
 <? if(count($carList) === 0) { ?>
     <li class=car-row>
-      <h1>No WaiveCars are currently available.</h1>
+      <h1>No vehicles are currently available.</h1>
     </li>
  
 <? } else {
@@ -118,6 +118,7 @@ foreach($carList as $key => $car) {
 }
 ?>
   </ul>
+  </div>
   <script type=text/javascript src=script.js></script>
 </body>
 </html>

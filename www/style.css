@@ -138,6 +138,10 @@ form select{
   color: #447;
 }
 .map .container{
+  padding: 1rem 0 0;
+}
+/*
+.map .container{
   display: inline-block;
   position: relative;
 }
@@ -148,6 +152,7 @@ form select{
   background: url('/img/cl32.gif') no-repeat;
   background-position: center;
 }
+*/
 .map img{
   max-width: 100%;
   background-position: center; 

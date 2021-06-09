@@ -24,6 +24,7 @@ doheader('Get to Your WaiveCar', [
 ]);
 ?>
   <div class='box gettocar prompt'>
+    <h1>Get to your Vehicle</h1>
     <?= showLocation($car, ['nozone' => true]) ?> 
     <? if ($isExtended) {?> 
       <h4><?= $car['license'] ?> is yours!</h4>

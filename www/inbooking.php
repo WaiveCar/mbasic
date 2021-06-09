@@ -27,11 +27,8 @@ if(isWaiveWork()) {
 ob_start("sanitize_output");
 doheader('Current Booking', ['extraHtml' => '<meta http-equiv=refresh content=600>']);
 ?>
-<div class=box>
-  <div class=tab-container>
-    <span>&#128663; <?= $car['license'] ?></span>
-    <!-- <a class=inactive href=fuel>&#128268; Chargers</a> -->
-  </div>
+<div class='box prompt'>
+  <h1>Your Current Ride</h1>
   <? showLocation($car); ?>
   <div align=center>
     <h4><b><?= $timeStr ?></b> in <?= $car['license']; ?></h4>

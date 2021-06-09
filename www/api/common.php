@@ -609,16 +609,16 @@ function getMap($carList, $opts = []) {
   $hide = aget($_SESSION, 'hide');
   $verb = $hide ? 'show' : 'hide';
   ?>
-  <div class=container>
+  <div class="container center">
     <? if (!$hide) { ?><img class=img width=400 src="<?=getMapUrl($carList, $opts)?>"><? } ?>
+      <? /*
     <img class=nop src=img/blank.png>
     <div class=map-controls>
       <a class=btn href=<?= $verb ?>><?= ucfirst($verb) ?></a>
-      <? /*
        if (!$hide) { ?>
         <a class='zoom' href="">&#xFF0B;</a><a class='zoom' href="">&#x2014;</a> 
-      <? }*/ ?>
     </div>
+      <? }*/ ?>
   </div> <?
 }
 

@@ -21,7 +21,7 @@ if(($action === 'lock' || $action === 'unlock') && !$me['booking_id']) {
     ], ['inline' => true, 'klass' => "error"]);
   } else {
     confirm("No Active Booking", "Cannot $action because there's no active booking.",[
-      [ "Find Availale WaiveCars", "/showcars.php", "wid-1" ]
+      [ "Find Availale Vehicles", "/showcars.php", "wid-1" ]
     ], ['inline' => true, 'klass' => "error"]);
   }
   exit;
@@ -73,7 +73,7 @@ if($me['booking_id']) {
     }
     
     confirm("Extend Your Reservation", "<b>Just $1.00</b> for ten minutes and $0.30 each additional minute until you start your ride.$goad", [
-      [ "Save the WaiveCar for me!", "/api/carcontrol.php?action=extend4realz&howmuch=-1", 'wid-1 primary'],
+      [ "Save the vehicle for me!", "/api/carcontrol.php?action=extend4realz&howmuch=-1", 'wid-1 primary'],
       [ "Nah! I'll make it.", "control/nop", 'wid-1 ignore' ]
     ]);
   }
@@ -83,7 +83,7 @@ if($me['booking_id']) {
   }
 
   if($action === 'cancel') {
-    confirm("Cancel Your Booking", "Are you sure you want to cancel your booking?<p><em>Reminder:</em> If you cancel, you need to wait 30 minutes to rebook the same WaiveCar.</p>", [
+    confirm("Cancel Your Booking", "Are you sure you want to cancel your booking?<p><em>Reminder:</em> If you cancel, you need to wait 30 minutes to rebook the same vehicle.</p>", [
       [ "Yes, cancel my booking", "control/cancel4realz", 'wid-1 danger'],
       [ "No, do not cancel my booking", "control/nop", 'wid-1 primary' ]
     ]);

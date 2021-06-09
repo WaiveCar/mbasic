@@ -33,7 +33,7 @@ function getHost() {
     if($_SERVER["HTTP_HOST"] === 'mbasic.waivecar.com' || substr($_SERVER["HTTP_HOST"], -1) === '0') {
       $HOST = 'http://api-local.waivecar.com:3080';
     } else {
-      $HOST = 'https://api.waivecar.com';
+      $HOST = 'https://api.nbrhdgo.com/';
     }
   }
   return $HOST;
@@ -791,6 +791,8 @@ function doheader($title, $opts = []) {
   <meta name=viewport content="width=device-width,initial-scale=1.0">
   <link rel=icon href=<?= $icon ?>>
   <? if ($usecss) { ?> 
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
   <link rel=stylesheet href=/style.css>
   <? } ?>
   <?= $extraHtml; ?>

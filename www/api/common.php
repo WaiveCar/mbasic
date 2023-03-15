@@ -746,7 +746,7 @@ function dateTz($fmt, $ts = false) {
   return $dt->format($fmt);
 }
 
-$hashsecret = '5c5911c4-eb6d-4a9e-865d-80e52db192b';
+$hashsecret = '';
 function hashGenerate($num) {
   global $hashsecret;
   $hash = base64_encode(hex2bin(hash('ripemd160', $hashsecret.$num)));

@@ -4,17 +4,9 @@ include('db.php');
 
 $labelGuide = '123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 $gList = [
-  'AIzaSyBQysUfVLDsR8aYHZBQ9epqpGAQ-LZ1bTw',
-  'AIzaSyD3Bf8BTFI_z00lrxWdReV4MpaqnQ8urzc',
-  'AIzaSyBibUDNVBjFAKpwyPcZirJW4qHq2W2OO8M',
-  'AIzaSyDZkuoCmKxhxy5AH0jMAUcW0JvggQX3WXI',
-  'AIzaSyA718cwy2i_uf-GCKrq7cB-1WDvKL5gsh8',
-  'AIzaSyC_bFO-1OoYAVg-dTS0MOCbWer6tgEwRhk',
 
-  'AIzaSyCjNzEEetDOi63O7qrD6APLffH0daZIDeQ',
-  'AIzaSyA77YUSEIo77Ms26dlAKllaBFYl-XAaELs'
 ];
-$locationIQKey = '6485dd5d0ebaf6';
+$locationIQKey = '';
 
 $googleKey = $gList[0];
 
